@@ -15,11 +15,11 @@ Project Scheme: https://drive.google.com/file/d/1xvjA5RQZ0k4pljAcAn_o5ju4u2L7e0z
 
 # How to start working?
 1. Get ready to get your hands dirty.
-2. Install git. 
-  2.1 https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
-  2.2 Settings --> SSh and GPG keys https://github.com/settings/keys Create SSH Key
+2. Install git.  
+  2.1 https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/  
+  2.2 Settings --> SSh and GPG keys https://github.com/settings/keys Create SSH Key  
     2.2.3 Copy content from the file Users/[USERNAME]/.ssh/ (file with .pub)
-3. https://facebook.github.io/react-native/docs/getting-started.html
+3. https://facebook.github.io/react-native/docs/getting-started.html  
   3.1 Whole tutorial except "Create a new application".
 4. Clone your branch from github (MAKE SURE IT'S YOUR BRANCH)
 5. Open Webstorm. https://www.jetbrains.com/help/idea/version-control-integration.html <--USAGE OF VCS IN WEBSTORM
