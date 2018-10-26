@@ -13,7 +13,7 @@ Project Plan: https://docs.google.com/spreadsheets/d/1Ne4eriJ9QcXYBmArP95RSa31sM
 
 Project Scheme: https://drive.google.com/file/d/1xvjA5RQZ0k4pljAcAn_o5ju4u2L7e0zA/view?usp=sharing
 
-# How top start working?
+# How to start working?
 1. Get ready to get your hands dirty.
 2. Install git. 
   2.1 https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
