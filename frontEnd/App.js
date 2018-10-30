@@ -12,7 +12,16 @@ export default class App extends Component<Props> {
     return (
           <ImageBackground style={styles.container} source={require('./assets/images/bg1.jpg')}>
               <Button
-                  buttonStyle={styles.button}
+                  buttonStyle={styles.buttonFacebook}
+                  title='CONTINUE WITH FACEBOOK'
+                  textStyle={styles.btText}  />
+              <Button
+                  buttonStyle={styles.buttonGoogle}
+                  title='CONTINUE WITH GOOGLE'
+                  textStyle={styles.btText}  />
+              <Text style={styles.already}>Already a user?</Text>
+              <Button
+                  buttonStyle={styles.buttonLog}
                   title='LOG IN'
                   textStyle={styles.btText}  />
           </ImageBackground>
@@ -30,19 +39,50 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover',
   },
+  already: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      top: '73%',
+      textAlign: 'center',
+      color: '#f5fcff',
+      padding: 0,
+      margin: 0,
+      fontWeight: 'bold',
+      fontSize: 20,
+      fontFamily: Fonts.FranklinGothic,
+  },
   btText: {
       position: 'absolute',
       justifyContent: 'center',
       alignItems: 'center',
+      letterSpacing: 10,
+      fontWeight: 'bold',
       fontSize: 25,
       fontFamily: Fonts.FranklinGothic,
   },
-  button: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: '30%',
+  buttonFacebook: {
+      position: 'relative',
+      width: '140%',
+      height: '25%',
       backgroundColor: '#2e2f2e',
       borderRadius:100,
+      top: '10%',
+  },
+  buttonGoogle: {
+      position: 'relative',
+      width: '140%',
+      height: '25%',
+      backgroundColor: '#2e2f2e',
+      borderRadius: 100,
+      top: '10%',
+  },
+  buttonLog: {
+      position: 'relative',
+      width: '140%',
+      height: '25%',
+      backgroundColor: '#2e2f2e',
+      borderRadius:100,
+      top: '30%',
   }
 });
