@@ -10,9 +10,9 @@ type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-          <ImageBackground style={styles.container} source={require('./assets/images/bg1.jpg')}>
+          <ImageBackground style={styles.container} source={require('./assets/images/bg3.jpg')}>
               <View style={styles.top}>
-                  <Image style={styles.logo} source={require('./assets/logos/logo.svg')} />
+                  <Image style={styles.logo} source={require('./assets/logos/logo.png')} />
               </View>
               <View style={styles.middle}>
               <Button
@@ -35,6 +35,13 @@ export default class App extends Component<Props> {
                       title='LOG IN'
                       textStyle={styles.btText}  />
               </View>
+              <View style={styles.language}>
+                  <Button
+                      buttonStyle={styles.buttonLanguage}
+                      title='CHANGE LANGUAGE'
+                      //clear='0'
+                      textStyle={styles.btText}  />
+              </View>
           </ImageBackground>
     );
   }
@@ -52,7 +59,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   top: {
-      backgroundColor: '#f5fcff',
+      //backgroundColor: '#f5fcff',
       flex: 0.4,
       flexDirection: 'column',
       justifyContent: 'space-around',
@@ -61,8 +68,8 @@ const styles = StyleSheet.create({
       //resizeMode: 'cover',
   },
   logo: {
-      width: 210,
-      height: 210,
+      width: 230,
+      height: 214,
       flexDirection: 'row',
       alignItems: 'center',
   },
@@ -79,10 +86,10 @@ const styles = StyleSheet.create({
   already: {
       //position: 'absolute',
       //width: '100%',
-      //height: '100%',
+      height: 40,
       //top: '73%',
       textAlign: 'center',
-      color: '#f5fcff',
+      color: '#000000',
       padding: 0,
       margin: 0,
       //fontWeight: 'bold',
@@ -117,11 +124,11 @@ const styles = StyleSheet.create({
       borderRadius: 100,
   },
   bottom: {
-      flex: 0.3,
+      flex: 0.25,
       flexDirection: 'column',
-      justifyContent: 'space-around',
+      //justifyContent: 'space-around',
       alignItems: 'stretch',
-      //top: '30%',
+      top: '5%',
       width: '100%',
       height: '100%',
       resizeMode: 'cover',
@@ -131,6 +138,22 @@ const styles = StyleSheet.create({
       backgroundColor: '#2e2f2e',
       borderRadius:100,
       //top: '30%',
+  },
+  language: {
+      flex: 0.15,
+      flexDirection: 'column',
+      //justifyContent: 'space-around',
+      alignItems: 'flex-end',
+      top: '5%',
+      right: 0,
+      //width: '80%',
+      //height: '100%',
+      resizeMode: 'cover',
+  },
+  buttonLanguage: {
+      height: 55,
+      backgroundColor: '#2e2f2e',
+      borderRadius:100,
   }
 
 });
