@@ -60,7 +60,8 @@
       "no-console": 0,
       "new-cap": "off",
       "comma-dangle": "off",
-      "max-len": "off"
+      "max-len": "off",
+      "linebreak-style": "off"
     },
     "env": {
       "mocha": true
