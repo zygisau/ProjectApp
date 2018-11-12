@@ -4,16 +4,19 @@ import { Button } from 'react-native-elements';
 import { Fonts } from "../../utils/fonts";
 import { createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
 import compLoginScreen from  "./compLogin";
-//import { AppStackNavigator } from  "../../App";
+import compSignUpScreen from "./compSignUp";
+import { AppStackNavigator } from  "../../config/router";
 
-export default class compLoginHomeScreen extends Component<Props> {
-//export default class compLoginHomeScreen extends React.Component {
+//export default class compLoginHomeScreen extends Component<Props> {
+//export default class compHomeScreen extends Component /*extends React.Component*/ {
+class compHomeScreen extends Component {
     static navigationOptions = {
         header: null
-    }
-
+    };
+    constructor(props) {
+        super(props)
+    };
     render() {
-        const login = new compLoginScreen();
         return (
             <ImageBackground style={styles.container} source={require('../../assets/images/bg3.jpg')}>
                 <View style={styles.top}>
@@ -31,7 +34,8 @@ export default class compLoginHomeScreen extends Component<Props> {
                     <Button
                         buttonStyle={styles.buttonSign}
                         title='SIGN UP'
-                        textStyle={styles.btText}  />
+                        textStyle={styles.btText}
+                        onPress={()=>this.props.navigation.navigate(AppStackNavigator.SignUp)}  />
                 </View>
                 <View style={styles.bottom}>
                     <Text style={styles.already}>Already a user?</Text>
@@ -39,7 +43,7 @@ export default class compLoginHomeScreen extends Component<Props> {
                         buttonStyle={styles.buttonLog}
                         title='LOG IN'
                         textStyle={styles.btText}
-                        onPress={()=>this.props.navigation.navigate(Login)}  />
+                        onPress={()=>this.props.navigation.navigate(AppStackNavigator.Login)}  />
                 </View>
                 <View style={styles.language}>
                     <Button
@@ -56,12 +60,8 @@ export default class compLoginHomeScreen extends Component<Props> {
         );
     }
 }
+export default compHomeScreen;
 
-const AppStackNavigator2 = createStackNavigator(
-    {
-        Login: compLoginScreen
-    }
-);
 
 const styles = StyleSheet.create({
     container: {

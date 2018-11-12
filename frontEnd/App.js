@@ -6,24 +6,16 @@ import { createStackNavigator, StackActions, NavigationActions } from 'react-nav
 import compLoginScreen from './components/screens/compLogin';
 import compSignUpScreen from  "./components/screens/compSignUp";
 import compLoginHomeScreen from "./components/screens/compLoginHome";
+import {AppStackNavigator} from "./config/router";
 
-type Props = {};
-export default class App extends Component<Props> {
-//export default class App extends React.Component {
+//type Props = {};
+//export default class App extends Component<Props> {
+export default class App extends React.Component {
     render() {
         return <AppStackNavigator />
     }
 }
 
-const AppStackNavigator = createStackNavigator(
-    {
-        //LoginHome: compLoginHomeScreen,
-        Login: compLoginHomeScreen
-    },
-    {
-        initialRouteName: 'Login',
-    }
-);
 
 const styles = StyleSheet.create({
     container: {

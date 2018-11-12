@@ -1,5 +1,15 @@
 import React, {Component} from 'react';
-import {Alert, StyleSheet, Text, View, Image, ImageBackground, TextInput, ScrollView} from 'react-native';
+import {
+    Alert,
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    ImageBackground,
+    TextInput,
+    ScrollView,
+    KeyboardAvoidingView
+} from 'react-native';
 import {FormLabel, FormInput, FormValidationMessage, Button} from 'react-native-elements';
 import { Fonts } from "../../utils/fonts";
 import { createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
@@ -18,31 +28,27 @@ export default class compSignUpScreen extends Component {
     };
     render() {
         return (
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
             <ImageBackground style={styles.container} source={require('../../assets/images/bg3.jpg')}>
                 <View style={styles.logIn}>
-                <Text style={styles.logInText}>LOG IN</Text>
+                <Text style={styles.logInText}>SIGN UP</Text>
                 </View>
                 <View style={styles.logInputs}>
-                <FormLabel>E-MAIL</FormLabel>
-                    <FormInput onChangeText={this.function()}/>
-                    <FormValidationMessage>{'This field is required'}</FormValidationMessage>
+                    <FormInput onChangeText={this.function()} inputStyle={styles.border}>   E-MAIL</FormInput>
 
-                <FormLabel>PASSWORD</FormLabel>
-                    <FormInput onChangeText={this.function()}/>
-                    <FormValidationMessage>{'This field is required'}</FormValidationMessage>
+                    <FormInput onChangeText={this.function()} inputStyle={styles.border}>   PASSWORD</FormInput>
 
-                <FormLabel>CONFIRM PASSWORD</FormLabel>
-                    <FormInput onChangeText={this.function()}/>
-                    <FormValidationMessage>{'This field is required'}</FormValidationMessage>
+                    <FormInput onChangeText={this.function()} inputStyle={styles.border}>   CONFIRM PASSWORD</FormInput>
                 </View>
                     <View style={styles.bottom}>
                         <Button
                             buttonStyle={styles.buttonLog}
-                            title='LOG IN'
+                            title='SIGN UP'
                             textStyle={styles.btText}
                         />
                     </View>
-        </ImageBackground>
+            </ImageBackground>
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -65,16 +71,17 @@ const styles = StyleSheet.create({
     //
     logInputs: {
         //backgroundColor: '#686769',
-        justifyContent: 'flex-end',
+        //justifyContent: 'flex-end',
         flexDirection: 'column',
-        flex: 0.5,
+        flex: 0.3,
         textAlign: 'left',
-        //left: 30,
+        justifyContent: 'space-around',
     },
     logIn: {
         justifyContent: 'flex-end',
         //flexDirection: 'column',
-        flex: 0.3,
+        bottom: '5%',
+        flex: 0.4,
         textAlign: 'left',
         left: 30,
     },
@@ -88,7 +95,7 @@ const styles = StyleSheet.create({
     bottom: {
         flex: 0.25,
         flexDirection: 'column',
-        //justifyContent: 'space-around',
+
         alignItems: 'stretch',
         top: '5%',
         width: '100%',
@@ -97,6 +104,7 @@ const styles = StyleSheet.create({
     },
     buttonLog: {
         height: 55,
+
         backgroundColor: '#2e2f2e',
         borderRadius:100,
         //top: '30%',
@@ -107,4 +115,11 @@ const styles = StyleSheet.create({
         fontSize: 19,
         fontFamily: Fonts.FranklinGothic,
     },
+    border: {
+        height: 55,
+        justifyContent: 'center',
+        backgroundColor:'#2e2f2e',
+        borderRadius: 20,
+
+    }
 });

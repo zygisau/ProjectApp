@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, StyleSheet, Text, View, Image, ImageBackground, TextInput, ScrollView} from 'react-native';
+import {Alert, StyleSheet, Text, View, Image, ImageBackground, TextInput, ScrollView, KeyboardAvoidingView} from 'react-native';
 import {FormLabel, FormInput, FormValidationMessage, Button} from 'react-native-elements';
 import { Fonts } from "../../utils/fonts";
 import { createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
@@ -18,35 +18,30 @@ export default class compLoginScreen extends Component {
     };
     render() {
         return (
-            <ImageBackground style={styles.container} source={require('../../assets/images/bg3.jpg')}>
-                <View style={styles.logIn}>
-                    <Text style={styles.logInText}>SIGN UP</Text>
-                </View>
-                <View style={styles.logInputs}>
-                    <FormLabel>NAME</FormLabel>
-                    <FormInput onChangeText={this.function()}/>
-                    <FormValidationMessage>{'This field is required'}</FormValidationMessage>
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+                <ImageBackground style={styles.container} source={require('../../assets/images/bg3.jpg')}>
+                    <View style={styles.logIn}>
+                        <Text style={styles.logInText}>LOG IN</Text>
+                    </View>
+                    <View style={styles.logInputs}>
+                        <FormInput onChangeText={this.function()} inputStyle={styles.border}>   E-MAIL</FormInput>
 
-                    <FormLabel>PASSWORD</FormLabel>
-                    <FormInput onChangeText={this.function()}/>
-                    <FormValidationMessage>{'This field is required'}</FormValidationMessage>
-                </View>
-                <View style={styles.bottom}>
-                    <Button
-                        buttonStyle={styles.buttonLog}
-                        title='LOG IN'
-                        textStyle={styles.btText}
-                    />
-                </View>
-            </ImageBackground>
+                        <FormInput onChangeText={this.function()} inputStyle={styles.border}>   PASSWORD</FormInput>
+
+                    </View>
+                    <View style={styles.bottom}>
+                        <Button
+                            buttonStyle={styles.buttonLog}
+                            title='LOG IN'
+                            textStyle={styles.btText}
+                        />
+                    </View>
+                </ImageBackground>
+            </KeyboardAvoidingView>
         )
     }
 }
-/*
-export default createStackNavigator({
-    Login: compLoginScreen
-});
-*/
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -60,9 +55,9 @@ const styles = StyleSheet.create({
     },
     //
     logInputs: {
-        justifyContent: 'flex-end',
+        justifyContent: 'space-around',
         flexDirection: 'column',
-        flex: 0.35,
+        flex: 0.2,
         textAlign: 'left',
         //left: 30,
     },
@@ -72,6 +67,7 @@ const styles = StyleSheet.create({
         flex: 0.3,
         textAlign: 'left',
         left: 30,
+        bottom: '5%',
     },
     logInText: {
         fontSize: 50,
@@ -102,4 +98,11 @@ const styles = StyleSheet.create({
         fontSize: 19,
         fontFamily: Fonts.FranklinGothic,
     },
+    border: {
+        height: 55,
+        justifyContent: 'center',
+        backgroundColor:'#2e2f2e',
+        borderRadius: 20,
+
+    }
 });
