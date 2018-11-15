@@ -1,22 +1,13 @@
 import React, {Component} from 'react';
-import {Alert, StyleSheet, Text, View, Image, ImageBackground} from 'react-native';
-import { Button } from 'react-native-elements';
-import { Fonts } from "./utils/fonts";
-import { createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
-import compLoginScreen from './components/screens/compLogin';
-import compSignUpScreen from  "./components/screens/compSignUp";
-import compLoginHomeScreen from "./components/screens/compLoginHome";
+import {Alert, StyleSheet, Text, View, Image, ImageBackground, AppRegistry} from 'react-native';
 import {AppStackNavigator} from "./config/router";
 //import {SignUpNav} from "/components/screens/compSignUp";
 
-//type Props = {};
-//export default class App extends Component<Props> {
 export default class App extends React.Component {
     render() {
         return <AppStackNavigator />
     }
 }
-
 
 const styles = StyleSheet.create({
     container: {

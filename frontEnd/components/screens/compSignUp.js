@@ -12,9 +12,6 @@ import {
 } from 'react-native';
 import {FormLabel, FormInput, FormValidationMessage, Button} from 'react-native-elements';
 import { Fonts } from "../../utils/fonts";
-import { createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
-import { AppStackNavigator } from  "../../config/router";
-import Login from "./compLogin";
 
 class compSignUpScreen extends React.Component {
 
@@ -22,12 +19,14 @@ class compSignUpScreen extends React.Component {
         header: null
     };
     constructor(props) {
-        super(props)
+        super(props);
         this.function = this.function.bind(this);
     };
+
     function() {
 
     };
+
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
@@ -56,11 +55,6 @@ class compSignUpScreen extends React.Component {
     }
 }
 export default compSignUpScreen;
-/*export const SignUpNav= createStackNavigator(
-    {
-        SignUp: compSignUpScreen
-    },
-);*/
 const styles = StyleSheet.create({
     container: {
         flex: 1,
