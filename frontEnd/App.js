@@ -7,6 +7,7 @@ import compLoginScreen from './components/screens/compLogin';
 import compSignUpScreen from  "./components/screens/compSignUp";
 import compLoginHomeScreen from "./components/screens/compLoginHome";
 import {AppStackNavigator} from "./config/router";
+//import {SignUpNav} from "/components/screens/compSignUp";
 
 //type Props = {};
 //export default class App extends Component<Props> {

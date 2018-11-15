@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import {Alert, StyleSheet, Text, View, Image, ImageBackground} from 'react-native';
+import {Alert, StyleSheet, Text, View, Image, ImageBackground, AppRegistry} from 'react-native';
 import { Button } from 'react-native-elements';
 import { Fonts } from "../../utils/fonts";
 import { createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
-import compLoginScreen from  "./compLogin";
+import Login from  "./compLogin";
 import compSignUpScreen from "./compSignUp";
 import { AppStackNavigator } from  "../../config/router";
 
 //export default class compLoginHomeScreen extends Component<Props> {
 //export default class compHomeScreen extends Component /*extends React.Component*/ {
-class compHomeScreen extends Component {
+class compHomeScreen extends React.Component {
     static navigationOptions = {
         header: null
     };
@@ -61,8 +61,12 @@ class compHomeScreen extends Component {
     }
 }
 export default compHomeScreen;
-
-
+/*export const HomeNav= createStackNavigator(
+    {
+        Home: compHomeScreen
+    },
+);*/
+AppRegistry.registerComponent('ComponentDemo', () => compLoginScreen);
 const styles = StyleSheet.create({
     container: {
         flex: 1,

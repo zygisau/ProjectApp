@@ -13,16 +13,18 @@ import {
 import {FormLabel, FormInput, FormValidationMessage, Button} from 'react-native-elements';
 import { Fonts } from "../../utils/fonts";
 import { createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
+import { AppStackNavigator } from  "../../config/router";
+import Login from "./compLogin";
 
-export default class compSignUpScreen extends Component {
+class compSignUpScreen extends React.Component {
 
     static navigationOptions = {
         header: null
-    }
+    };
     constructor(props) {
         super(props)
         this.function = this.function.bind(this);
-    }
+    };
     function() {
 
     };
@@ -42,6 +44,7 @@ export default class compSignUpScreen extends Component {
                 </View>
                     <View style={styles.bottom}>
                         <Button
+                            onPress={this.function()}
                             buttonStyle={styles.buttonLog}
                             title='SIGN UP'
                             textStyle={styles.btText}
@@ -52,11 +55,12 @@ export default class compSignUpScreen extends Component {
         )
     }
 }
-/*
-export default createStackNavigator({
-    Login: compLoginScreen
-});
-*/
+export default compSignUpScreen;
+/*export const SignUpNav= createStackNavigator(
+    {
+        SignUp: compSignUpScreen
+    },
+);*/
 const styles = StyleSheet.create({
     container: {
         flex: 1,

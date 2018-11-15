@@ -3,8 +3,12 @@ import {Alert, StyleSheet, Text, View, Image, ImageBackground, TextInput, Scroll
 import {FormLabel, FormInput, FormValidationMessage, Button} from 'react-native-elements';
 import { Fonts } from "../../utils/fonts";
 import { createStackNavigator, StackActions, NavigationActions } from 'react-navigation';
+import { AppStackNavigator } from  "../../config/router";
+import compHomeScreen from "./compLoginHome";
+import compSignUpScreen from "./compSignUp";
 
-export default class compLoginScreen extends Component {
+
+class Login extends React.Component {
 
     static navigationOptions = {
         header: null
@@ -41,7 +45,12 @@ export default class compLoginScreen extends Component {
         )
     }
 }
-
+export default Login;
+/*export const LoginNav= createStackNavigator(
+    {
+        Login: Login
+    },
+);*/
 const styles = StyleSheet.create({
     container: {
         flex: 1,
