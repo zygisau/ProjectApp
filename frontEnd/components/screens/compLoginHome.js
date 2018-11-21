@@ -32,7 +32,7 @@ class compHomeScreen extends React.Component {
             buttonStyle={styles.buttonSign}
             title='SIGN UP'
             textStyle={styles.btText}
-            onPress={() => this.props.navigation.navigate(AppStackNavigator.SignUp)}/>
+            onPress={() => this.props.navigation.navigate("SignUp")}/>
         </View>
         <View style={styles.bottom}>
           <Text style={styles.already}>Already a user?</Text>
@@ -40,7 +40,7 @@ class compHomeScreen extends React.Component {
             buttonStyle={styles.buttonLog}
             title='LOG IN'
             textStyle={styles.btText}
-            onPress={() => this.props.navigation.navigate(AppStackNavigator.Login)}/>
+            onPress={() => this.props.navigation.navigate("Login")}/>
         </View>
         <View style={styles.language}>
           <Button

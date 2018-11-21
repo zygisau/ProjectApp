@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {FormLabel, FormInput, FormValidationMessage, Button} from 'react-native-elements';
 import {Fonts} from "../../utils/fonts";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 class compLoginScreen extends React.PureComponent {
   static navigationOptions = {
@@ -29,16 +30,20 @@ class compLoginScreen extends React.PureComponent {
 
   render() {
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+        <KeyboardAwareScrollView
+            style={{ backgroundColor: '#4c69a5' }}
+            resetScrollToCoords={{ x: 0, y: 0 }}
+            contentContainerStyle={styles.container}
+            scrollEnabled={false}
+        >
         <ImageBackground style={styles.container} source={require('../../assets/images/bg3.jpg')}>
           <View style={styles.logIn}>
             <Text style={styles.logInText}>LOG IN</Text>
           </View>
           <View style={styles.logInputs}>
-            <FormInput onChangeText={this.function()} inputStyle={styles.border}> E-MAIL</FormInput>
+              <FormInput inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    E-MAIL"} />
 
-            <FormInput onChangeText={this.function()} inputStyle={styles.border}> PASSWORD</FormInput>
-
+              <FormInput inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    PASSWORD"} />
           </View>
           <View style={styles.bottom}>
             <Button
@@ -48,7 +53,7 @@ class compLoginScreen extends React.PureComponent {
             />
           </View>
         </ImageBackground>
-      </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
     )
   }
 }

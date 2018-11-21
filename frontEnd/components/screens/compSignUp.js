@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {FormLabel, FormInput, FormValidationMessage, Button} from 'react-native-elements';
 import { Fonts } from "../../utils/fonts";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 class compSignUpScreen extends React.Component {
 
@@ -20,37 +21,78 @@ class compSignUpScreen extends React.Component {
     };
     constructor(props) {
         super(props);
-        this.function = this.function.bind(this);
+        this.state = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            isLoggingIn: false,
+        };
+
+        this.submit = this.submit.bind(this);
     };
 
-    function() {
 
+
+    submit = () => {
+        let params = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            password: this.state.password,
+            grant_type: 'password'
+        };
+        fetch("//localhost:3001/api/v1/users", {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(params),
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+            return responseJson;
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     };
 
     render() {
         return (
-            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+            <KeyboardAwareScrollView
+                style={{ backgroundColor: '#4c69a5' }}
+                resetScrollToCoords={{ x: 0, y: 0 }}
+                contentContainerStyle={styles.container}
+                scrollEnabled={false}
+            >
             <ImageBackground style={styles.container} source={require('../../assets/images/bg3.jpg')}>
                 <View style={styles.logIn}>
                 <Text style={styles.logInText}>SIGN UP</Text>
                 </View>
                 <View style={styles.logInputs}>
-                    <FormInput onChangeText={this.function()} inputStyle={styles.border}>   E-MAIL</FormInput>
+                    <FormInput inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    FIRST NAME"} />
 
-                    <FormInput onChangeText={this.function()} inputStyle={styles.border}>   PASSWORD</FormInput>
+                    <FormInput inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    LAST NAME"} />
 
-                    <FormInput onChangeText={this.function()} inputStyle={styles.border}>   CONFIRM PASSWORD</FormInput>
+                    <FormInput inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    E-MAIL"} />
+
+                    <FormInput inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    PASSWORD"} />
+
+                    <FormInput inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    CONFIRM PASSWORD"} />
                 </View>
                     <View style={styles.bottom}>
                         <Button
-                            onPress={this.function()}
+                            onPress={this.submit}
                             buttonStyle={styles.buttonLog}
                             title='SIGN UP'
                             textStyle={styles.btText}
+                            //console.log('The button is pressed')
                         />
                     </View>
             </ImageBackground>
-            </KeyboardAvoidingView>
+            </KeyboardAwareScrollView>
         )
     }
 }
@@ -71,7 +113,7 @@ const styles = StyleSheet.create({
         //backgroundColor: '#686769',
         //justifyContent: 'flex-end',
         flexDirection: 'column',
-        flex: 0.3,
+        flex: 0.6,
         textAlign: 'left',
         justifyContent: 'space-around',
     },
@@ -79,7 +121,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         //flexDirection: 'column',
         bottom: '5%',
-        flex: 0.4,
+        flex: 0.2,
         textAlign: 'left',
         left: 30,
     },
