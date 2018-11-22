@@ -30,13 +30,11 @@ class compLoginScreen extends React.PureComponent {
 
     render() {
         return (
-            <KeyboardAwareScrollView
-                style={{ backgroundColor: '#4c69a5' }}
-                resetScrollToCoords={{ x: 0, y: 0 }}
-                contentContainerStyle={styles.container}
-                scrollEnabled={false}
-            >
                 <ImageBackground style={styles.container} source={require('../../assets/images/bg3.jpg')}>
+                    <KeyboardAwareScrollView
+                        enableOnAndroid={true}
+                        contentContainerStyle={{flex: 1}}
+                        enableAutomaticScroll={true}>
                     <View style={styles.logIn}>
                         <Text style={styles.logInText}>LOG IN</Text>
                     </View>
@@ -52,8 +50,8 @@ class compLoginScreen extends React.PureComponent {
                             textStyle={styles.btText}
                         />
                     </View>
+                    </KeyboardAwareScrollView>
                 </ImageBackground>
-            </KeyboardAwareScrollView>
         )
     }
 }
@@ -63,29 +61,31 @@ export default compLoginScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
+        //flexDirection: 'column',
         //justifyContent: 'space-around',
         //alignItems: 'stretch',
         backgroundColor: '#f5fcff',
-        width: '100%',
-        height: '100%',
+        //width: '100%',
+        //height: '100%',
         resizeMode: 'cover',
     },
     //
     logInputs: {
-        justifyContent: 'space-around',
-        flexDirection: 'column',
-        flex: 0.2,
+        //justifyContent: 'space-around',
+        //flexDirection: 'column',
+        //flex: 0.2,
+        marginTop: 50,
         textAlign: 'left',
         //left: 30,
     },
     logIn: {
         justifyContent: 'flex-end',
         //flexDirection: 'column',
-        flex: 0.3,
+        //flex: 0.3,
+        marginTop: 50,
         textAlign: 'left',
         left: 30,
-        bottom: '5%',
+        //bottom: '5%',
     },
     logInText: {
         fontSize: 50,
@@ -95,13 +95,13 @@ const styles = StyleSheet.create({
     },
     //
     bottom: {
-        flex: 0.25,
+        //flex: 0.25,
         flexDirection: 'column',
         //justifyContent: 'space-around',
         alignItems: 'stretch',
-        top: '5%',
-        width: '100%',
-        height: '100%',
+        top: 50,
+        //width: '100%',
+        //height: '100%',
         resizeMode: 'cover',
     },
     buttonLog: {
@@ -118,9 +118,9 @@ const styles = StyleSheet.create({
     },
     border: {
         height: 55,
-        justifyContent: 'center',
         backgroundColor: '#2e2f2e',
         borderRadius: 20,
-
+        marginTop: 30,
+        justifyContent: 'space-around',
     }
 });
