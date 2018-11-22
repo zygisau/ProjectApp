@@ -27,13 +27,11 @@ class compSignUpScreen extends React.Component {
             email: '',
             password: '',
             isLoggingIn: false,
+            response: '', // only for testing
         };
 
         this.submit = this.submit.bind(this);
     };
-
-
-
     submit = () => {
         let params = {
             firstName: this.state.firstName,
@@ -42,50 +40,53 @@ class compSignUpScreen extends React.Component {
             password: this.state.password,
             grant_type: 'password'
         };
-        fetch("//localhost:3001/api/v1/users", {
+        fetch("http://10.0.2.2/api/v1/users", {
+            //localhost:3000
             method: 'POST',
             headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: JSON.stringify(params),
         })
         .then((response) => response.json())
         .then((responseJson) => {
+            console.log(responseJson);
+            this.state.response.setState(responseJson); // only for testing
             return responseJson;
         })
+
         .catch((error) => {
             console.error(error);
         });
     };
-
     render() {
         return (
             <KeyboardAwareScrollView
-                style={{ backgroundColor: '#4c69a5' }}
-                resetScrollToCoords={{ x: 0, y: 0 }}
-                contentContainerStyle={styles.container}
-                scrollEnabled={false}
-            >
+                enableOnAndroid={true}
+                contentContainerStyle={{flex: 1}}
+
+                enableAutomaticScroll={true}
+                keyboardOpeningTime={500}> // patkrint ar isvis reaguoja -> ne
             <ImageBackground style={styles.container} source={require('../../assets/images/bg3.jpg')}>
                 <View style={styles.logIn}>
                 <Text style={styles.logInText}>SIGN UP</Text>
                 </View>
                 <View style={styles.logInputs}>
-                    <FormInput inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    FIRST NAME"} />
+                    <FormInput onChangeText={(firstName) => this.setState({firstName})} inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    FIRST NAME"} />
 
-                    <FormInput inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    LAST NAME"} />
+                    <FormInput onChangeText={(lastName) => this.setState({lastName})} inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    LAST NAME"} />
 
-                    <FormInput inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    E-MAIL"} />
+                    <FormInput onChangeText={(email) => this.setState({email})} inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    E-MAIL"} />
 
-                    <FormInput inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    PASSWORD"} />
+                    <FormInput onChangeText={(password) => this.setState({password})} inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    PASSWORD"} />
 
-                    <FormInput inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    CONFIRM PASSWORD"} />
+                    <FormInput inputStyle={styles.border} placeholderTextColor={'#f5fcff'} placeholder={"    CONFIRM PASSWORD"}>{this.state.response}</FormInput>
                 </View>
                     <View style={styles.bottom}>
                         <Button
                             onPress={this.submit}
                             buttonStyle={styles.buttonLog}
+                            //title={this.state.response}
                             title='SIGN UP'
                             textStyle={styles.btText}
                             //console.log('The button is pressed')
