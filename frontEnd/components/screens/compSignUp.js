@@ -27,12 +27,22 @@ class compSignUpScreen extends React.Component {
             lastName: '',
             email: '',
             password: '',
+            passwordConfirm: '',
+            same: true,
             isLoggingIn: false,
         };
 
         this.submit = this.submit.bind(this);
-    };
+        this.focusTheField = this.focusTheField.bind(this);
+        this.validation = this.validation.bind(this);
 
+    };
+    // Inputs
+    inputs = {};
+    focusTheField = (id) => {
+        this.inputs[id].focus();
+    };
+    // Submitting
     submit = () => {
         let params = {
             firstName: this.state.firstName,
@@ -54,7 +64,11 @@ class compSignUpScreen extends React.Component {
             })
 
     };
-
+    /*validation ()
+    {
+        if(this.state.password === this.state.passwordConfirm) this.setState({same: true});
+            else this.setState({same: false});
+    }*/
     render() {
         return (
             <ImageBackground style={styles.container} source={require('../../assets/images/bg3.jpg')}>
@@ -66,30 +80,62 @@ class compSignUpScreen extends React.Component {
                         <Text style={styles.logInText}>SIGN UP</Text>
                     </View>
                     <View style={styles.logInputs}>
-                        <FormInput onChangeText={(firstName) => this.setState({firstName})} inputStyle={styles.border}
-                                   placeholderTextColor={'#f5fcff'} placeholder="FIRST NAME"/>
+                        <FormInput
+                            onChangeText={(firstName) => this.setState({firstName})} inputStyle={styles.border}
+                            placeholderTextColor={'#f5fcff'}
+                            placeholder="FIRST NAME"
+                            label={"Field 1"}
+                            blurOnSubmit={ false }
+                            returnKeyType={ 'next' }
+                            onSubmitEditing={() => { this.focusTheField('field2'); }} />
 
-                        <FormInput onChangeText={(lastName) => this.setState({lastName})} inputStyle={styles.border}
-                                   placeholderTextColor={'#f5fcff'} placeholder="LAST NAME"/>
+                        <FormInput
+                            onChangeText={(lastName) => this.setState({lastName})}
+                            inputStyle={styles.border}
+                            placeholderTextColor={'#f5fcff'} placeholder="LAST NAME"
+                            ref={input => { this.inputs['field2'] = input }}
+                            label={"Field 2"}
+                            blurOnSubmit={ false }
+                            returnKeyType={ 'next' }
+                            onSubmitEditing={() => { this.focusTheField('field3'); }} />
 
-                        <FormInput onChangeText={(email) => this.setState({email})} inputStyle={styles.border}
-                                   placeholderTextColor={'#f5fcff'} placeholder="E-MAIL"/>
+                        <FormInput
+                            onChangeText={(email) => this.setState({email})}
+                            inputStyle={styles.border}
+                            placeholderTextColor={'#f5fcff'}
+                            placeholder="E-MAIL"
+                            ref={input => { this.inputs['field3'] = input }}
+                            label={"Field 3"}
+                            blurOnSubmit={ false }
+                            returnKeyType={ 'next' }
+                            onSubmitEditing={() => { this.focusTheField('field4'); }}/>
 
-                        <FormInput onChangeText={(password) => this.setState({password})} inputStyle={styles.border}
-                                   placeholderTextColor={'#f5fcff'} placeholder="PASSWORD"/>
+                        <FormInput secureTextEntry={true}
+                           onChangeText={(password) => this.setState({password})}
+                           inputStyle={styles.border}
+                           placeholderTextColor={'#f5fcff'}
+                           placeholder="PASSWORD"
+                           ref={input => { this.inputs['field4'] = input }}
+                           label={"Field 4"}
+                           blurOnSubmit={ false }
+                           returnKeyType={ 'next' }
+                           onSubmitEditing={() => { this.focusTheField('field5'); }} />
 
-                        <FormInput inputStyle={styles.border} placeholderTextColor="#f5fcff"
-                                   placeholder="CONFIRM PASSWORD">{this.state.response}</FormInput>
+                        <FormInput
+                            onChangeText={() => this.validation()}
+                            secureTextEntry={true}
+                            inputStyle={styles.border}
+                            placeholderTextColor="#f5fcff"
+                            placeholder="CONFIRM PASSWORD"
+                            ref={input => { this.inputs['field5'] = input }}/>
+
                     </View>
                     <View style={styles.bottom}>
                         <Button
                             onPress={this.submit}
                             buttonStyle={styles.buttonLog}
-                            //title={this.state.response}
                             title="SIGN UP"
-                            textStyle={styles.btText}
-                            //console.log('The button is pressed')
-                        />
+                            textStyle={styles.btText} />
                     </View>
                 </KeyboardAwareScrollView>
             </ImageBackground>
