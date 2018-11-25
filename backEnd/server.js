@@ -1,12 +1,12 @@
 import express from 'express';
 import morgan from 'morgan';
-import session from 'express-session';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import logger from './core/logger/app-logger';
 import config from './core/config/config.dev';
 import connectToDb from './db/connect';
 import router from './router';
+import jwt from './_helpers/jwt';
 
 
 const port = config.serverPort;
@@ -23,11 +23,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev', { stream: logger.stream }));
-app.use(session({
-    secret: 'work hard',
-    resave: true,
-    saveUninitialized: false
-}));
+app.use(jwt());
 app.use('/api/v1', router);
 
 // Index route

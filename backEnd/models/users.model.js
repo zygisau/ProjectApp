@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const Schema = mongoose.Schema;
 
@@ -26,38 +27,19 @@ const usersSchema = new Schema({
     }
 });
 
-const userModel = mongoose.model('User', usersSchema);
 
 usersSchema.pre('save', function (next) { // we need to use function keyword to use this
     const user = this;
-    bcrypt.hash('password', 10, (err, hash) => {
+    bcrypt.hash(user.password, 10, (err, hash) => {
         if (err) {
             console.log(err);
             return next(err);
         }
         user.password = hash;
-        return next();
+        next();
     });
 });
 
-// authenticate input against database
-usersSchema.statics.authenticate = async (email, password, callback) => {
-    try {
-        const user = await userModel.findOne({ email });
-        if (!user) {
-            const err = new Error('User not found.');
-            err.status = 401;
-            return callback(err);
-        }
-        bcrypt.compare(password, user.password, (err, result) => {
-            if (!result) {
-                return callback();
-            }
-            return callback(null, user);
-        });
-    } catch (e) {
-        return callback(e);
-    }
-};
+const userModel = mongoose.model('User', usersSchema);
 
 export default userModel;
