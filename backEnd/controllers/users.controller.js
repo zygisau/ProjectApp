@@ -79,7 +79,7 @@ controller.authenticate = async (req, res) => {
                         ...user,
                         token
                     };
-                    res.status(201).json(user);
+                    res.json(user);
                 } else {
                     res.status(400).json({ message: 'Username or password is incorrect' });
                 }
