@@ -19,7 +19,7 @@ const Loading = () => {
                     borderRadius: 5
                 }}
                 containerStyle={{ marginTop: 20 }}
-                onPress = {() => {console.log('log out button has been pressed')}} />
+                onPress = {() => {console.log('loading button has been pressed')}} />
         </View>
     );
 };
@@ -27,7 +27,7 @@ export { Loading };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        //flex: 1,
         //flexDirection: 'column',
         //justifyContent: 'space-around',
         //alignItems: 'stretch',

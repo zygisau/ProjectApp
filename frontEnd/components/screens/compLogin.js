@@ -30,7 +30,7 @@ class compLoginScreen extends React.PureComponent {
             error: '',
             loading: false,
         };
-        this.loginUser = this.loginUser.bind(this);
+        this.submit = this.submit.bind(this);
         this.focusTheField = this.focusTheField.bind(this);
         this.onLoginFail = this.onLoginFail.bind(this);
     }
@@ -41,7 +41,8 @@ class compLoginScreen extends React.PureComponent {
         this.inputs[id].focus();
     };
 
-    loginUser = () => {
+    submit = () => {
+        console.log('you tried to log in');
         this.setState({ error: '', loading: true });
         let params = {
             email: this.state.email,
@@ -49,6 +50,7 @@ class compLoginScreen extends React.PureComponent {
         };
         console.log({params});
         fetch("http://192.168.0.103:3000/api/v1/authenticate", {
+        //fetch("http://206.189.4.112:3000/api/v1/authenticate", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8'
@@ -62,16 +64,17 @@ class compLoginScreen extends React.PureComponent {
                 console.log(responseJson);
             })
             .catch((error) => {
-                console.log(error);
+                console.log('You have got an error: ' + error);
                 this.onLoginFail();
             });
     };
-    onLoginFail() {
+    onLoginFail = () => {
         this.setState({
             error: 'Login Failed',
-            loading: false
+            loading: false,
         });
-    }
+        console.log(this.state.error);
+    };
 
     render() {
         return (
@@ -111,7 +114,7 @@ class compLoginScreen extends React.PureComponent {
                             {!this.state.loading ?
                                 <Button
                                     //onPress={() => {console.log('you tried to log in')}}
-                                    onPress={this.loginUser}
+                                    onPress={this.submit}
                                     buttonStyle={styles.buttonLog}
                                     title="LOG IN"
                                     textStyle={styles.btText} />
@@ -119,7 +122,9 @@ class compLoginScreen extends React.PureComponent {
                                 <Loading size={'large'} />
                             }
                         </View>
-                    
+                    <Text style={styles.errorTextStyle}>
+                        {this.state.error}
+                    </Text>
                     </KeyboardAwareScrollView>
                 </ImageBackground>
         )
@@ -193,6 +198,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     errorTextStyle: {
+        flex: 1,
         fontSize: 12,
         color: '#000000',
         fontWeight: 'bold',

@@ -15,8 +15,8 @@ export default class App extends React.Component {
         };
         //this.newJWT = this.newJWT.bind(this);
         //this.deleteJWT = deviceStorage.deleteJWT.bind(this);
-        //this.loadJWT = deviceStorage.loadJWT.bind(this);
-        deviceStorage.loadJWT();
+        this.loadJWT = deviceStorage.loadJWT.bind(this);
+        this.loadJWT();
     }
 
     render() {
@@ -26,7 +26,7 @@ export default class App extends React.Component {
             );
         } else if (this.state.jwt) {
             return (
-                console.log("LoggedIn")
+                <LoggedIn/>
             );
         }
     }
