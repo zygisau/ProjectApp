@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Alert, StyleSheet, Text, View, Image, ImageBackground, AppRegistry} from 'react-native';
 import {Button} from 'react-native-elements';
 import {Fonts} from "../../utils/fonts";
-import {AppStackNavigator} from "../../config/router";
 
 class compHomeScreen extends React.Component {
     static navigationOptions = {
@@ -45,7 +44,8 @@ class compHomeScreen extends React.Component {
                 <View style={styles.language}>
                     <Button
                         onPress={() => {
-                            Alert.alert('You tapped the button!');
+                            //Alert.alert('You tapped the button!');
+                            console.log('change language button has been pressed');
                         }}
                         buttonStyle={styles.buttonLanguage}
                         title='CHANGE LANGUAGE'

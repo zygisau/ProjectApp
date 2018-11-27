@@ -4,15 +4,15 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,
     ImageBackground,
-    TextInput,
-    ScrollView,
-    KeyboardAvoidingView
+
 } from 'react-native';
 import {FormLabel, FormInput, FormValidationMessage, Button} from 'react-native-elements';
 import {Fonts} from "../../utils/fonts";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import deviceStorage from '../services/deviceStorage';
+import {newJWT} from "../../App"
+import {Loading} from "../common/loading";
 
 class compSignUpScreen extends React.Component {
 
@@ -29,12 +29,13 @@ class compSignUpScreen extends React.Component {
             password: '',
             passwordConfirm: '',
             same: true,
-            isLoggingIn: false,
+            error: ''
         };
 
         this.submit = this.submit.bind(this);
         this.focusTheField = this.focusTheField.bind(this);
-        this.validation = this.validation.bind(this);
+        this.onRegistrationFail = this.onRegistrationFail.bind(this);
+        //this.validation = this.validation.bind(this);
 
     };
     // Inputs
@@ -51,7 +52,7 @@ class compSignUpScreen extends React.Component {
             password: this.state.password,
         };
         console.log({params});
-        fetch("http://192.168.0.101:3000/api/v1/users", {
+        fetch("http://192.168.0.103:3000/api/v1/register", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8'
@@ -60,10 +61,22 @@ class compSignUpScreen extends React.Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
+                deviceStorage.saveItem("id_token", responseJson.token);
+                newJWT(responseJson.token);
                 console.log(responseJson);
             })
-
+            .catch((error) => {
+                console.log(error);
+                this.onRegistrationFail();
+            })
     };
+
+    onRegistrationFail() {
+        this.setState({
+            error: 'Registration Failed',
+            loading: false
+        });
+    }
     /*validation ()
     {
         if(this.state.password === this.state.passwordConfirm) this.setState({same: true});
@@ -83,6 +96,7 @@ class compSignUpScreen extends React.Component {
                         <FormInput
                             onChangeText={(firstName) => this.setState({firstName})} inputStyle={styles.border}
                             placeholderTextColor={'#f5fcff'}
+                            autoCorrect={false}
                             placeholder="FIRST NAME"
                             label={"Field 1"}
                             blurOnSubmit={ false }
@@ -92,6 +106,7 @@ class compSignUpScreen extends React.Component {
                         <FormInput
                             onChangeText={(lastName) => this.setState({lastName})}
                             inputStyle={styles.border}
+                            autoCorrect={false}
                             placeholderTextColor={'#f5fcff'} placeholder="LAST NAME"
                             ref={input => { this.inputs['field2'] = input }}
                             label={"Field 2"}
@@ -102,6 +117,7 @@ class compSignUpScreen extends React.Component {
                         <FormInput
                             onChangeText={(email) => this.setState({email})}
                             inputStyle={styles.border}
+                            autoCorrect={false}
                             placeholderTextColor={'#f5fcff'}
                             placeholder="E-MAIL"
                             ref={input => { this.inputs['field3'] = input }}
@@ -110,9 +126,11 @@ class compSignUpScreen extends React.Component {
                             returnKeyType={ 'next' }
                             onSubmitEditing={() => { this.focusTheField('field4'); }}/>
 
-                        <FormInput secureTextEntry={true}
+                        <FormInput
+                           secureTextEntry={true}
                            onChangeText={(password) => this.setState({password})}
                            inputStyle={styles.border}
+                           autoCorrect={false}
                            placeholderTextColor={'#f5fcff'}
                            placeholder="PASSWORD"
                            ref={input => { this.inputs['field4'] = input }}
@@ -122,21 +140,31 @@ class compSignUpScreen extends React.Component {
                            onSubmitEditing={() => { this.focusTheField('field5'); }} />
 
                         <FormInput
-                            onChangeText={() => this.validation()}
+                            //onChangeText={() => this.validation()}
                             secureTextEntry={true}
+                            autoCorrect={false}
                             inputStyle={styles.border}
                             placeholderTextColor="#f5fcff"
                             placeholder="CONFIRM PASSWORD"
-                            ref={input => { this.inputs['field5'] = input }}/>
+                            ref={input => { this.inputs['field5'] = input }}
+                            label={"Field 5"}
+                            blurOnSubmit={ false }/>
 
                     </View>
                     <View style={styles.bottom}>
-                        <Button
-                            onPress={this.submit}
-                            buttonStyle={styles.buttonLog}
-                            title="SIGN UP"
-                            textStyle={styles.btText} />
+                        {!this.state.loading ?
+                            <Button
+                                onPress={this.submit}
+                                buttonStyle={styles.buttonLog}
+                                title="SIGN UP"
+                                textStyle={styles.btText} />
+                            :
+                            <Loading size={'large'} />
+                        }
                     </View>
+                    <Text style={styles.errorTextStyle}>
+                        {this.state.error}
+                    </Text>
                 </KeyboardAwareScrollView>
             </ImageBackground>
         )
@@ -209,5 +237,11 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginTop: 20,
         paddingLeft: 20
+    },
+    errorTextStyle: {
+        fontSize: 12,
+        color: '#000000',
+        fontWeight: 'bold',
+        fontFamily: Fonts.FranklinGothic,
     }
 });

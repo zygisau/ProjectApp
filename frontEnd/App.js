@@ -1,11 +1,34 @@
 import React, {Component} from 'react';
 import {Alert, StyleSheet, Text, View, Image, ImageBackground, AppRegistry} from 'react-native';
 import {AppStackNavigator} from "./config/router";
+//import { Loading } from './components/common/loading';
+import LoggedIn from './components/screens/logged';
+import deviceStorage from "./components/services/deviceStorage";
 //import {SignUpNav} from "/components/screens/compSignUp";
 
 export default class App extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            jwt: '',
+            loading: true
+        };
+        //this.newJWT = this.newJWT.bind(this);
+        //this.deleteJWT = deviceStorage.deleteJWT.bind(this);
+        //this.loadJWT = deviceStorage.loadJWT.bind(this);
+        deviceStorage.loadJWT();
+    }
+
     render() {
-        return <AppStackNavigator />
+        if (!this.state.jwt) {
+            return (
+                <AppStackNavigator/>
+            );
+        } else if (this.state.jwt) {
+            return (
+                console.log("LoggedIn")
+            );
+        }
     }
 }
 
@@ -22,3 +45,9 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     }
 });
+
+export const newJWT = (jwt)=>{
+    this.setState({
+        jwt: jwt
+    });
+};
