@@ -1,51 +1,24 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, View, Image, ImageBackground, AppRegistry} from 'react-native';
+import {AppStackNavigator} from "./config/router";
+//import {SignUpNav} from "/components/screens/compSignUp";
 
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-type Props = {};
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native yeee!</Text>
-        <Text style={styles.welcome}>Get ready for SHELTER'S CARE boyyys!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
-    );
-  }
+export default class App extends React.Component {
+    render() {
+        return <AppStackNavigator />
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    container: {
+        flex: 1,
+        //flexDirection: 'column',
+        //justifyContent: 'space-around',
+        //alignItems: 'stretch',
+        backgroundColor: '#f5fcff',
+        color: '#000000',
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover',
+    }
 });
