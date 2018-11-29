@@ -52,7 +52,7 @@ class compSignUpScreen extends React.Component {
             password: this.state.password,
         };
         console.log({params});
-        fetch("http://192.168.0.103:3000/api/v1/register", {
+        fetch("http://192.168.0.100:3000/api/v1/register", {
         //fetch("http://206.189.4.112:3000/api/v1/register", {
             method: 'POST',
             headers: {

@@ -9,7 +9,7 @@ class compHomeScreen extends React.Component {
     };
 
     constructor(props) {
-        super(props)
+        super(props);
     };
 
     render() {
@@ -59,12 +59,7 @@ class compHomeScreen extends React.Component {
 }
 
 export default compHomeScreen;
-/*export const HomeNav= createStackNavigator(
-    {
-        Home: compHomeScreen
-    },
-);*/
-//AppRegistry.registerComponent('ComponentDemo', () => compLoginScreen);
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

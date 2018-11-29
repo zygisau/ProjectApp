@@ -4,7 +4,7 @@ import {AppStackNavigator} from "./config/router";
 //import { Loading } from './components/common/loading';
 import LoggedIn from './components/screens/logged';
 import deviceStorage from "./components/services/deviceStorage";
-//import {SignUpNav} from "/components/screens/compSignUp";
+import CompHomeScreen from "./components/screens/compLoginHome";
 
 export default class App extends React.Component {
     constructor() {
