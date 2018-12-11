@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
+import React, {PureComponent} from 'react';
 import { View, Alert } from 'react-native';
 import {Button} from 'react-native-elements';
 import {Fonts} from "../../utils/fonts";
 import deviceStorage from "../services/deviceStorage";
+import {store} from "../../store";
+import { connect } from 'remx';
+//import CompLoginScreen from "./compLogin";
 
-export default class LoggedIn extends Component {
-    constructor(props){
-        super(props);
-        this.deleteJWT = deviceStorage.deleteJWT.bind(this);
-    }
-
+class LoggedIn extends PureComponent {
     render() {
         return(
             <View style={styles.container}>
                 <Button
                     //onPress={() => {console.log('you logged out');}}
-                    onPress={this.deleteJWT}
+                    onPress={() => {deviceStorage.deleteJWT();}}
                     buttonStyle={styles.buttonLanguage}
                     title='LOG OUT'
                     textStyle={styles.btText}/>
@@ -36,3 +34,11 @@ const styles = {
         fontFamily: Fonts.FranklinGothic,
     },
 };
+
+function mapStateToProps(ownProps) {
+    return {
+        JWT: store.getJwt()
+    };
+}
+
+export default connect(mapStateToProps)(LoggedIn);

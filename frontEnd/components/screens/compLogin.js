@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {
     Alert,
     StyleSheet,
@@ -14,10 +14,12 @@ import {FormLabel, FormInput, FormValidationMessage, Button} from 'react-native-
 import {Fonts} from "../../utils/fonts";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import deviceStorage from '../services/deviceStorage';
-import {newJWT} from "../../App"
 import {Loading} from "../common/loading";
+import {store} from "../../store";
+import { connect } from 'remx';
+//import CompSignUpScreen from "./compSignUp";
 
-class compLoginScreen extends React.PureComponent {
+class CompLoginScreen extends PureComponent {
     static navigationOptions = {
         header: null
     };
@@ -60,7 +62,6 @@ class compLoginScreen extends React.PureComponent {
             .then((response) => response.json())
             .then((responseJson) => {
                 deviceStorage.saveItem("id_token", responseJson.token);
-                newJWT(responseJson.token);
                 console.log(responseJson);
             })
             .catch((error) => {
@@ -131,7 +132,7 @@ class compLoginScreen extends React.PureComponent {
     }
 }
 
-export default compLoginScreen;
+
 
 const styles = StyleSheet.create({
     container: {
@@ -205,3 +206,11 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.FranklinGothic,
     }
 });
+
+function mapStateToProps(ownProps) {
+    return {
+        JWT: store.getJwt()
+    };
+}
+
+export default connect(mapStateToProps)(CompLoginScreen);

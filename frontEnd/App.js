@@ -1,30 +1,32 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {Alert, StyleSheet, Text, View, Image, ImageBackground, AppRegistry} from 'react-native';
 import {AppStackNavigator} from "./config/router";
 //import { Loading } from './components/common/loading';
 import LoggedIn from './components/screens/logged';
+//import Loading from './components/screens/loading';
+import {store} from "./store";
+import { connect } from 'remx';
 import deviceStorage from "./components/services/deviceStorage";
-import CompHomeScreen from "./components/screens/compLoginHome";
+//import CompHomeScreen from "./components/screens/compLoginHome";
 
-export default class App extends React.Component {
-    constructor() {
-        super();
+class App extends PureComponent {
+    constructor(props) {
+        super(props);
         this.state = {
-            jwt: '',
-            loading: true
+            loaded: true
         };
-        //this.newJWT = this.newJWT.bind(this);
-        //this.deleteJWT = deviceStorage.deleteJWT.bind(this);
-        this.loadJWT = deviceStorage.loadJWT.bind(this);
-        this.loadJWT();
+        console.log("constructor calls loadJWT");
+        deviceStorage.loadJWT();
+        //Loading.load(() => this.setState({loaded: true}));
+        console.log("constructor came back from the function");
     }
 
     render() {
-        if (!this.state.jwt) {
+        if (!this.props.JWT) {
             return (
                 <AppStackNavigator/>
             );
-        } else if (this.state.jwt) {
+        } else if (this.props.JWT) {
             return (
                 <LoggedIn/>
             );
@@ -43,11 +45,28 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         resizeMode: 'cover',
+    },
+    top: {
+        //backgroundColor: '#f5fcff',
+        //flex: 0.4,
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        //top: '10%',
+        //resizeMode: 'cover',
+    },
+    logo: {
+        width: 230,
+        height: 214,
+        flexDirection: 'row',
+        alignItems: 'center',
     }
 });
 
-export const newJWT = (jwt)=>{
-    this.setState({
-        jwt: jwt
-    });
-};
+function mapStateToProps(ownProps) {
+    return {
+        JWT: store.getJwt()
+    };
+}
+
+export default connect(mapStateToProps)(App);

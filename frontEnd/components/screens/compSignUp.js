@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {
     Alert,
     StyleSheet,
@@ -11,10 +11,11 @@ import {FormLabel, FormInput, FormValidationMessage, Button} from 'react-native-
 import {Fonts} from "../../utils/fonts";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import deviceStorage from '../services/deviceStorage';
-import {newJWT} from "../../App"
 import {Loading} from "../common/loading";
+import {store} from "../../store";
+import { connect } from 'remx';
 
-class compSignUpScreen extends React.Component {
+class CompSignUpScreen extends PureComponent {
 
     static navigationOptions = {
         header: null
@@ -63,7 +64,6 @@ class compSignUpScreen extends React.Component {
             .then((response) => response.json())
             .then((responseJson) => {
                 deviceStorage.saveItem("id_token", responseJson.token);
-                newJWT(responseJson.token);
                 console.log(responseJson);
             })
             .catch((error) => {
@@ -172,7 +172,7 @@ class compSignUpScreen extends React.Component {
     }
 }
 
-export default compSignUpScreen;
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -246,3 +246,11 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.FranklinGothic,
     }
 });
+
+function mapStateToProps(ownProps) {
+    return {
+        JWT: store.getJwt()
+    };
+}
+
+export default connect(mapStateToProps)(CompSignUpScreen);

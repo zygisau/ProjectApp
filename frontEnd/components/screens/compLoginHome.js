@@ -3,7 +3,7 @@ import {Alert, StyleSheet, Text, View, Image, ImageBackground, AppRegistry} from
 import {Button} from 'react-native-elements';
 import {Fonts} from "../../utils/fonts";
 
-class compHomeScreen extends React.Component {
+class CompHomeScreen extends React.Component {
     static navigationOptions = {
         header: null
     };
@@ -58,7 +58,7 @@ class compHomeScreen extends React.Component {
     }
 }
 
-export default compHomeScreen;
+export default CompHomeScreen;
 
 const styles = StyleSheet.create({
     container: {
