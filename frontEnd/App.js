@@ -12,25 +12,35 @@ import deviceStorage from "./components/services/deviceStorage";
 class App extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = {
-            loaded: true
-        };
         console.log("constructor calls loadJWT");
+        //this.WhileLoadingScreen = this.WhileLoadingScreen.bind(this);
         deviceStorage.loadJWT();
-        //Loading.load(() => this.setState({loaded: true}));
         console.log("constructor came back from the function");
     }
-
+    // WhileLoadingScreen () {
+    //     setTimeout(() => {}, 900);
+    //     deviceStorage.loadJWT();
+    // }
     render() {
-        if (!this.props.JWT) {
+        if (this.props.Load === true) {
+            if (!this.props.JWT) {
+                return (
+                    <AppStackNavigator/>
+                );
+            } else if (this.props.JWT) {
+                return (
+                    <LoggedIn/>
+                );
+            }
+        } else {
             return (
-                <AppStackNavigator/>
+                <ImageBackground style={styles.container} source={require('./assets/images/bg3.jpg')}>
+                    <View style={styles.top}>
+                        <Image style={styles.logo} source={require('./assets/logos/logo.png')}/>
+                    </View>
+                </ImageBackground>
             );
-        } else if (this.props.JWT) {
-            return (
-                <LoggedIn/>
-            );
-        }
+            }
     }
 }
 
@@ -56,6 +66,7 @@ const styles = StyleSheet.create({
         //resizeMode: 'cover',
     },
     logo: {
+        top: '50%',
         width: 230,
         height: 214,
         flexDirection: 'row',
@@ -65,7 +76,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(ownProps) {
     return {
-        JWT: store.getJwt()
+        JWT: store.getJwt(),
+        Load: store.getLoad()
     };
 }
 

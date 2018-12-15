@@ -36,7 +36,7 @@ class CompSignUpScreen extends PureComponent {
         this.submit = this.submit.bind(this);
         this.focusTheField = this.focusTheField.bind(this);
         this.onRegistrationFail = this.onRegistrationFail.bind(this);
-        //this.validation = this.validation.bind(this);
+        this.validation = this.validation.bind(this);
 
     };
     // Inputs
@@ -53,7 +53,7 @@ class CompSignUpScreen extends PureComponent {
             password: this.state.password,
         };
         console.log({params});
-        fetch("http://192.168.0.100:3000/api/v1/register", {
+        fetch("http://192.168.0.101:3000/api/v1/register", {
         //fetch("http://206.189.4.112:3000/api/v1/register", {
             method: 'POST',
             headers: {
@@ -78,11 +78,11 @@ class CompSignUpScreen extends PureComponent {
             loading: false
         });
     }
-    /*validation ()
+    validation ()
     {
         if(this.state.password === this.state.passwordConfirm) this.setState({same: true});
             else this.setState({same: false});
-    }*/
+    }
     render() {
         return (
             <ImageBackground style={styles.container} source={require('../../assets/images/bg3.jpg')}>
@@ -129,9 +129,10 @@ class CompSignUpScreen extends PureComponent {
 
                         <FormInput
                            secureTextEntry={true}
-                           onChangeText={(password) => this.setState({password})}
+                           onChangeText={(password) => {this.setState({password}, this.validation);}}
                            inputStyle={styles.border}
                            autoCorrect={false}
+                           autoCapitalize='none'
                            placeholderTextColor={'#f5fcff'}
                            placeholder="PASSWORD"
                            ref={input => { this.inputs['field4'] = input }}
@@ -141,16 +142,20 @@ class CompSignUpScreen extends PureComponent {
                            onSubmitEditing={() => { this.focusTheField('field5'); }} />
 
                         <FormInput
-                            //onChangeText={() => this.validation()}
+                            onChangeText={(passwordConfirm) => {this.setState({passwordConfirm}, this.validation);}}
                             secureTextEntry={true}
                             autoCorrect={false}
+                            autoCapitalize='none'
                             inputStyle={styles.border}
                             placeholderTextColor="#f5fcff"
                             placeholder="CONFIRM PASSWORD"
                             ref={input => { this.inputs['field5'] = input }}
                             label={"Field 5"}
                             blurOnSubmit={ false }/>
-
+                        {!this.state.same &&
+                            <Text style={styles.errorTextStyle}>
+                            Passwords must match
+                            </Text> }
                     </View>
                     <View style={styles.bottom}>
                         {!this.state.loading ?
@@ -163,9 +168,6 @@ class CompSignUpScreen extends PureComponent {
                             <Loading size={'large'} />
                         }
                     </View>
-                    <Text style={styles.errorTextStyle}>
-                        {this.state.error}
-                    </Text>
                 </KeyboardAwareScrollView>
             </ImageBackground>
         )
@@ -240,10 +242,16 @@ const styles = StyleSheet.create({
         paddingLeft: 20
     },
     errorTextStyle: {
-        fontSize: 12,
+        textAlign: 'center',
+        fontSize: 20,
         color: '#000000',
         fontWeight: 'bold',
         fontFamily: Fonts.FranklinGothic,
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        top: '1%',
+        width: '100%',
+        backgroundColor: '#db0600'
     }
 });
 

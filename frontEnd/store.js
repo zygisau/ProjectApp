@@ -3,7 +3,8 @@ remx.registerLoggerForDebug(console.log);
 
 // state
 const initialState = {
-    jwt: ''
+    jwt: '',
+    loaded: false
 };
 const state = remx.state(initialState);
 
@@ -11,6 +12,9 @@ const state = remx.state(initialState);
 const getters = remx.getters({
     getJwt() {
         return state.jwt;
+    },
+    getLoad() {
+        return state.loaded;
     }
 });
 
@@ -18,6 +22,13 @@ const getters = remx.getters({
 const setters = remx.setters({
     setJwt(value) {
         return state.jwt = value;
+    },
+    setLoad() {
+        // if (state.loaded === false) {
+        //     return state.setState ( {loaded:true});
+        // }
+        // else return state.setState ( {loaded:false});
+        return state.loaded = true;
     }
 
 });

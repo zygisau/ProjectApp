@@ -34,6 +34,7 @@ const deviceStorage = {
                 store.setJwt('');
                 console.log("if FALSE scenario is over");
             }
+            store.setLoad();
         } catch (error) {
             console.log('Error from loadJWT: ' + error.message);
         }
