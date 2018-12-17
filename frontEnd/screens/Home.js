@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import Swiper from 'react-native-deck-swiper'
-import { Button, StyleSheet, Text, View } from 'react-native'
-import SwipeUpDown from 'react-native-swipe-up-down';
+import { Button, StyleSheet, Text, View, Dimensions } from 'react-native'
+const { width, height } = Dimensions.get('window');
+import SlidingPanel from 'react-native-sliding-up-down-panels';
+
 
 
 class Home extends Component {
@@ -131,26 +133,28 @@ class Home extends Component {
               animateCardOpacity
               swipeBackCard
           >
-            <Button onPress={() => this.swiper.swipeBack()} title='Swipe Back' />
+
           </Swiper>
-          <SwipeUpDown
-              hasRef={ref => (this.itemMini = ref)}
-                itemMini={
-                <Text style={styles.welcome}>Welcome to React Native!</Text>
-               }
-              itemFull={
-                <Text style={styles.instructions}>
-                  Welcome to component {'\n'} Swipe Up Down on React Native
-                </Text>
+          <View style={styles.bodyViewStyle}>
+            <Text>Hello My World</Text>
+          </View>
+
+          <SlidingPanel
+              headerLayoutHeight = {100}
+              headerLayout = { () =>
+                  <View style={styles.headerLayoutStyle}>
+                    <Text style={styles.commonTextStyle}>My Awesome sliding panel</Text>
+                  </View>
               }
-              onShowMini={() => console.log('mini')}
-              onShowFull={() => console.log('full')}
-              disablePressToShow={false}
-              style={{ backgroundColor: '#ccc' }}
-              animation="easeInEaseOut"
+              slidingPanelLayout = { () =>
+                  <View style={styles.slidingPanelLayoutStyle}>
+                    <Text style={styles.commonTextStyle}>The best thing about me is you</Text>
+                  </View>
+              }
           />
         </View>
-    )
+
+    );
   }
 
 }
@@ -178,7 +182,31 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: 'white',
     backgroundColor: 'transparent'
-  }
-})
+  },
+  bodyViewStyle: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerLayoutStyle: {
+    width,
+    height: 100,
+    backgroundColor: 'orange',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  slidingPanelLayoutStyle: {
+    width,
+    height,
+    backgroundColor: '#7E52A0',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  commonTextStyle: {
+    color: 'white',
+    fontSize: 18,
+  },
+
+});
 
 export default Home

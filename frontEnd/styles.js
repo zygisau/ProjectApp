@@ -61,17 +61,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         marginTop: 30,
         marginLeft: -30
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        marginTop: -5
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5
     }
+
 })
 
 export default styles
