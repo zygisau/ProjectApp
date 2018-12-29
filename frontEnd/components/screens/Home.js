@@ -3,141 +3,59 @@ import Swiper from 'react-native-deck-swiper'
 import { Button, StyleSheet, Text, View, Dimensions, Image } from 'react-native'
 const { width, height } = Dimensions.get('window');
 import SlidingPanel from 'react-native-sliding-up-down-panels';
+import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
+
 
 
 
 class Home extends Component {
+
+    static navigationOptions = {
+        header: null
+    }
+
     constructor (props) {
         super(props)
         this.state = {
-            cards: ['1', '2', '3', '4'],
+            entries: ['1', '2', '3', '4'],
             swipedAllCards: false,
             swipeDirection: '',
             cardIndex: 0
         }
     }
 
-    renderCard = (card, index) => {
-        return (
-            <View style={styles.card}>
-                <Image style={styles.image}
-                       source={require('../../assets/animal_photos/1.jpg')} />
-                {/*<Text style={styles.text}>{card} - {index}</Text>*/}
-            </View>
-        )
-    };
-
-    onSwiped = (type) => {
-        console.log(`on swiped ${type}`)
-    }
-
-    onSwipedAllCards = () => {
-        this.setState({
-            swipedAllCards: true
-        })
-    };
-
-    swipeLeft = () => {
-        this.swiper.swipeLeft()
-    };
-
-    render () {
+    _renderItem ({item, index}, parallaxProps) {
         return (
             <View style={styles.container}>
-                <Swiper
-                    ref={swiper => {
-                        this.swiper = swiper
-                    }}
-                    onSwiped={() => this.onSwiped('general')}
-                    onSwipedLeft={() => this.onSwiped('left')}
-                    onSwipedRight={() => this.onSwiped('right')}
-                    onSwipedTop={() => this.onSwiped('top')}
-                    onSwipedBottom={() => this.onSwiped('bottom')}
-                    onTapCard={this.swipeLeft}
-                    cards={this.state.cards}
-                    cardIndex={this.state.cardIndex}
-                    cardVerticalMargin={40}
-                    renderCard={this.renderCard}
-                    onSwipedAll={this.onSwipedAllCards}
-                    stackSize={3}
-                    stackSeparation={15}
-                    overlayLabels={{
-                        bottom: {
-                            title: 'BLEAH',
-                            style: {
-                                label: {
-                                    backgroundColor: 'black',
-                                    borderColor: 'black',
-                                    color: 'white',
-                                    borderWidth: 1
-                                },
-                                wrapper: {
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
-                                }
-                            }
-                        },
-                        left: {
-                            title: 'NOPE',
-                            style: {
-                                label: {
-                                    backgroundColor: 'black',
-                                    borderColor: 'black',
-                                    color: 'white',
-                                    borderWidth: 1
-                                },
-                                wrapper: {
-                                    flexDirection: 'column',
-                                    alignItems: 'flex-end',
-                                    justifyContent: 'flex-start',
-                                    marginTop: 30,
-                                    marginLeft: -30
-                                }
-                            }
-                        },
-                        right: {
-                            title: 'LIKE',
-                            style: {
-                                label: {
-                                    backgroundColor: 'black',
-                                    borderColor: 'black',
-                                    color: 'white',
-                                    borderWidth: 1
-                                },
-                                wrapper: {
-                                    flexDirection: 'column',
-                                    alignItems: 'flex-start',
-                                    justifyContent: 'flex-start',
-                                    marginTop: 30,
-                                    marginLeft: 30
-                                }
-                            }
-                        },
-                        top: {
-                            title: 'SUPER LIKE',
-                            style: {
-                                label: {
-                                    backgroundColor: 'black',
-                                    borderColor: 'black',
-                                    color: 'white',
-                                    borderWidth: 1
-                                },
-                                wrapper: {
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
-                                }
-                            }
-                        }
-                    }}
-                    animateOverlayLabelsOpacity
-                    animateCardOpacity
-                    swipeBackCard
-                >
+                <Text>
+                    { index }
+                </Text>
+                <ParallaxImage
+                    source={{ uri: 'https://media.forgecdn.net/avatars/107/154/636364134932167010.jpeg' }}
+                    style={styles.image}
+                    containerStyle={styles.imageContainer}
+                    parallaxFactor={0.4}
+                    {...parallaxProps}
+                />
+            </View>
+        );
+    }
 
-                </Swiper>
 
+    render () {
+        const itemWidth = Dimensions.get('window').width;
+        const itemHeight = Dimensions.get('window').height;
+        return (
+            <View style={styles.container}>
+                <Carousel
+                    data={this.state.entries}
+                    renderItem={this._renderItem}
+                    hasParallaxImages={true}
+                    itemHeight={itemHeight}
+                    itemWidth={itemWidth}
+                    sliderWidth={itemWidth}
+                    windowSize={1}
+                />
 
                 <SlidingPanel
                     headerLayoutHeight = {100}
@@ -164,23 +82,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F5FCFF'
     },
-    card: {
+    imageContainer: {
         flex: 1,
-        borderRadius: 4,
-        borderWidth: 2,
-        borderColor: '#E8E8E8',
-        justifyContent: 'center',
-        backgroundColor: 'white'
     },
     text: {
         textAlign: 'center',
         fontSize: 50,
-        backgroundColor: 'transparent'
-    },
-    done: {
-        textAlign: 'center',
-        fontSize: 30,
-        color: 'white',
         backgroundColor: 'transparent'
     },
     bodyViewStyle: {
@@ -209,10 +116,8 @@ const styles = StyleSheet.create({
     image: {
         //flexDirection: 'column',
         //justifyContent: 'space-around',
-        alignItems: 'stretch',
-
-        // width: 100,
-        // height: 100
+         resizeMode: 'stretch',
+         height: 200
     }
 
 });
