@@ -37,6 +37,19 @@ class Home extends Component {
                     parallaxFactor={0.4}
                     {...parallaxProps}
                 />
+                <SlidingPanel
+                    headerLayoutHeight = {100}
+                    headerLayout = { () =>
+                        <View style={styles.headerLayoutStyle}>
+                            <Text style={styles.commonTextStyle}>My Awesome sliding panel</Text>
+                        </View>
+                    }
+                    slidingPanelLayout = { () =>
+                        <View style={styles.slidingPanelLayoutStyle}>
+                            <Text style={styles.commonTextStyle}>The best thing about me is you</Text>
+                        </View>
+                    }
+                />
             </View>
         );
     }
@@ -55,20 +68,6 @@ class Home extends Component {
                     itemWidth={itemWidth}
                     sliderWidth={itemWidth}
                     windowSize={1}
-                />
-
-                <SlidingPanel
-                    headerLayoutHeight = {100}
-                    headerLayout = { () =>
-                        <View style={styles.headerLayoutStyle}>
-                            <Text style={styles.commonTextStyle}>My Awesome sliding panel</Text>
-                        </View>
-                    }
-                    slidingPanelLayout = { () =>
-                        <View style={styles.slidingPanelLayoutStyle}>
-                            <Text style={styles.commonTextStyle}>The best thing about me is you</Text>
-                        </View>
-                    }
                 />
             </View>
 
