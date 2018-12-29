@@ -4,6 +4,7 @@ import { Button, StyleSheet, Text, View, Dimensions, Image } from 'react-native'
 const { width, height } = Dimensions.get('window');
 import SlidingPanel from 'react-native-sliding-up-down-panels';
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
+import deviceStorage from "../services/deviceStorage";
 
 
 
@@ -12,16 +13,38 @@ class Home extends Component {
 
     static navigationOptions = {
         header: null
-    }
+    };
 
     constructor (props) {
         super(props)
         this.state = {
-            entries: ['1', '2', '3', '4'],
+            entries: ['1', '2'],
             swipedAllCards: false,
             swipeDirection: '',
             cardIndex: 0
         }
+    }
+
+    componentDidMount () {
+        this.loadPets();
+    }
+
+
+    loadPets () {
+        fetch("http://192.168.10.1:3000/api/v1/pets", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8'
+            },
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson);
+                this.setState({entries: responseJson})
+            })
+            .catch((error) => {
+                console.log('You have got an error: ' + error);
+            });
     }
 
     _renderItem ({item, index}, parallaxProps) {
@@ -41,7 +64,7 @@ class Home extends Component {
                     headerLayoutHeight = {100}
                     headerLayout = { () =>
                         <View style={styles.headerLayoutStyle}>
-                            <Text style={styles.commonTextStyle}>My Awesome sliding panel</Text>
+                            <Text style={styles.commonTextStyle}>{item.name}</Text>
                         </View>
                     }
                     slidingPanelLayout = { () =>
