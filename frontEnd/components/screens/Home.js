@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
-import Swiper from 'react-native-deck-swiper'
+//import Swiper from 'react-native-deck-swiper'
 import { Button, StyleSheet, Text, View, Dimensions, Image } from 'react-native'
 const { width, height } = Dimensions.get('window');
 import SlidingPanel from 'react-native-sliding-up-down-panels';
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
-
-
-
+import HeaderLayout from './homecomponents/HeaderLayout';
+import SlidingPanelLayout from "./homecomponents/SlidingPanelLayout";
+import {Fonts} from "../../utils/fonts";
+import { Icon } from 'react-native-elements'
 
 class Home extends Component {
 
     static navigationOptions = {
         header: null
-    }
+    };
 
     constructor (props) {
         super(props)
@@ -21,15 +22,17 @@ class Home extends Component {
             swipedAllCards: false,
             swipeDirection: '',
             cardIndex: 0
-        }
-    }
+        };
+        this.onPressEvent = this.onPressEvent.bind(this);
 
+    }
+    onPressEvent() {
+        console.log('You entered to your Profile screen! Well, at least imagine that you did ;)')
+    }
     _renderItem ({item, index}, parallaxProps) {
         return (
             <View style={styles.container}>
-                <Text>
-                    { index }
-                </Text>
+
                 <ParallaxImage
                     source={{ uri: 'https://media.forgecdn.net/avatars/107/154/636364134932167010.jpeg' }}
                     style={styles.image}
@@ -38,16 +41,12 @@ class Home extends Component {
                     {...parallaxProps}
                 />
                 <SlidingPanel
-                    headerLayoutHeight = {100}
+                    headerLayoutHeight = {90}
                     headerLayout = { () =>
-                        <View style={styles.headerLayoutStyle}>
-                            <Text style={styles.commonTextStyle}>My Awesome sliding panel</Text>
-                        </View>
+                        <HeaderLayout/>
                     }
                     slidingPanelLayout = { () =>
-                        <View style={styles.slidingPanelLayoutStyle}>
-                            <Text style={styles.commonTextStyle}>The best thing about me is you</Text>
-                        </View>
+                        <SlidingPanelLayout/>
                     }
                 />
             </View>
@@ -97,20 +96,18 @@ const styles = StyleSheet.create({
     headerLayoutStyle: {
         width,
         height: 100,
-        backgroundColor: 'orange',
+        backgroundColor: '#2e2f2e',
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius:30,
     },
     slidingPanelLayoutStyle: {
         width,
         height,
-        backgroundColor: '#7E52A0',
+        backgroundColor: '#717271',
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    commonTextStyle: {
-        color: 'white',
-        fontSize: 18,
+        borderRadius:30,
     },
     image: {
         //flexDirection: 'column',
