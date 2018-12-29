@@ -2,12 +2,15 @@ import React, {PureComponent} from 'react';
 import {Alert, StyleSheet, Text, View, Image, ImageBackground, AppRegistry} from 'react-native';
 import {AppStackNavigator} from "./config/router";
 //import { Loading } from './components/common/loading';
-import LoggedIn from './components/screens/logged';
+//import LoggedIn from './components/screens/logged';
 //import Loading from './components/screens/loading';
 import {store} from "./store";
 import { connect } from 'remx';
 import deviceStorage from "./components/services/deviceStorage";
+import Home from "./components/screens/Home";
+//import Home from "./components/screens/Home";
 //import CompHomeScreen from "./components/screens/compLoginHome";
+//import {Navig} from './components/navigation/RootNavigation.js'
 
 class App extends PureComponent {
     constructor(props) {
@@ -29,7 +32,10 @@ class App extends PureComponent {
                 );
             } else if (this.props.JWT) {
                 return (
-                    <LoggedIn/>
+
+                    <Home/>
+                    //<LoggedIn/>
+                    //<Home/>
                 );
             }
         } else {
