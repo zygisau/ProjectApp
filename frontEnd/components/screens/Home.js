@@ -6,9 +6,9 @@ import SlidingPanel from 'react-native-sliding-up-down-panels';
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
 import HeaderLayout from './homecomponents/HeaderLayout';
 import SlidingPanelLayout from "./homecomponents/SlidingPanelLayout";
-import {Fonts} from "../../utils/fonts";
-import { Icon } from 'react-native-elements'
-import deviceStorage from "../services/deviceStorage";
+import {store} from "../../store";
+import {connect} from "remx";
+
 
 
 
@@ -21,11 +21,9 @@ class Home extends Component {
 
     constructor (props) {
         super(props)
+        console.log(this.props);
         this.state = {
-            entries: ['1', '2'],
-            swipedAllCards: false,
-            swipeDirection: '',
-            cardIndex: 0
+            entries: [],
         };
         this.onPressEvent = this.onPressEvent.bind(this);
 
@@ -43,7 +41,8 @@ class Home extends Component {
         fetch("http://192.168.10.1:3000/api/v1/pets", {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json; charset=UTF-8'
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization': 'Bearer ' + this.props.JWT
             },
         })
             .then((response) => response.json())
@@ -61,7 +60,7 @@ class Home extends Component {
             <View style={styles.container}>
 
                 <ParallaxImage
-                    source={{ uri: 'https://media.forgecdn.net/avatars/107/154/636364134932167010.jpeg' }}
+                    source={{ uri: item.photo }}
                     style={styles.image}
                     containerStyle={styles.imageContainer}
                     parallaxFactor={0.4}
@@ -70,10 +69,10 @@ class Home extends Component {
                 <SlidingPanel
                     headerLayoutHeight = {90}
                     headerLayout = { () =>
-                        <HeaderLayout/>
+                        <HeaderLayout data={item} JWT={this.props.JWT}/>
                     }
                     slidingPanelLayout = { () =>
-                        <SlidingPanelLayout/>
+                        <SlidingPanelLayout data={item} />
                     }
                 />
             </View>
@@ -88,7 +87,7 @@ class Home extends Component {
             <View style={styles.container}>
                 <Carousel
                     data={this.state.entries}
-                    renderItem={this._renderItem}
+                    renderItem={this._renderItem.bind(this)}
                     hasParallaxImages={true}
                     itemHeight={itemHeight}
                     itemWidth={itemWidth}
@@ -145,4 +144,10 @@ const styles = StyleSheet.create({
 
 });
 
-export default Home
+function mapStateToProps(ownProps) {
+    return {
+        JWT: store.getJwt()
+    };
+}
+
+export default connect(mapStateToProps)(Home);

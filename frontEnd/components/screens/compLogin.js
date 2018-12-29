@@ -14,9 +14,9 @@ import {FormLabel, FormInput, FormValidationMessage, Button} from 'react-native-
 import {Fonts} from "../../utils/fonts";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import deviceStorage from '../services/deviceStorage';
-import {Loading} from "../common/loading";
 import {store} from "../../store";
 import { connect } from 'remx';
+
 //import CompSignUpScreen from "./compSignUp";
 
 class CompLoginScreen extends PureComponent {
@@ -43,7 +43,7 @@ class CompLoginScreen extends PureComponent {
         this.inputs[id].focus();
     };
 
-    submit = () => {
+    submit () {
         console.log('you tried to log in');
         this.setState({ error: '', loading: true });
         let params = {
@@ -52,7 +52,7 @@ class CompLoginScreen extends PureComponent {
         };
         console.log({params});
         //fetch("http://192.168.0.101:3000/api/v1/authenticate", {
-        fetch("http://206.189.4.112:3000/api/v1/authenticate", {
+        fetch("http://192.168.10.1:3000/api/v1/authenticate", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8'
@@ -112,16 +112,12 @@ class CompLoginScreen extends PureComponent {
                             returnKeyType={ 'next' } />
                     </View>
                         <View style={styles.bottom}>
-                            {!this.state.loading ?
                                 <Button
                                     //onPress={() => {console.log('you tried to log in')}}
                                     onPress={this.submit}
                                     buttonStyle={styles.buttonLog}
                                     title="LOG IN"
                                     textStyle={styles.btText} />
-                                :
-                                <Loading size={'large'} />
-                            }
                         </View>
                     <Text style={styles.errorTextStyle}>
                         {this.state.error}

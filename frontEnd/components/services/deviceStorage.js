@@ -8,7 +8,6 @@ const deviceStorage = {
         try {
             console.log("AsyncStorage.setItem initializes");
             await AsyncStorage.setItem(key, value)
-            //console.log("THEN")
                 .then(
                     console.log("setJWT calls"),
                     store.setJwt(value)

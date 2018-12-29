@@ -26,18 +26,15 @@ class App extends PureComponent {
     // }
     render() {
         if (this.props.Load === true) {
-            // if (!this.props.JWT) {
-            //     return (
-            //         <AppStackNavigator/>
-            //     );
-            // } else if (this.props.JWT) {
+            if (!this.props.JWT) {
                 return (
-
-                    <Home/>
-                    //<LoggedIn/>
-                    //<Home/>
+                    <AppStackNavigator/>
                 );
-            //}
+            } else if (this.props.JWT) {
+                return (
+                    <Home/>
+                );
+            }
         } else {
             return (
                 <ImageBackground style={styles.container} source={require('./assets/images/bg3.jpg')}>

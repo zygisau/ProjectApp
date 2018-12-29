@@ -155,12 +155,9 @@ const styles = StyleSheet.create({
     language: {
         flex: 0.15,
         flexDirection: 'column',
-        //justifyContent: 'space-around',
         alignItems: 'flex-end',
         top: '5%',
         right: 0,
-        //width: '80%',
-        //height: '100%',
         resizeMode: 'cover',
     },
     buttonLanguage: {

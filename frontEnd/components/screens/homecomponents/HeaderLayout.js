@@ -9,13 +9,27 @@ class HeaderLayout extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            name: 'Shrek',
-            age: 10
+            id: props.data._id,
+            name: props.data.name,
+            age: props.data.age
         };
         this.onPressEvent = this.onPressEvent.bind(this);
     }
     onPressEvent() {
-        console.log('You liked shrek')
+        fetch(`http://192.168.10.1:3000/api/v1/pets/${this.state.id}/like`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization': 'Bearer ' + this.props.JWT
+            },
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson);
+            })
+            .catch((error) => {
+                console.log('You have got an error: ' + error);
+            });
     }
     render() {
         return(

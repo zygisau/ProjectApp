@@ -12,4 +12,6 @@ router.route('/:petId')
   .put(petsController.updatePet)
   .delete(petsController.deletePet);
 
+router.post('/:petId/like', petsController.likePet);
+
 export default router;
