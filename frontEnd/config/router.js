@@ -18,6 +18,6 @@ export const AppStackNavigator = createStackNavigator(
         //Pet:petScreen
     },
     {
-        initialRouteName: 'Add',
+        initialRouteName: 'Home',
     }
 );

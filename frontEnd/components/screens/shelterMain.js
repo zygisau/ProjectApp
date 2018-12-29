@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
     },
     button: {
         height: 50,
-
         flexDirection: 'row',
         alignItems: 'center',
         /*color: 'green',*/
