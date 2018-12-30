@@ -37,7 +37,7 @@ class HeaderLayout extends Component {
             <TouchableOpacity onPress={this.onPressEvent} style={styles.heart}>
                 <Icon
                     name='favorite'
-                    color='red'
+                    color='rgba(255, 71, 71, 0.9)'
                     size={60} />
             </TouchableOpacity>
             <Text style={styles.name}>{this.state.name}</Text>
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width,
         height: 90,
-        backgroundColor: 'rgba(45, 46, 45, 0.9)',
+        backgroundColor: 'rgba(232, 232, 232, 0.9)',
         justifyContent: 'space-between',
         borderRadius:10,
     },
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         left: '20%',
         //alignItems: 'center',
         //paddingLeft: 10,
-        color: 'white',
+        color: 'black',
         fontSize: 30,
         fontFamily: Fonts.FranklinGothic,
     },
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         right: '20%',
         //alignItems: 'center',
         //paddingRight: 10,
-        color: 'white',
+        color: 'black',
         fontSize: 30,
         fontFamily: Fonts.FranklinGothic,
     },

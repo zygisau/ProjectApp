@@ -53,8 +53,8 @@ class CompSignUpScreen extends PureComponent {
             password: this.state.password,
         };
         console.log({params});
-        //fetch("http://192.168.0.101:3000/api/v1/register", {
-        fetch("http://192.168.10.1:3000/api/v1/register", {
+        fetch("http://192.168.0.105:3000/api/v1/register", {
+        //fetch("http://192.168.10.1:3000/api/v1/register", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8'

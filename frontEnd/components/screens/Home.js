@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Swiper from 'react-native-deck-swiper'
-import { Button, StyleSheet, Text, View, Dimensions, Image } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, Image } from 'react-native'
 const { width, height } = Dimensions.get('window');
 import SlidingPanel from 'react-native-sliding-up-down-panels';
 import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
@@ -8,6 +8,8 @@ import HeaderLayout from './homecomponents/HeaderLayout';
 import SlidingPanelLayout from "./homecomponents/SlidingPanelLayout";
 import {store} from "../../store";
 import {connect} from "remx";
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 
@@ -38,7 +40,8 @@ class Home extends Component {
 
 
     loadPets () {
-        fetch("http://192.168.10.1:3000/api/v1/pets", {
+        fetch("http://192.168.0.105:3000/api/v1/pets", {
+        //fetch("http://192.168.10.1:3000/api/v1/pets", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
@@ -58,7 +61,17 @@ class Home extends Component {
     _renderItem ({item, index}, parallaxProps) {
         return (
             <View style={styles.container}>
-
+                {/*<Button*/}
+                    {/*icon={*/}
+                        {/*<Icon*/}
+                            {/*name='arrow-right'*/}
+                            {/*size={5}*/}
+                            {/*color='white'*/}
+                        {/*/>*/}
+                    {/*}*/}
+                    {/*title=' '*/}
+                    {/*onPress={this.onPressEvent()}*/}
+                    {/*buttonStyle={styles.button}/>*/}
                 <ParallaxImage
                     source={{ uri: item.photo }}
                     style={styles.image}
@@ -66,6 +79,7 @@ class Home extends Component {
                     parallaxFactor={0.4}
                     {...parallaxProps}
                 />
+
                 <SlidingPanel
                     headerLayoutHeight = {90}
                     headerLayout = { () =>
@@ -140,8 +154,12 @@ const styles = StyleSheet.create({
         //justifyContent: 'space-around',
          resizeMode: 'stretch',
          height: 200
+    },
+    button: {
+        width: 50,
+        height: 50,
+        position: 'absolute'
     }
-
 });
 
 function mapStateToProps(ownProps) {

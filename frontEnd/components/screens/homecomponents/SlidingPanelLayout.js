@@ -32,14 +32,14 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width,
         height,
-        backgroundColor: 'rgba(113, 114, 113, 0.9)',
+        backgroundColor: 'rgba(232, 232, 232, 0.9)',
         //justifyContent: 'center',
         alignItems: 'center',
         borderRadius:10,
     },
     commonTextStyle: {
         margin: '1%',
-        color: 'white',
+        color: 'black',
         fontSize: 18,
         fontFamily: Fonts.FranklinGothic,
         textAlign: 'justify'
