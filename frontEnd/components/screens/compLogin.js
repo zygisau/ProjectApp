@@ -51,7 +51,7 @@ class CompLoginScreen extends PureComponent {
             password: this.state.password,
         };
         console.log({params});
-        fetch("http://192.168.0.105:3000/api/v1/authenticate", {
+        fetch("http://192.168.0.101:3000/api/v1/authenticate", {
         //206.189.4.112 - Servakas
         //fetch("http://192.168.10.1:3000/api/v1/authenticate", {
             method: 'POST',

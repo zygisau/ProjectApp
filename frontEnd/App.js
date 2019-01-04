@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Alert, StyleSheet, Text, View, Image, ImageBackground, AppRegistry} from 'react-native';
 import {AppStackNavigator} from "./config/router";
+import {MainStackNavigator} from "./config/router";
 //import { Loading } from './components/common/loading';
 //import LoggedIn from './components/screens/logged';
 //import Loading from './components/screens/loading';
@@ -33,7 +34,7 @@ class App extends PureComponent {
                 );
             } else if (this.props.JWT) {
                 return (
-                    <Home/>
+                    <MainStackNavigator/>
                 );
             }
         } else {

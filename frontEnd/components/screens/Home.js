@@ -9,10 +9,7 @@ import SlidingPanelLayout from "./homecomponents/SlidingPanelLayout";
 import {store} from "../../store";
 import {connect} from "remx";
 import { Button } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-
-
+import { Icon } from 'react-native-elements'
 
 
 class Home extends Component {
@@ -27,11 +24,14 @@ class Home extends Component {
         this.state = {
             entries: [],
         };
-        this.onPressEvent = this.onPressEvent.bind(this);
-
+        this.onPressProfileEvent = this.onPressProfileEvent.bind(this);
+        this.onPressListEvent = this.onPressListEvent.bind(this);
     }
-    onPressEvent() {
+    onPressProfileEvent() {
         console.log('You entered to your Profile screen! Well, at least imagine that you did ;)')
+    }
+    onPressListEvent() {
+        console.log('You entered to your List screen! Uff, not really')
     }
 
     componentDidMount () {
@@ -40,7 +40,7 @@ class Home extends Component {
 
 
     loadPets () {
-        fetch("http://192.168.0.105:3000/api/v1/pets", {
+        fetch("http://192.168.0.101:3000/api/v1/pets", {
         //fetch("http://192.168.10.1:3000/api/v1/pets", {
             method: 'GET',
             headers: {
@@ -61,17 +61,25 @@ class Home extends Component {
     _renderItem ({item, index}, parallaxProps) {
         return (
             <View style={styles.container}>
-                {/*<Button*/}
-                    {/*icon={*/}
-                        {/*<Icon*/}
-                            {/*name='arrow-right'*/}
-                            {/*size={5}*/}
-                            {/*color='white'*/}
-                        {/*/>*/}
-                    {/*}*/}
-                    {/*title=' '*/}
-                    {/*onPress={this.onPressEvent()}*/}
-                    {/*buttonStyle={styles.button}/>*/}
+                <View style={styles.overlayLeft}>
+                    <Icon
+                        name='person'
+                        size={40}
+                        color='black'
+                        onPress={() => {this.props.navigation.navigate('Profile')}}
+                        underlayColor={'rgba(255, 225, 255, 0)'}
+                    />
+                </View>
+                <View style={styles.overlayRight}>
+                    <Icon
+                        name='list'
+                        size={40}
+                        color='black'
+                        onPress={() => {this.props.navigation.navigate('List')}}
+                        underlayColor={'rgba(255, 255, 255, 0)'}
+                    />
+                </View>
+                <View style={styles.container}>
                 <ParallaxImage
                     source={{ uri: item.photo }}
                     style={styles.image}
@@ -89,6 +97,7 @@ class Home extends Component {
                         <SlidingPanelLayout data={item} />
                     }
                 />
+                </View>
             </View>
         );
     }
@@ -116,6 +125,21 @@ class Home extends Component {
 }
 
 const styles = StyleSheet.create({
+    overlayLeft: {
+        position: "absolute",
+        flexDirection: "row",
+        top:10,
+        left: 10,
+        zIndex: 5
+    },
+    overlayRight: {
+        position: "absolute",
+        flexDirection: "row",
+        top:10,
+        right: 10,
+        alignSelf: "flex-end",
+        zIndex: 5
+    },
     container: {
         flex: 1,
         backgroundColor: '#F5FCFF'
@@ -156,9 +180,9 @@ const styles = StyleSheet.create({
          height: 200
     },
     button: {
-        width: 50,
-        height: 50,
-        position: 'absolute'
+        width: 100,
+        height: 100,
+        //position: 'absolute'
     }
 });
 
