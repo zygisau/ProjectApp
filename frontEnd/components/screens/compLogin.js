@@ -72,7 +72,7 @@ class CompLoginScreen extends PureComponent {
     };
     onLoginFail = () => {
         this.setState({
-            error: 'Login Failed',
+            error: 'Username or password is incorrect',
             loading: false,
         });
         console.log(this.state.error);
@@ -196,7 +196,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     errorTextStyle: {
-        flex: 1,
         fontSize: 12,
         color: '#000000',
         fontWeight: 'bold',
