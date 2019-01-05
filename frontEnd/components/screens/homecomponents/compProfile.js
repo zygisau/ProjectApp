@@ -23,26 +23,7 @@ class Profile extends PureComponent {
         };
         this.logOut = this.logOut.bind(this);
     }
-    // componentDidMount () {
-    //     this.loadProfile();
-    // }
-    // loadProfile() {
-    //     fetch("http://192.168.0.101:3000/", {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json; charset=UTF-8',
-    //             'Authorization': 'Bearer ' + this.props.JWT
-    //         },
-    //     })
-    //         .then((response) => response.json())
-    //         .then((responseJson) => {
-    //             console.log(responseJson);
-    //             this.setState({data: responseJson})
-    //         })
-    //         .catch((error) => {
-    //             console.log('You have got an error: ' + error);
-    //         });
-    // }
+
     logOut() {
         Alert.alert(
             'Are you sure?',

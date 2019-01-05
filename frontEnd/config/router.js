@@ -7,7 +7,8 @@ import CompSignUpScreen from "../components/screens/compSignUp";
 import LoggedIn from "../components/screens/logged";
 import Home from "../components/screens/Home";
 import Profile from "../components/screens/homecomponents/compProfile";
-import List from "../components/screens/homecomponents/compList";
+import PetList from "../components/screens/homecomponents/compList";
+import PetProfile from "../components/screens/homecomponents/compPetProfile";
 //import createMaterialTopTabNavigator from "../components/navigation/TabNavigation.js";
 
 
@@ -27,7 +28,8 @@ export const MainStackNavigator = createStackNavigator(
     {
         Main: Home,
         Profile: Profile,
-        List: List,
+        List: PetList,
+        PetProfile: PetProfile
     },
     {
         initialRouteName: 'Main',

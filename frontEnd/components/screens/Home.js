@@ -10,6 +10,7 @@ import {store} from "../../store";
 import {connect} from "remx";
 import { Button } from 'react-native-elements';
 import { Icon } from 'react-native-elements'
+import config from '../../config'
 
 
 class Home extends Component {
@@ -40,8 +41,7 @@ class Home extends Component {
 
 
     loadPets () {
-        fetch("http://192.168.0.101:3000/api/v1/pets", {
-        //fetch("http://192.168.10.1:3000/api/v1/pets", {
+        fetch(`http://${config.FETCH_URL}/api/v1/pets`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',

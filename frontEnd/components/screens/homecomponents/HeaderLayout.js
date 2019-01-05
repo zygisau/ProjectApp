@@ -1,8 +1,9 @@
-import {Dimensions, StyleSheet, Text, View, TouchableOpacity} from "react-native";
+import {Dimensions, StyleSheet, Text, View, TouchableOpacity, ToastAndroid} from "react-native";
 import React, {Component} from 'react';
 import {Fonts} from "../../../utils/fonts";
 const { width, height } = Dimensions.get('window');
 import { Icon } from 'react-native-elements'
+import config from "../../../config";
 
 
 class HeaderLayout extends Component {
@@ -11,12 +12,31 @@ class HeaderLayout extends Component {
         this.state = {
             id: props.data._id,
             name: props.data.name,
-            age: props.data.age
+            age: props.data.age,
+            loved: false,
         };
         this.onPressEvent = this.onPressEvent.bind(this);
     }
     onPressEvent() {
-        fetch(`http://192.168.10.1:3000/api/v1/pets/${this.state.id}/like`, {
+        if(!this.state.loved) {
+            ToastAndroid.showWithGravity(
+                'The pet has been added to your list!',
+                ToastAndroid.SHORT,
+                ToastAndroid.TOP,
+            );
+            this.setState({loved:true}, this.submitLove);
+        }
+            else {
+                ToastAndroid.showWithGravity(
+                    'The pet has been removed from your list!',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.TOP,
+                );
+                this.setState({loved:false}, this.submitLove);
+        }
+    }
+    submitLove() {
+        fetch(`http://${config.FETCH_URL}/api/v1/pets/${this.state.id}/like`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
@@ -29,19 +49,24 @@ class HeaderLayout extends Component {
             })
             .catch((error) => {
                 console.log('You have got an error: ' + error);
+                if(!this.state.loved) this.setState({loved:true});
+                else this.setState({loved:false});
             });
     }
     render() {
         return(
         <View style={styles.headerLayoutStyle}>
-            <TouchableOpacity onPress={this.onPressEvent} style={styles.heart}>
-                <Icon
-                    name='favorite'
-                    color='rgba(255, 71, 71, 0.9)'
-                    size={60} />
+            <View style={styles.heartContainer}>
+            <TouchableOpacity>
+            <Icon
+                name='favorite'
+                color={this.state.loved ? 'rgba(255, 132, 132, 0.73)' : 'rgba(255, 71, 71, 0.9)'}
+                size={60}
+                onPress={this.onPressEvent}
+                underlayColor={'rgba(255, 225, 255, 0)'} />
             </TouchableOpacity>
+            </View>
             <Text style={styles.name}>{this.state.name}</Text>
-
             <Text style={styles.age}>Age: {this.state.age}</Text>
         </View>
     );}
@@ -80,7 +105,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontFamily: Fonts.FranklinGothic,
     },
-    heart: {
+    heartContainer: {
         position: 'absolute',
         top: 0,
         left: 0,
