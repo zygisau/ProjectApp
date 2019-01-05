@@ -57,7 +57,6 @@ export default class PetScreen extends Component {
                             blurOnSubmit={ false }
                             returnKeyType={ 'next' }
                         />
-
                         <FormInput
                             onChangeText={(Description) => this.setState({Description})}
                             inputStyle={styles.border}

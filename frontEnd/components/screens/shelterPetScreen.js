@@ -2,7 +2,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import {Image, ScrollView, StyleSheet, Text, View,} from 'react-native';
+import {Alert, Image, ScrollView, StyleSheet, Text, View,} from 'react-native';
 import {Button, Header} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -42,10 +42,31 @@ export default class PetScreen extends Component {
                         <Text style={styles.petDescription}> pet description</Text>
                         <Text>{'   '}</Text>
                         <Text> Location: city, address</Text>
+                        <Text>{'   '}</Text>
                         <Text> Contacts: phone number</Text>
+
+                    </View>
+
+                    <View style={styles.bottom1}>
+                        <View style={styles.buttonContainer}>
+                            <Button title="Add"
+                                    style={styles.button}
+                                    backgroundColor={'#2e2f2e'}
+                                    onPress={() => {Alert.alert('You added a pet');}} />
+                        </View>
+                        <Text>{'     '}</Text>
+                        <View style={styles.buttonContainer}>
+                            <Button title="Cancel"
+                                    backgroundColor={'#2e2f2e'}
+                                    style={styles.button}
+                                    onPress={ () => this.props.navigation.goBack()}/>
+                        </View>
+
                     </View>
                 </ScrollView>
+
             </View>
+
 
         );
     }
@@ -94,5 +115,18 @@ const styles = StyleSheet.create({
         color:'white' ,
         flexDirection: 'row',
         flex:0
+    },
+    buttonContainer: {
+        borderRadius: 15,
+        backgroundColor: '#2e2f2e',
+        flex: 0.4,
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        //alignItems: 'stretch',
+    },
+    button: {
+        //height: 50,
+        flexDirection: 'row',
+        alignItems: 'center',
     },
 });

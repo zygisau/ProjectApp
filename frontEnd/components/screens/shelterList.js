@@ -344,6 +344,7 @@ export default class App extends Component {
         highlightRowFunc: (sectionID: ?number | string, rowID: ?number | string) => void
     ) => {
         return (
+            <TouchableOpacity onPress={ () => this.props.navigation.navigate('Pet')}>
             <PetCell
                 key={pet.id}
                 onHighlight={() => highlightRowFunc(sectionID, rowID)}
@@ -351,6 +352,7 @@ export default class App extends Component {
                 pet={pet}
 
             />
+            </TouchableOpacity>
 
         );
     }
@@ -391,7 +393,7 @@ export default class App extends Component {
                         keyboardDismissMode="on-drag"
                         keyboardShouldPersistTaps="always"
                         showsVerticalScrollIndicator={false}
-                    />
+                        />
                 }
             </View>
         );
