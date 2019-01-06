@@ -7,6 +7,9 @@ import {
 } from 'react-native';
 import {List, ListItem, SearchBar} from "react-native-elements";
 import {Fonts} from "../../../utils/fonts";
+import config from "../../../config";
+import {store} from "../../../store";
+import {connect} from "remx";
 
 
 class PetList extends PureComponent {
@@ -24,7 +27,21 @@ class PetList extends PureComponent {
         this.fetchPets();
     }
     fetchPets() {
-
+        fetch(`http://${config.FETCH_URL}/api/v1/pets/likedList`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization': 'Bearer ' + this.props.JWT
+            },
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson);
+                this.setState({data: responseJson})
+            })
+            .catch((error) => {
+                console.log('You have got an error: ' + error);
+            });
     }
     renderSeparator = () => {
         return (
@@ -73,7 +90,13 @@ class PetList extends PureComponent {
         )
     }
 }
-export default PetList;
+function mapStateToProps(ownProps) {
+    return {
+        JWT: store.getJwt()
+    };
+}
+
+export default connect(mapStateToProps)(PetList);
 
 const styles = StyleSheet.create({
     container: {

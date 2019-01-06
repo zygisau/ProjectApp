@@ -35,6 +35,15 @@ const Pet = new Schema({
 
 });
 
+Pet.method('isLiked', function (id) {
+    if (this.likes.includes(id)) {
+        return true;
+    }
+
+    return false;
+});
+
+
 const petModel = mongoose.model('Pet', Pet);
 
 
