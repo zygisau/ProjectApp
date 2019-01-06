@@ -24,8 +24,15 @@ controller.getAll = async (req, res) => {
 
 controller.getLikedPets = async  (req, res) => {
     try {
-        const likedPets = await Pet.find({likes: req.user.sub}).populate('petType');
-        res.json(likedPets);
+        const likedPets = await Pet.find({likes: req.user.sub});
+        const pets = likedPets.map(function (pet) {
+            const tempPet = pet.toObject();
+            tempPet.canReserve = pet.reservedBy === null;
+            tempPet.reservedByUser = pet.reservedBy === req.user.sub;
+
+            return tempPet;
+        });
+        res.json(pets);
     } catch (e) {
         res.status(500).send(e);
     }
@@ -45,6 +52,14 @@ controller.addPet = async (req, res) => {
     }
 };
 
+controller.reservePet = async (req, res) => {
+    try {
+        await Pet.findOneAndUpdate({_id: req.params.petId}, {reservedBy: req.user.sub});
+        res.status(201).json({success: true})
+    } catch (e) {
+        res.status(500).send(e);
+    }
+};
 controller.getPet = async (req, res) => {
     try {
         const pet = await Pet.findById(req.params.petId).populate('petType');
