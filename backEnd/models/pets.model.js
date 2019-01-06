@@ -23,6 +23,11 @@ const Pet = new Schema({
         ref: 'PetType',
         required: 'Pet type is required'
     },
+    shelter: {
+      type: Schema.Types.ObjectId,
+      ref: 'Shelter',
+      required: 'Shelter is required'
+    },
     description: {
         type: String,
     },
@@ -31,6 +36,12 @@ const Pet = new Schema({
         type: String,
         required: 'Pet photo is required'
     },
+
+    reservedBy: {
+        type: Schema.Types.ObjectId,
+        default: null
+    },
+
     likes: [{type: Schema.Types.ObjectId, ref: 'User'}]
 
 });

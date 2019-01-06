@@ -3,6 +3,7 @@ import tasks from './routes/tasks.route';
 import pets from './routes/pets.route';
 import petTypes from './routes/petTypes.route';
 import users from './routes/users.route';
+import shelters from './routes/shelters.route'
 import usersController from './controllers/users.controller';
 
 const router = express.Router();
@@ -11,6 +12,7 @@ router.use('/tasks', tasks);
 router.use('/pets', pets);
 router.use('/petTypes', petTypes);
 router.use('/users', users);
+router.use('/shelters', shelters);
 router.post('/register', usersController.register);
 router.post('/authenticate', usersController.authenticate);
 
