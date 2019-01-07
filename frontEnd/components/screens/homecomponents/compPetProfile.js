@@ -13,6 +13,9 @@ import {Text} from "react-native-elements";
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import deviceStorage from "../../services/deviceStorage";
+import config from "../../../config";
+import {store} from "../../../store";
+import {connect} from "remx";
 
 class PetProfile extends PureComponent {
     static navigationOptions = {
@@ -39,24 +42,41 @@ class PetProfile extends PureComponent {
     //     );
     // }
     submitReservation() {
-        console.log('Reserved!');
-        if ((this.state.pet.canReserve === true && this.state.pet.reservedByUser === false) || (this.state.pet.canReserve === false && this.state.pet.reservedByUser === true)) {
-            console.log('In the if!');
-            this.setState(prevState => ({
-                pet: {
-                    ...prevState.pet,
-                    canReserve: !this.state.pet.canReserve,
-                    reservedByUser: !this.state.pet.reservedByUser
+        fetch(`http://${config.FETCH_URL}/api/v1/pets/${this.state.pet._id}/reserve`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization': 'Bearer ' + this.props.JWT
+            },
+        })
+            .then((response) => response.json())
+            .then(() => {
+                if ((this.state.pet.canReserve === true && this.state.pet.reservedByUser === false) || (this.state.pet.canReserve === false && this.state.pet.reservedByUser === true)) {
+                    console.log('In the if!');
+                    this.setState(prevState => ({
+                        pet: {
+                            ...prevState.pet,
+                            canReserve: !this.state.pet.canReserve,
+                            reservedByUser: !this.state.pet.reservedByUser
+                        }
+                    }));
+                    ToastAndroid.showWithGravity(
+                        'The pet has been reserved for you!',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.TOP,
+                    );
                 }
-            }))
-        }
-            else {
-                ToastAndroid.showWithGravity(
-                    'The pet is already reserved!',
-                    ToastAndroid.SHORT,
-                    ToastAndroid.TOP,
-                );
-        }
+                else {
+                    ToastAndroid.showWithGravity(
+                        'The pet is already reserved!',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.TOP,
+                    );
+                }
+            })
+            .catch((error) => {
+                console.log('You have got an error: ' + error);
+            });
     }
     render() {
         return (
@@ -109,7 +129,14 @@ class PetProfile extends PureComponent {
         )
     }
 }
-export default PetProfile;
+
+function mapStateToProps(ownProps) {
+    return {
+        JWT: store.getJwt()
+    };
+}
+
+export default connect(mapStateToProps)(PetProfile);
 
 const styles = StyleSheet.create({
     containerScrollView: {
