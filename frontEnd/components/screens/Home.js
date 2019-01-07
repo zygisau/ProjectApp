@@ -25,22 +25,21 @@ class Home extends Component {
         this.state = {
             entries: [],
         };
-        this.onPressProfileEvent = this.onPressProfileEvent.bind(this);
-        this.onPressListEvent = this.onPressListEvent.bind(this);
     }
-    onPressProfileEvent() {
-        console.log('You entered to your Profile screen! Well, at least imagine that you did ;)')
-    }
-    onPressListEvent() {
-        console.log('You entered to your List screen! Uff, not really')
-    }
-
     componentDidMount () {
         this.loadPets();
     }
-
+    componentWillReceiveProps(nextProps) {
+        console.log('incoming');
+        console.log(nextProps);
+        if(nextProps.navigation.state.params.refreshPets) {
+            this.setState({entries:[]}, () => {this.loadPets(); this.forceUpdate();});
+            this._carousel.snapToItem(0, false)
+        }
+    }
 
     loadPets () {
+        console.log('refreshed');
         fetch(`http://${config.FETCH_URL}/api/v1/pets`, {
             method: 'GET',
             headers: {
@@ -50,6 +49,7 @@ class Home extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
+                console.log('response');
                 console.log(responseJson);
                 this.setState({entries: responseJson})
             })
@@ -116,6 +116,7 @@ class Home extends Component {
                     itemWidth={itemWidth}
                     sliderWidth={itemWidth}
                     windowSize={1}
+                    ref={( c ) => {this._carousel = c;}}
                 />
             </View>
 

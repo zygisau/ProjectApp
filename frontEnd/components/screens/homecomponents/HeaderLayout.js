@@ -1,5 +1,5 @@
 import {Dimensions, StyleSheet, Text, View, TouchableOpacity, ToastAndroid} from "react-native";
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {Fonts} from "../../../utils/fonts";
 
 const {width, height} = Dimensions.get('window');
@@ -7,7 +7,7 @@ import {Icon} from 'react-native-elements'
 import config from "../../../config";
 
 
-class HeaderLayout extends Component {
+class HeaderLayout extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,6 +17,10 @@ class HeaderLayout extends Component {
             loved: props.data.isLiked,
         };
         this.onPressEvent = this.onPressEvent.bind(this);
+        this.submitLove = this.submitLove.bind(this);
+    }
+    componentDidMount() {
+        this.forceUpdate();
     }
 
     onPressEvent() {
@@ -67,8 +71,7 @@ class HeaderLayout extends Component {
                         <Icon name='favorite'
                               color={this.state.loved ? 'rgba(255, 132, 132, 0.73)' : 'rgba(255, 71, 71, 0.9)'}
                               size={60}
-                              onPress={this.onPressEvent
-                              }
+                              onPress={this.onPressEvent}
                               underlayColor={'rgba(255, 225, 255, 0)'}/>
                     </TouchableOpacity>
                 </View>
