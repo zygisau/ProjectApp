@@ -1,17 +1,13 @@
-import React, {PureComponent} from 'react';
+import React, {PureComponent, Component} from 'react';
 import {Alert, StyleSheet, Text, View, Image, ImageBackground, AppRegistry} from 'react-native';
 import {AppStackNavigator} from "./config/router";
+import {AppStackNavigatorShelter} from "./config/router";
 import {MainStackNavigator} from "./config/router";
-//import { Loading } from './components/common/loading';
-//import LoggedIn from './components/screens/logged';
-//import Loading from './components/screens/loading';
 import {store} from "./store";
-import { connect } from 'remx';
+import {connect} from 'remx';
 import deviceStorage from "./components/services/deviceStorage";
 import Home from "./components/screens/Home";
-//import Home from "./components/screens/Home";
-//import CompHomeScreen from "./components/screens/compLoginHome";
-//import {Navig} from './components/navigation/RootNavigation.js'
+
 
 class App extends PureComponent {
     constructor(props) {
@@ -22,6 +18,7 @@ class App extends PureComponent {
         deviceStorage.loadJWT();
         console.log("constructor came back from the function");
     }
+
     // WhileLoadingScreen () {
     //     setTimeout(() => {}, 900);
     //     deviceStorage.loadJWT();
@@ -33,9 +30,11 @@ class App extends PureComponent {
                     <AppStackNavigator/>
                 );
             } else if (this.props.JWT) {
-                return (
-                    <MainStackNavigator/>
-                );
+                if (this.props.isShelter) {
+                    return <AppStackNavigatorShelter/>
+                } else {
+                    return <MainStackNavigator/>
+                }
             }
         } else {
             return (
@@ -45,7 +44,7 @@ class App extends PureComponent {
                     </View>
                 </ImageBackground>
             );
-            }
+        }
     }
 }
 
@@ -82,7 +81,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(ownProps) {
     return {
         JWT: store.getJwt(),
-        Load: store.getLoad()
+        Load: store.getLoad(),
+        isShelter: store.getIsShelter()
     };
 }
 

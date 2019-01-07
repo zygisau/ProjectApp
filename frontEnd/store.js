@@ -4,7 +4,8 @@ remx.registerLoggerForDebug(console.log);
 // state
 const initialState = {
     jwt: '',
-    loaded: false
+    loaded: false,
+    isShelter: false
 };
 const state = remx.state(initialState);
 
@@ -15,6 +16,9 @@ const getters = remx.getters({
     },
     getLoad() {
         return state.loaded;
+    },
+    getIsShelter() {
+        return state.isShelter;
     }
 });
 
@@ -29,6 +33,9 @@ const setters = remx.setters({
         // }
         // else return state.setState ( {loaded:false});
         return state.loaded = true;
+    },
+    setIsShelter(value) {
+        return state.isShelter = value;
     }
 
 });
