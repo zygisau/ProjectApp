@@ -51,8 +51,7 @@ class PetProfile extends PureComponent {
         })
             .then((response) => response.json())
             .then(() => {
-                if ((this.state.pet.canReserve === true && this.state.pet.reservedByUser === false) || (this.state.pet.canReserve === false && this.state.pet.reservedByUser === true)) {
-                    console.log('In the if!');
+                if (this.state.pet.canReserve === true && this.state.pet.reservedByUser === false) {
                     this.setState(prevState => ({
                         pet: {
                             ...prevState.pet,
@@ -62,6 +61,20 @@ class PetProfile extends PureComponent {
                     }));
                     ToastAndroid.showWithGravity(
                         'The pet has been reserved for you!',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.TOP,
+                    );
+                }
+                if (this.state.pet.canReserve === false && this.state.pet.reservedByUser === true) {
+                    this.setState(prevState => ({
+                        pet: {
+                            ...prevState.pet,
+                            canReserve: !this.state.pet.canReserve,
+                            reservedByUser: !this.state.pet.reservedByUser
+                        }
+                    }));
+                    ToastAndroid.showWithGravity(
+                        'Reservation has been cancelled!',
                         ToastAndroid.SHORT,
                         ToastAndroid.TOP,
                     );
