@@ -28,7 +28,7 @@ controller.getLikedPets = async  (req, res) => {
         const pets = likedPets.map(function (pet) {
             const tempPet = pet.toObject();
             tempPet.canReserve = pet.reservedBy === null;
-            tempPet.reservedByUser = pet.reservedBy === req.user.sub;
+            tempPet.reservedByUser = pet.reservedBy == req.user.sub;
 
             return tempPet;
         });
