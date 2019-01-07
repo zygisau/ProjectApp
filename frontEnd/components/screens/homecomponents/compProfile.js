@@ -30,7 +30,7 @@ class Profile extends PureComponent {
             'You will be logged out',
             [
                 {text: 'Cancel', onPress: () => {}, style: 'cancel'},
-                {text: 'OK', onPress: () => {deviceStorage.deleteJWT()}},
+                {text: 'OK', onPress: () => {deviceStorage.deleteJWT(); deviceStorage.deleteIsShelter()}},
             ],
             { cancelable: false }
         )

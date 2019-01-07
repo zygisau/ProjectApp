@@ -10,7 +10,12 @@ export default class PetScreen extends Component {
     static navigationOptions = {
         header: null
     };
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            pet: props.navigation.getParam('item'),
+        };
+    }
     render() {
 
         return (
@@ -26,24 +31,23 @@ export default class PetScreen extends Component {
                     //         fontSize:21, fontWeight: '500', letterSpacing:2, flexDirection: 'row',
                     //         alignItems: 'center', flex:0.8 } }}
                      rightComponent={<Icon name="edit" size={33} style={styles.icon}
-                                           onPress={ () => this.props.navigation.navigate('Add')} /> }
+                                           onPress={ () => this.props.navigation.navigate('Edit', {item: this.state.pet})} /> }
                 />
 
 
                 <ScrollView contentConteinerStyle={styles.contentContainer}>
                     <View style={styles.imageContainer}>
-                        <Image source={require('../../images/bg2.jpeg')} style={styles.petImage} />
+                        <Image source={{ uri: this.state.pet.photo }} style={styles.petImage} />
                     </View>
 
                     <View style={styles.mainSection}>
-                        <Text style={styles.petName}> Pet name</Text>
-                        <Text> Age: pet age</Text>
-                        <Text> Pet Breed</Text>
-                        <Text style={styles.petDescription}> pet description</Text>
+                        <Text style={styles.petName}>{this.state.pet.name}</Text>
+                        <Text> Age: {this.state.pet.age}</Text>
+                        <Text> {this.state.pet.breed}</Text>
+                        <Text style={styles.petDescription}>{this.state.pet.description}</Text>
                         <Text>{'   '}</Text>
-                        <Text> Location: city, address</Text>
+                        <Text> Location: {this.state.pet.location}</Text>
                         <Text>{'   '}</Text>
-                        <Text> Contacts: phone number</Text>
                     </View>
 
                 </ScrollView>
