@@ -42,7 +42,7 @@ class PetProfile extends PureComponent {
     //     );
     // }
     submitReservation() {
-        fetch(`http://${config.FETCH_URL}/api/v1/pets/${this.state.pet._id}/reserve`, {
+        fetch(`http://${config.FETCH_URL}/api/v1/pets/${this.state.pet._id}/${this.state.pet.canReserve && !this.state.pet.reservedByUser ? 'reserve' : 'unreserve' }`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
@@ -65,7 +65,7 @@ class PetProfile extends PureComponent {
                         ToastAndroid.TOP,
                     );
                 }
-                if (this.state.pet.canReserve === false && this.state.pet.reservedByUser === true) {
+                 else if (this.state.pet.canReserve === false && this.state.pet.reservedByUser === true) {
                     this.setState(prevState => ({
                         pet: {
                             ...prevState.pet,
@@ -79,17 +79,17 @@ class PetProfile extends PureComponent {
                         ToastAndroid.TOP,
                     );
                 }
-                else {
-                    ToastAndroid.showWithGravity(
-                        'The pet is already reserved!',
-                        ToastAndroid.SHORT,
-                        ToastAndroid.TOP,
-                    );
-                }
             })
             .catch((error) => {
                 console.log('You have got an error: ' + error);
             });
+    }
+    alreadyReserved() {
+            ToastAndroid.showWithGravity(
+                'The pet is already reserved!',
+                ToastAndroid.SHORT,
+                ToastAndroid.TOP,
+            );
     }
     render() {
         return (
@@ -132,7 +132,7 @@ class PetProfile extends PureComponent {
                     </View> :
                     <View style={styles.reservation}>
                         <Button
-                            onPress={this.submitReservation}
+                            onPress={this.alreadyReserved}
                             title={'PET HAS BEEN ALREADY RESERVED'}
                             buttonStyle={styles.buttonReservedByOther}
                         />

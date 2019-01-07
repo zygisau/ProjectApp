@@ -32,7 +32,7 @@ class Home extends Component {
     componentWillReceiveProps(nextProps) {
         console.log('incoming');
         console.log(nextProps);
-        if(nextProps.navigation.state.params.refreshPets) {
+        if(nextProps.navigation.state.params !== undefined && nextProps.navigation.state.params.refreshPets) {
             this.setState({entries:[]}, () => {this.loadPets(); this.forceUpdate();});
             this._carousel.snapToItem(0, false)
         }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, StyleSheet, Text, View, Image, ImageBackground, AppRegistry} from 'react-native';
+import {Alert, StyleSheet, Text, View, Image, ImageBackground, AppRegistry, ToastAndroid} from 'react-native';
 import {Button} from 'react-native-elements';
 import {Fonts} from "../../utils/fonts";
 
@@ -11,7 +11,13 @@ class CompHomeScreen extends React.Component {
     constructor(props) {
         super(props);
     };
-
+    notDoneYet() {
+        ToastAndroid.showWithGravity(
+            'This feature is not supported yet.',
+            ToastAndroid.SHORT,
+            ToastAndroid.BOTTOM,
+        );
+    }
     render() {
         return (
             <ImageBackground style={styles.container} source={require('../../assets/images/bg3.jpg')}>
@@ -22,11 +28,13 @@ class CompHomeScreen extends React.Component {
                     <Button
                         buttonStyle={styles.buttonFacebook}
                         title='CONTINUE WITH FACEBOOK'
-                        textStyle={styles.btText}/>
+                        textStyle={styles.btText}
+                        onPress={this.notDoneYet} />
                     <Button
                         buttonStyle={styles.buttonGoogle}
                         title='CONTINUE WITH GOOGLE'
-                        textStyle={styles.btText}/>
+                        textStyle={styles.btText}
+                        onPress={this.notDoneYet} />
                     <Button
                         buttonStyle={styles.buttonSign}
                         title='SIGN UP'
@@ -43,10 +51,7 @@ class CompHomeScreen extends React.Component {
                 </View>
                 <View style={styles.language}>
                     <Button
-                        onPress={() => {
-                            //Alert.alert('You tapped the button!');
-                            console.log('change language button has been pressed');
-                        }}
+                        onPress={this.notDoneYet}
                         buttonStyle={styles.buttonLanguage}
                         title='CHANGE LANGUAGE'
                         //clear='true'
