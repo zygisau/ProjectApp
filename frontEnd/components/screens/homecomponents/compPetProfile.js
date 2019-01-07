@@ -5,7 +5,7 @@ import {
     View,
     Tile,
     Image, Dimensions,
-    ScrollView, Alert
+    ScrollView, Alert, ToastAndroid
 } from 'react-native';
 const { width, height } = Dimensions.get('window');
 import {Fonts} from "../../../utils/fonts";
@@ -22,47 +22,41 @@ class PetProfile extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            pet: this.props.navigation.getParam('item'),
-            //reserved: this.state.pet.isReserved
-            //canReserve = reserved
-            //reservedByUser = thisGuyReserved
+            pet: props.navigation.getParam('item'),
         };
-        this.changeState = this.changeState.bind(this);
+        this.submitReservation = this.submitReservation.bind(this);
     }
-    // componentDidMount() {
-    //     // CIA BUS FETCH
-    //     /**/
-    //     // TADA KAZKUR REIK IDET SITA TIKRINIMA
-    //     // JEI NIEKAS NEUZREZERVAVO VADINAS, THISGUYRESERVED: TRUE, KAD DUOTU UZREZERVUOT
-    //     if (1) this.setState({thisGuyReserved: true});
-    //         else this.setState({thisGuyReserved: false})
+    // onPressEvent() {
+    //     //const change = () => {this.submitReservation};
+    //     Alert.alert(
+    //         'Do you really want to make reservation?',
+    //         'Pet will be reserved for you for one week. After one week your reservation will be declined and the pet wil be made available to reserve for others.',
+    //         [
+    //             {text: 'Cancel', onPress: () => {}, style: 'cancel'},
+    //             {text: 'OK', onPress: () => {this.submitReservation()}},
+    //         ],
+    //         { cancelable: true }
+    //     );
     // }
-    //
-    // changeState() {
-    //     console.log('change!');
-    //     if (!this.state.reserved) {
-    //         console.log('change!');
-    //         this.setState({reserved: true}, this.submitReservation);
-    //     }
-    //     else {
-    //         console.log('change!');
-    //         this.setState({reserved: false}, this.submitReservation);
-    //     }
-    // }
-    onPressEvent() {
-        const change = () => {this.changeState()};
-        Alert.alert(
-            'Do you really want to make reservation?',
-            'Pet will be reserved for you for one week. After one week your reservation will be declined and made available to reserve for others. This change cannot be undone.',
-            [
-                {text: 'Cancel', onPress: () => {}, style: 'cancel'},
-                {text: 'OK', onPress: () => {change()}},
-            ],
-            { cancelable: true }
-        );
-    }
     submitReservation() {
         console.log('Reserved!');
+        if ((this.state.pet.canReserve === true && this.state.pet.reservedByUser === false) || (this.state.pet.canReserve === false && this.state.pet.reservedByUser === true)) {
+            console.log('In the if!');
+            this.setState(prevState => ({
+                pet: {
+                    ...prevState.pet,
+                    canReserve: !this.state.pet.canReserve,
+                    reservedByUser: !this.state.pet.reservedByUser
+                }
+            }))
+        }
+            else {
+                ToastAndroid.showWithGravity(
+                    'The pet is already reserved!',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.TOP,
+                );
+        }
     }
     render() {
         return (
@@ -87,19 +81,27 @@ class PetProfile extends PureComponent {
                 <View style={styles.subtitle}>
                     <Text style={styles.description}>{this.state.pet.description}</Text>
                 </View>
-                {this.state.thisGuyReserved ?
+                {this.state.pet.canReserve && !this.state.pet.reservedByUser ?
                     <View style={styles.reservation}>
                         <Button
-                            onPress={this.changeState}
-                            title={this.state.reserved ? 'YOU RESERVED THIS PET' : 'MAKE RESERVATION'}
-                            buttonStyle={styles.button}
+                            onPress={this.submitReservation}
+                            title={this.state.pet.reservedByUser ? 'YOU RESERVED THIS PET' : 'MAKE RESERVATION'}
+                            buttonStyle={this.state.pet.reservedByUser ? styles.buttonReservedByUser : styles.button}
+                        />
+                    </View> :
+                    !this.state.pet.canReserve && this.state.pet.reservedByUser ?
+                    <View style={styles.reservation}>
+                        <Button
+                            onPress={this.submitReservation}
+                            title={this.state.pet.reservedByUser ? 'YOU RESERVED THIS PET' : 'MAKE RESERVATION'}
+                            buttonStyle={this.state.pet.reservedByUser ? styles.buttonReservedByUser : styles.button}
                         />
                     </View> :
                     <View style={styles.reservation}>
                         <Button
-                            onPress={()=>{}}
+                            onPress={this.submitReservation}
                             title={'PET HAS BEEN ALREADY RESERVED'}
-                            buttonStyle={styles.button}
+                            buttonStyle={styles.buttonReservedByOther}
                         />
                     </View>}
             </View>
@@ -112,7 +114,7 @@ export default PetProfile;
 const styles = StyleSheet.create({
     containerScrollView: {
         flex: 1,
-        backgroundColor: '#fffecc',
+        backgroundColor: '#eae9eb',
         resizeMode: 'cover',
     },
     container: {
@@ -160,6 +162,16 @@ const styles = StyleSheet.create({
     button: {
         bottom: 10,
         borderRadius: 50,
-        //backgroundColor: this.state.reserved ? '#d15c69' : '#d02337'
+        backgroundColor: '#d02337'
+    },
+    buttonReservedByUser: {
+        bottom: 10,
+        borderRadius: 50,
+        backgroundColor: '#d15c69'
+    },
+    buttonReservedByOther: {
+        bottom: 10,
+        borderRadius: 50,
+        backgroundColor: '#d08898'
     }
 });
