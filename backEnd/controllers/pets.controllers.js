@@ -60,6 +60,16 @@ controller.reservePet = async (req, res) => {
         res.status(500).send(e);
     }
 };
+
+controller.unreservePet = async (req, res) => {
+    try {
+        await Pet.findOneAndUpdate({_id: req.params.petId, reservedBy: req.user.sub}, {reservedBy: null});
+        res.status(201).json({success: true})
+    } catch (e) {
+        res.status(500).send(e);
+    }
+};
+
 controller.getPet = async (req, res) => {
     try {
         const pet = await Pet.findById(req.params.petId).populate('petType');
