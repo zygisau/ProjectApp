@@ -17,5 +17,5 @@ router.route('/:petId')
 
 router.post('/:petId/like', petsController.likePet);
 router.post('/:petId/unlike', petsController.unlikePet);
-
+router.post('/:petId/reserve', petsController.reservePet);
 export default router;
