@@ -8,6 +8,7 @@ import compShelterReservations from "../components/screens/shelterReservations";
 import compShelterAdd from"../components/screens/shelterAdd";
 import compPetScreen from "../components/screens/shelterPetScreen";
 
+
 export const AppStackNavigator = createStackNavigator(
     {
         Home: compShelterMain,
@@ -15,7 +16,7 @@ export const AppStackNavigator = createStackNavigator(
         Love: compShelterLove,
         Reservations: compShelterReservations,
         Add:compShelterAdd,
-        Pet:compPetScreen
+        Pet:compPetScreen,
     },
     {
         initialRouteName: 'Home',

@@ -31,6 +31,7 @@ class shelterMain extends Component {
                             buttonStyle={styles.button}
                             onPress={ () => this.props.navigation.navigate('Reservations')} />
 
+
                 </View>
             </ImageBackground>
 

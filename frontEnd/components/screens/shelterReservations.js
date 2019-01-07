@@ -118,9 +118,11 @@ class shelterReservations extends Component {
                                         roundAvatar
                                         avatar={{uri:l.avatar_url}}
                                         key={l.name}
+
                                         title={l.name}
+                                            //<Text> {l.name} </Text>
                                         subtitle={l.subtitle}
-                                        onPress={ () => this.props.navigation.navigate('Pet')}
+                                        //onPress={ () => this.props.navigation.navigate('Pet')}
                                         />
                                     /*}*/
 

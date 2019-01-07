@@ -25,8 +25,8 @@ export default class PetScreen extends Component {
                     // centerComponent={{ text: 'Pet List', style: { color: '#fff',
                     //         fontSize:21, fontWeight: '500', letterSpacing:2, flexDirection: 'row',
                     //         alignItems: 'center', flex:0.8 } }}
-                    // rightComponent={<Icon name="add-circle-outline" size={33} style={styles.icon}
-                    //                       onPress={ () => this.props.navigation.navigate('Add')} /> }
+                     rightComponent={<Icon name="edit" size={33} style={styles.icon}
+                                           onPress={ () => this.props.navigation.navigate('Add')} /> }
                 />
 
 
@@ -38,31 +38,14 @@ export default class PetScreen extends Component {
                     <View style={styles.mainSection}>
                         <Text style={styles.petName}> Pet name</Text>
                         <Text> Age: pet age</Text>
-                        <Text>{'  '}</Text>
+                        <Text> Pet Breed</Text>
                         <Text style={styles.petDescription}> pet description</Text>
                         <Text>{'   '}</Text>
                         <Text> Location: city, address</Text>
                         <Text>{'   '}</Text>
                         <Text> Contacts: phone number</Text>
-
                     </View>
 
-                    <View style={styles.bottom1}>
-                        <View style={styles.buttonContainer}>
-                            <Button title="Add"
-                                    style={styles.button}
-                                    backgroundColor={'#2e2f2e'}
-                                    onPress={() => {Alert.alert('You added a pet');}} />
-                        </View>
-                        <Text>{'     '}</Text>
-                        <View style={styles.buttonContainer}>
-                            <Button title="Cancel"
-                                    backgroundColor={'#2e2f2e'}
-                                    style={styles.button}
-                                    onPress={ () => this.props.navigation.goBack()}/>
-                        </View>
-
-                    </View>
                 </ScrollView>
 
             </View>
@@ -115,18 +98,5 @@ const styles = StyleSheet.create({
         color:'white' ,
         flexDirection: 'row',
         flex:0
-    },
-    buttonContainer: {
-        borderRadius: 15,
-        backgroundColor: '#2e2f2e',
-        flex: 0.4,
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        //alignItems: 'stretch',
-    },
-    button: {
-        //height: 50,
-        flexDirection: 'row',
-        alignItems: 'center',
     },
 });
