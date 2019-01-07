@@ -24,6 +24,10 @@ const usersSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    isShelter: {
+        type: Boolean,
+        default: false
     }
 });
 
