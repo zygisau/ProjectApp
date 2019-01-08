@@ -41,7 +41,7 @@ controller.getLikedPets = async (req, res) => {
 
 controller.getReservedPets = async (req, res) => {
     try {
-        const reservedPets = await Pet.find({reservedBy: { $ne: null }});
+        const reservedPets = await Pet.find({reservedBy: { $ne: null }}).populate('reservedBy');
 
         res.json(reservedPets);
     } catch (e) {
