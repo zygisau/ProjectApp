@@ -1,18 +1,96 @@
 'use strict';
 
-import React, { Component } from 'react';
-import {Image, ScrollView, StyleSheet, Text, View, ImageBackground, Alert} from 'react-native';
+import React, {Component} from 'react';
+import {Image, ScrollView, StyleSheet, Text, View, ImageBackground, Alert, ToastAndroid, Picker} from 'react-native';
 import {FormLabel, FormInput, FormValidationMessage, Button} from 'react-native-elements';
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import config from "../../config";
+import {store} from "../../store";
+import {connect} from "remx";
 
-export default class PetScreen extends Component {
+class PetScreen extends Component {
     static navigationOptions = {
         header: null
     };
 
-    render() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            pet: {},
+            petTypes: []
+        };
+        this.submitChanges = this.submitChanges.bind(this);
+        this.getPetTypes = this.getPetTypes.bind(this);
+    }
 
+    componentDidMount() {
+        this.getPetTypes();
+    }
+
+    getPetTypes() {
+        fetch(`http://${config.FETCH_URL}/api/v1/petTypes/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization': 'Bearer ' + this.props.JWT
+            },
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson);
+                this.setState({petTypes: responseJson}, () => {
+                    this.setState({
+                        pet: {
+                            ...this.state.pet,
+                            petType: this.state.petTypes[0]._id,
+                        }
+                    });
+                })
+            })
+    }
+
+    submitChanges() {
+        let params = {
+            name: this.state.pet.name,
+            age: this.state.pet.age,
+            breed: this.state.pet.breed,
+            description: this.state.pet.description,
+            petType: this.state.pet.petType,
+            photo: this.state.pet.photo,
+        };
+        console.log('hey');
+        console.log({params});
+        fetch(`http://${config.FETCH_URL}/api/v1/pets/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization': 'Bearer ' + this.props.JWT
+            },
+            body: JSON.stringify(params),
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log('hou');
+                console.log(responseJson);
+                ToastAndroid.showWithGravity(
+                    'Pet has been created.',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.BOTTOM,
+                );
+            })
+            .then((responseJson) => {
+                this.props.navigation.navigate("List", {refreshPets: true})
+            })
+            .catch((error) => {
+                console.log('You have got an error: ' + error);
+            });
+    }
+
+    render() {
+        const pickerOptions = this.state.petTypes.map((item) => (
+            <Picker.Item label={item.name} value={item._id}/>
+        ));
         return (
             <ImageBackground style={styles.container} source={require('../../images/bg2.jpeg')}>
                 <KeyboardAwareScrollView
@@ -20,72 +98,94 @@ export default class PetScreen extends Component {
                     contentContainerStyle={{flex: 1}}
                     enableAutomaticScroll={true}>
                     <View style={styles.logIn}>
-                        <Text style={styles.logInText}>Add a pet {'      '}
+                        <Text style={styles.logInText}>Add pet {'      '}
                         </Text>
-
                     </View>
 
                     <View style={styles.logInputs}>
                         <FormInput
-                             onChangeText={(Name) => this.setState({Name})} inputStyle={styles.border}
+                            onChangeText={(pet) => this.setState(prevState => ({
+                                pet: {
+                                    ...prevState.pet,
+                                    name: pet,
+                                }
+                            }))}
+                            inputStyle={styles.border}
+                            placeholder={'Name'}
                             placeholderTextColor={'#7c7e7c'}
                             autoCorrect={false}
-                            placeholder="Name"
                             label={"Field 1"}
-                            blurOnSubmit={ false }
-                            returnKeyType={ 'next' }
+                            blurOnSubmit={false}
+                            returnKeyType={'next'}
                         />
                         <FormInput
-                            onChangeText={(Age) => this.setState({Age})}
+                            onChangeText={(pet) => this.setState(prevState => ({
+                                pet: {
+                                    ...prevState.pet,
+                                    age: pet,
+                                }
+                            }))}
                             inputStyle={styles.border}
                             autoCorrect={false}
                             keyboardType={'numeric'}
                             placeholderTextColor={'#7c7e7c'} placeholder="Age"
                             //ref={input => { this.inputs['field2'] = input }}
                             //label={"Field 2"}
-                            blurOnSubmit={ false }
-                            returnKeyType={ 'next' }
-                             />
+                            blurOnSubmit={false}
+                            returnKeyType={'next'}
+                        />
                         <FormInput
-                            onChangeText={(Breed) => this.setState({Breed})}
+                            onChangeText={(value) => this.setState(prevState => ({
+                                pet: {
+                                    ...prevState.pet,
+                                    breed: value,
+                                }
+                            }))}
                             inputStyle={styles.border}
                             autoCorrect={false}
                             placeholderTextColor={'#7c7e7c'}
                             placeholder="Breed"
                             //ref={input => { this.inputs['field2'] = input }}
                             //label={"Field 2"}
-                            blurOnSubmit={ false }
-                            returnKeyType={ 'next' }
+                            blurOnSubmit={false}
+                            returnKeyType={'next'}
                         />
                         <FormInput
-                            onChangeText={(Description) => this.setState({Description})}
+                            onChangeText={(value) => this.setState(prevState => ({
+                                pet: {
+                                    ...prevState.pet,
+                                    description: value,
+                                }
+                            }))}
                             inputStyle={styles.border}
                             autoCorrect={false}
                             placeholderTextColor={'#7c7e7c'}
                             placeholder="Description"
                             //ref={input => { this.inputs['field3'] = input }}
                             //label={"Field 3"}
-                            blurOnSubmit={ false }
+                            blurOnSubmit={false}
                             //returnKeyType={ 'next' }
-                             />
-
-
+                        />
+                        <View style={styles.borderPicker}>
+                            <Picker
+                                selectedValue={this.state.pet.petType}
+                                style={{color: 'white'}}
+                                onValueChange={(value) => this.setState(prevState => ({
+                                    pet: {
+                                        ...prevState.pet,
+                                        petType: value,
+                                    }
+                                }))}>
+                                {pickerOptions}
+                            </Picker>
+                        </View>
                         <FormInput
-                            //secureTextEntry={true}
-                            onChangeText={(Location) => {this.setState({Location}, this.validation);}}
-                            inputStyle={styles.border}
-                            autoCorrect={false}
-                            //autoCapitalize='none'
-                            placeholderTextColor={'#7c7e7c'}
-                            placeholder="Location"
-                            //ref={input => { this.inputs['field4'] = input }}
-                            //label={"Field 4"}
-                            blurOnSubmit={ false }
-                            //returnKeyType={ 'next' }
-                            />
-                        <FormInput
-                            //secureTextEntry={true}
-                            onChangeText={(photo) => {this.setState({photo}, this.validation);}}
+                            onChangeText={(pet) => this.setState(prevState => ({
+                                pet: {
+                                    ...prevState.pet,
+                                    photo: pet,
+                                }
+                            }))}
                             inputStyle={styles.border}
                             autoCorrect={false}
                             autoCapitalize='none'
@@ -93,26 +193,24 @@ export default class PetScreen extends Component {
                             placeholder="Add a photo"
                             //ref={input => { this.inputs['field4'] = input }}
                             //label={"Field 4"}
-                            blurOnSubmit={ false }
+                            blurOnSubmit={false}
                             //returnKeyType={ 'next' }
                         />
                     </View>
                     <View style={styles.bottom1}>
-                            <View style={styles.buttonContainer}>
-                                <Button title="Add"
-                                        style={styles.button}
-                                        backgroundColor={'#2e2f2e'}
-                                        onPress={() => {Alert.alert('You added a pet');}} />
-                            </View>
+                        <View style={styles.buttonContainer}>
+                            <Button title="Add"
+                                    style={styles.button}
+                                    backgroundColor={'#2e2f2e'}
+                                    onPress={this.submitChanges}/>
+                        </View>
                         <Text>{'     '}</Text>
-                            <View style={styles.buttonContainer}>
-                                <Button title="Cancel"
-                                        backgroundColor={'#2e2f2e'}
-                                        style={styles.button}
-                                        onPress={ () => this.props.navigation.goBack()}/>
-                            </View>
-
-
+                        <View style={styles.buttonContainer}>
+                            <Button title="Cancel"
+                                    backgroundColor={'#2e2f2e'}
+                                    style={styles.button}
+                                    onPress={() => this.props.navigation.goBack()}/>
+                        </View>
                     </View>
                 </KeyboardAwareScrollView>
             </ImageBackground>
@@ -121,6 +219,14 @@ export default class PetScreen extends Component {
     }
 
 }
+
+function mapStateToProps(ownProps) {
+    return {
+        JWT: store.getJwt()
+    };
+}
+
+export default connect(mapStateToProps)(PetScreen);
 
 const styles = StyleSheet.create({
     container: {
@@ -184,7 +290,18 @@ const styles = StyleSheet.create({
         height: 55,
         justifyContent: 'center',
         backgroundColor: '#383938',
-        color:'white',
+        color: 'white',
+        borderRadius: 20,
+        marginTop: 20,
+        paddingLeft: 20
+    },
+    borderPicker: {
+        height: 55,
+        width: '92%',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#383938',
+        color: 'white',
         borderRadius: 20,
         marginTop: 20,
         paddingLeft: 20
@@ -212,8 +329,8 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     buttonContainer: {
-         borderRadius: 15,
-         backgroundColor: '#2e2f2e',
+        borderRadius: 15,
+        backgroundColor: '#2e2f2e',
         flex: 0.4,
         flexDirection: 'column',
         justifyContent: 'space-around',

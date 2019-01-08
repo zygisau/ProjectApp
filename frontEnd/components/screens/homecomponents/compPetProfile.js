@@ -79,6 +79,7 @@ class PetProfile extends PureComponent {
                         ToastAndroid.TOP,
                     );
                 }
+                store.setReservationMade(true);
             })
             .catch((error) => {
                 console.log('You have got an error: ' + error);

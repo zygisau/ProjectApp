@@ -26,7 +26,7 @@ const Pet = new Schema({
     shelter: {
       type: Schema.Types.ObjectId,
       ref: 'Shelter',
-      required: 'Shelter is required'
+     // required: 'Shelter is required'
     },
     description: {
         type: String,

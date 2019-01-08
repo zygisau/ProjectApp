@@ -27,14 +27,20 @@ class Home extends Component {
             entries: [],
             index: 0,
             size: {width, height},
-
         };
+        this.reload = this.reload.bind(this);
     }
 
     componentDidMount() {
         this.loadPets();
+        this.props.navigation.addListener('willFocus', this.reload)
     }
-
+    reload() {
+        if(this.props.reservationMade) {
+            this.loadPets();
+            store.setReservationMade(false);
+        }
+    }
     componentWillReceiveProps(nextProps) {
         console.log('incoming');
         console.log(nextProps);
@@ -206,7 +212,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(ownProps) {
     return {
-        JWT: store.getJwt()
+        JWT: store.getJwt(),
+        reservationMade: store.getReservationMade()
     };
 }
 
