@@ -243,94 +243,49 @@ import {Button, Header, List, ListItem} from 'react-native-elements';
 import {Fonts} from "../../utils/fonts";
 import Icon from 'react-native-vector-icons/Entypo';
 import Icon1 from 'react-native-vector-icons/MaterialIcons';
+import config from "../../config";
+import {store} from "../../store";
+import {connect} from "remx";
 //import {AppStackNavigator} from "../../config/router";
-
-
-const list = [
-    {
-        name: 'Devin',
-        avatar_url: 'https://images.pexels.com/photos/8700/wall-animal-dog-pet.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-        count: ' 22',
-        age: '3',
-
-    },
-    {
-        name: 'Pumpkin',
-        avatar_url: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-        count: ' 20',
-        age: '6',
-    },
-    {
-        name: 'Jazzy',
-        avatar_url: 'https://images.pexels.com/photos/1345191/pexels-photo-1345191.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-        count: ' 17',
-        age: '2',
-    },
-    {
-        name: 'Sheldon',
-        avatar_url: 'https://images.pexels.com/photos/160846/french-bulldog-summer-smile-joy-160846.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-        count: ' 16',
-        age: '5',
-    },
-    {
-        name: 'Baxter',
-        avatar_url: 'https://images.pexels.com/photos/58997/pexels-photo-58997.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-        count: ' 15',
-        age: '1',
-    },
-    {
-        name: 'Chrisy',
-        avatar_url: 'https://images.pexels.com/photos/774731/pexels-photo-774731.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-        count: ' 13',
-        age: '4',
-    },
-    {
-        name: 'Silvester',
-        avatar_url: 'https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-        count: ' 12',
-        age: '6 months',
-    },
-    {
-        name: 'Jerico',
-        avatar_url: 'https://images.pexels.com/photos/126407/pexels-photo-126407.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-        count: ' 11',
-        age: '2',
-    },
-    {
-        name: 'Amy',
-        avatar_url: 'https://images.pexels.com/photos/422220/pexels-photo-422220.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-        count: ' 10',
-        age: '3',
-    },
-    {
-        name: 'Jack',
-        avatar_url: 'https://images.pexels.com/photos/434090/pexels-photo-434090.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-        count: ' 8',
-        age: '7',
-    },
-    {
-        name: 'Teddy',
-        avatar_url: 'https://images.pexels.com/photos/1490908/pexels-photo-1490908.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-        count: ' 6',
-        age: '3',
-    },
-    {
-        name: 'Molly',
-        avatar_url: 'https://images.pexels.com/photos/356378/pexels-photo-356378.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-        count: ' 7',
-        age: '2',
-    },
-];
-
-// const name
 
 class shelterReservations extends Component {
     static navigationOptions = {
         header:null
 
     };
-
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            list: []
+        };
+    };
+    componentWillReceiveProps(nextProps) {
+        console.log('incoming');
+        console.log(nextProps);
+        if(nextProps.navigation.state.params !== undefined && nextProps.navigation.state.params.refreshPets) {
+            this.setState({list:[]}, () => {this.fetchPets(); this.forceUpdate();});
+        }
+    }
+    componentDidMount() {
+        this.fetchPets()
+    }
+    fetchPets() {
+        fetch(`http://${config.FETCH_URL}/api/v1/pets`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization': 'Bearer ' + this.props.JWT
+            },
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson);
+                this.setState({list: responseJson})
+            })
+            .catch((error) => {
+                console.log('You have got an error: ' + error);
+            });
+    }
     render() {
         return (
             <ImageBackground style={styles.container} source={require('../../images/bg2.jpeg')}>
@@ -353,24 +308,24 @@ class shelterReservations extends Component {
 
                         <List containerStyle={styles.listContainer}>
                             {
-                                list.map((l) => (
+                                this.state.list.map((l) => (
 
                                     <ListItem containerStyle={styles.itemContainer}
                                               avatarStyle={styles.avatarContainer}
                                               avatarContainerStyle={styles.avatarContainerStyle}
 
                                               titleNumberOfLines={2} subtitleNumberOfLines={2}
-                                              avatar={{uri:l.avatar_url}}
-                                              key={l.name}
+                                              avatar={{uri:l.photo}}
+                                              key={l._id}
                                               rightIcon={{color:'white'}}
                                               title={/*l.name}*/
                                                   <Text style={styles.title}>{'  '} {l.name} {"\n"} {' '} Age: {l.age} </Text>
                                               }
                                               subtitle={<Text style={styles.subtitle} numberOfLines={1}> {'  '}
                                                   <Icon name="heart" size={20} color= "red"/*"#4F8EF7"*/ />
-                                                  {l.count}
+                                                  {l.likes.length}
                                               </Text>}
-                                              //onPress={ () => this.props.navigation.navigate('Pet')}
+                                              onPress={ () => this.props.navigation.navigate('Pet', {item: l, loveScreen: true})}
                                     />
 
 
@@ -387,7 +342,13 @@ class shelterReservations extends Component {
     }
 }
 
-export default shelterReservations;
+function mapStateToProps(ownProps) {
+    return {
+        JWT: store.getJwt()
+    };
+}
+
+export default connect(mapStateToProps)(shelterReservations);
 
 const styles = StyleSheet.create({
     container: {

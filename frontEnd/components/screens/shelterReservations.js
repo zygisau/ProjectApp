@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, Image, ImageBackground, FlatList, ScrollView } 
 import {Button, Header, List, ListItem} from 'react-native-elements';
 import {Fonts} from "../../utils/fonts";
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import config from "../../config";
+import {store} from "../../store";
+import {connect} from "remx";
 //import {AppStackNavigator} from "../../config/router";
 
 
@@ -88,8 +91,33 @@ class shelterReservations extends Component {
         header:null
 
     };
-
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            list: [],
+            user: []
+        };
+    };
+    componentDidMount() {
+        //this.fetchPets()
+    }
+    fetchPets() {
+        fetch(`http://${config.FETCH_URL}/api/v1/reservedPets`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization': 'Bearer ' + this.props.JWT
+            },
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log(responseJson);
+                this.setState({list: responseJson})
+            })
+            .catch((error) => {
+                console.log('You have got an error: ' + error);
+            });
+    }
     render() {
         return (
             <ImageBackground style={styles.container} source={require('../../images/bg2.jpeg')}>
@@ -111,22 +139,18 @@ class shelterReservations extends Component {
 
                         <List containerStyle={{marginTop: 0}}>
                             {
-                                list.map((l) => (
-
+                                this.state.list.map((l) => (
                                     /*if{l.type='message'}{*/
-                                            <ListItem
+                                    <ListItem
                                         roundAvatar
-                                        avatar={{uri:l.avatar_url}}
-                                        key={l.name}
-
-                                        title={l.name}
-                                            //<Text> {l.name} </Text>
-                                        subtitle={l.subtitle}
+                                        avatar={{uri: l.photo}}
+                                        key={l._id}
+                                        title={`${user.firstName} ${user.lastName}`}
+                                        //<Text> {l.name} </Text>
+                                        subtitle={`Has reserved ${l.name}`}
                                         //onPress={ () => this.props.navigation.navigate('Pet')}
-                                        />
+                                    />
                                     /*}*/
-
-
                                 ))
                             }
                         </List>
@@ -138,8 +162,13 @@ class shelterReservations extends Component {
         );
     }
 }
+function mapStateToProps(ownProps) {
+    return {
+        JWT: store.getJwt()
+    };
+}
 
-export default shelterReservations;
+export default connect(mapStateToProps)(shelterReservations);
 
 const styles = StyleSheet.create({
     container: {

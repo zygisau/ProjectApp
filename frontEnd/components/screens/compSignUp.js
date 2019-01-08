@@ -66,6 +66,7 @@ class CompSignUpScreen extends PureComponent {
                 deviceStorage.saveItem("id_token", responseJson.token);
                 deviceStorage.saveIsShelter("isShelter", responseJson._doc.isShelter);
                 console.log(responseJson);
+
             })
             .catch((error) => {
                 console.log(error);
