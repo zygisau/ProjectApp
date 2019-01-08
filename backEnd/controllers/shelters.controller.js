@@ -12,7 +12,7 @@ controller.getAll = async (req, res) => {
     }
 };
 controller.addShelter = async (req, res) => {
-    const newShelter = new Shelter({ name: req.body.name });
+    const newShelter = new Shelter({ name: req.body.name, location: req.body.location });
     try {
         const savedShelter = await newShelter.save();
         res.status(201).json(savedShelter);
