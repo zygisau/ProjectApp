@@ -316,7 +316,7 @@ class shelterReservations extends Component {
                                               titleNumberOfLines={2} subtitleNumberOfLines={2}
                                               avatar={{uri:l.photo}}
                                               key={l._id}
-                                              
+
                                               title={/*l.name}*/
                                                   <Text style={styles.title}>{'  '} {l.name} {"\n"} {' '} Age: {l.age} </Text>
                                               }

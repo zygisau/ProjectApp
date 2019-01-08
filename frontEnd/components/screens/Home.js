@@ -24,7 +24,9 @@ class Home extends Component {
         console.log(this.props);
         this.state = {
             entries: [],
+            index: 0
         };
+        this.infiniteLoop = this.infiniteLoop.bind(this)
     }
     componentDidMount () {
         this.loadPets();
@@ -34,7 +36,7 @@ class Home extends Component {
         console.log(nextProps);
         if(nextProps.navigation.state.params !== undefined && nextProps.navigation.state.params.refreshPets) {
             this.setState({entries:[]}, () => {this.loadPets(); this.forceUpdate();});
-            this._carousel.snapToItem(0, false)
+            this._carousel.snapToItem(1, false)
         }
     }
 
@@ -50,8 +52,14 @@ class Home extends Component {
             .then((response) => response.json())
             .then((responseJson) => {
                 console.log('response');
-                console.log(responseJson);
-                this.setState({entries: responseJson})
+                let data = responseJson;
+                let url = 'https://www.mobygames.com/images/shots/l/324581-line-rider-browser-screenshot-loading-screen-silverlight-version.png'
+                data.push({name: '    ', photo: `${url}`});
+                data.unshift({name: '   ', photo: `${url}`});
+
+                this.setState({entries: data});
+                setTimeout(() => {this._carousel.snapToItem(1, false, false);}, 1000);
+
             })
             .catch((error) => {
                 console.log('You have got an error: ' + error);
@@ -88,21 +96,55 @@ class Home extends Component {
                     {...parallaxProps}
                 />
 
-                <SlidingPanel
-                    headerLayoutHeight = {90}
-                    headerLayout = { () =>
-                        <HeaderLayout data={item} JWT={this.props.JWT}/>
-                    }
-                    slidingPanelLayout = { () =>
-                        <SlidingPanelLayout data={item} />
-                    }
-                />
+                    { index === 0 || index === this.state.entries.length ?
+                   null :  <SlidingPanel
+                            headerLayoutHeight = {90}
+                            headerLayout = { () =>
+                                <HeaderLayout data={item} JWT={this.props.JWT}/>
+                            }
+                            slidingPanelLayout = { () =>
+                                <SlidingPanelLayout data={item} />
+                            }
+                        />}
                 </View>
             </View>
         );
     }
+    infiniteLoop(newIndex) {
+        console.log('infinite');
+
+        let nIndex = newIndex;
+        console.log(newIndex);
+        console.log(this.state.entries);
+        switch (newIndex) {
+            case 0:
+                nIndex = this.state.entries.length-2;
+                break;
+
+            case (this.state.entries.length-1):
+                nIndex = 1;
+                break;
+        }
+        if (nIndex !== newIndex) {
+            console.log("AAAA");
+            setTimeout(() => {this._carousel.snapToItem (nIndex, false, false);}, 1000)
+
+        }
 
 
+        // const newEntries = this.state.entries;
+        // if (newIndex>this.state.index) {
+        //     newEntries.push(newEntries.shift());
+        //     this.setState({entries:newEntries});
+        // }
+        // else {
+        //     newEntries.unshift(newEntries.pop());
+        //     this.setState({entries:newEntries});
+        // }
+        // this.setState({index:newIndex});
+
+
+    }
     render () {
         const itemWidth = Dimensions.get('window').width;
         const itemHeight = Dimensions.get('window').height;
@@ -117,6 +159,7 @@ class Home extends Component {
                     sliderWidth={itemWidth}
                     windowSize={1}
                     ref={( c ) => {this._carousel = c;}}
+                    onSnapToItem={this.infiniteLoop}
                 />
             </View>
 
