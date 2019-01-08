@@ -5,18 +5,22 @@ const controller = {};
 
 controller.getAll = async (req, res) => {
     try {
-        const allPets = await Pet.find({reservedBy: null}).populate('petType');
 
-        const pets = allPets.map(function (pet) {
-            const tempPet = pet.toObject();
-            if (req.user !== undefined) {
-                tempPet.isLiked = tempPet.likes.some(function (item) {
-                    return item == req.user.sub;
-                });
-            }
-            return tempPet;
-        });
-
+        let pets = [];
+        if (req.user.isShelter) {
+            pets = await Pet.find({}).populate('petType');
+        } else {
+            const allPets = await Pet.find({reservedBy: null}).populate('petType');
+            pets = allPets.map(function (pet) {
+                const tempPet = pet.toObject();
+                if (req.user !== undefined) {
+                    tempPet.isLiked = tempPet.likes.some(function (item) {
+                        return item == req.user.sub;
+                    });
+                }
+                return tempPet;
+            });
+        }
         res.json(pets);
     } catch (e) {
         res.status(500).send(e);
@@ -41,7 +45,7 @@ controller.getLikedPets = async (req, res) => {
 
 controller.getReservedPets = async (req, res) => {
     try {
-        const reservedPets = await Pet.find({reservedBy: { $ne: null }}).populate('reservedBy');
+        const reservedPets = await Pet.find({reservedBy: {$ne: null}}).populate('reservedBy');
 
         res.json(reservedPets);
     } catch (e) {
