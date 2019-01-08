@@ -8,84 +8,6 @@ import {store} from "../../store";
 import {connect} from "remx";
 //import {AppStackNavigator} from "../../config/router";
 
-
-const list = [
-    {
-        type: 'message',
-        name: 'Amy Farha',
-        avatar_url: 'https://lh3.googleusercontent.com/8l9fwqgx6nJolwrbpVkOaAZr22e1pkG8UREtaRS7wNL6HmAEkx-0djXqzcYJtUSZPEiD',
-        subtitle: 'Has sent you a message'
-    },
-    {
-        type: 'reservation',
-        name: 'Chris Jackson',
-        avatar_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZCGyzQCpBWIboSErgUWkpGjp6NnHDRHNukRLST7JZ484gOrrN',
-        subtitle: 'Has reserved Bob'
-    },
-    {
-        type: 'message',
-        name: 'Amy Farha',
-        avatar_url: 'https://lh3.googleusercontent.com/8l9fwqgx6nJolwrbpVkOaAZr22e1pkG8UREtaRS7wNL6HmAEkx-0djXqzcYJtUSZPEiD',
-        subtitle: 'Has sent you a message'
-    },
-    {
-        type: 'reservation',
-        name: 'Chris Jackson',
-        avatar_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZCGyzQCpBWIboSErgUWkpGjp6NnHDRHNukRLST7JZ484gOrrN',
-        subtitle: 'Has reserved Bob'
-    },
-    {
-        type: 'message',
-        name: 'Amy Farha',
-        avatar_url: 'https://lh3.googleusercontent.com/8l9fwqgx6nJolwrbpVkOaAZr22e1pkG8UREtaRS7wNL6HmAEkx-0djXqzcYJtUSZPEiD',
-        subtitle: 'Has sent you a message'
-    },
-    {
-        type: 'reservation',
-        name: 'Chris Jackson',
-        avatar_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZCGyzQCpBWIboSErgUWkpGjp6NnHDRHNukRLST7JZ484gOrrN',
-        subtitle: 'Has reserved Bob'
-    },
-    {
-        type: 'message',
-        name: 'Amy Farha',
-        avatar_url: 'https://lh3.googleusercontent.com/8l9fwqgx6nJolwrbpVkOaAZr22e1pkG8UREtaRS7wNL6HmAEkx-0djXqzcYJtUSZPEiD',
-        subtitle: 'Has sent you a message'
-    },
-    {
-        type: 'reservation',
-        name: 'Chris Jackson',
-        avatar_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZCGyzQCpBWIboSErgUWkpGjp6NnHDRHNukRLST7JZ484gOrrN',
-        subtitle: 'Has reserved Bob'
-    },
-    {
-        type: 'message',
-        name: 'Amy Farha',
-        avatar_url: 'https://lh3.googleusercontent.com/8l9fwqgx6nJolwrbpVkOaAZr22e1pkG8UREtaRS7wNL6HmAEkx-0djXqzcYJtUSZPEiD',
-        subtitle: 'Has sent you a message'
-    },
-    {
-        type: 'reservation',
-        name: 'Chris Jackson',
-        avatar_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZCGyzQCpBWIboSErgUWkpGjp6NnHDRHNukRLST7JZ484gOrrN',
-        subtitle: 'Has reserved Bob'
-    },
-    {
-        type: 'message',
-        name: 'Amy Farha',
-        avatar_url: 'https://lh3.googleusercontent.com/8l9fwqgx6nJolwrbpVkOaAZr22e1pkG8UREtaRS7wNL6HmAEkx-0djXqzcYJtUSZPEiD',
-        subtitle: 'Has sent you a message'
-    },
-    {
-        type: 'reservation',
-        name: 'Chris Jackson',
-        avatar_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZCGyzQCpBWIboSErgUWkpGjp6NnHDRHNukRLST7JZ484gOrrN',
-        subtitle: 'Has reserved Bob'
-    },
-];
-
-// const name
-
 class shelterReservations extends Component {
     static navigationOptions = {
         header:null
@@ -97,12 +19,13 @@ class shelterReservations extends Component {
             list: [],
             user: []
         };
+
     };
     componentDidMount() {
-        //this.fetchPets()
+        this.fetchPets()
     }
     fetchPets() {
-        fetch(`http://${config.FETCH_URL}/api/v1/reservedPets`, {
+        fetch(`http://${config.FETCH_URL}/api/v1/pets/reservedPets`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
@@ -145,7 +68,7 @@ class shelterReservations extends Component {
                                         roundAvatar
                                         avatar={{uri: l.photo}}
                                         key={l._id}
-                                        title={`${user.firstName} ${user.lastName}`}
+                                        title={'Nera dar'}
                                         //<Text> {l.name} </Text>
                                         subtitle={`Has reserved ${l.name}`}
                                         //onPress={ () => this.props.navigation.navigate('Pet')}
