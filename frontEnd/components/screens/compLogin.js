@@ -63,6 +63,8 @@ class CompLoginScreen extends PureComponent {
             .then((response) => response.json())
             .then((responseJson) => {
                 deviceStorage.saveItem("id_token", responseJson.token);
+                deviceStorage.saveIsShelter("isShelter", responseJson._doc.isShelter);
+                console.log('THIS IS RESPONSE FROM LOGIN');
                 console.log(responseJson);
             })
             .catch((error) => {

@@ -1,16 +1,32 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, Image, ImageBackground, ScrollView, Alert} from 'react-native';
 import {Button} from 'react-native-elements';
 import {Fonts} from "../../utils/fonts";
 import {AppStackNavigator} from "../../config/router";
+import deviceStorage from "../services/deviceStorage";
 
 class shelterMain extends Component {
     static navigationOptions = {
         header: null
-
-
     };
+    constructor(props) {
+        super(props);
+        this.state = {
 
+        };
+        this.logOut = this.logOut.bind(this);
+    }
+    logOut() {
+        Alert.alert(
+            'Are you sure?',
+            'You will be logged out',
+            [
+                {text: 'Cancel', onPress: () => {}, style: 'cancel'},
+                {text: 'OK', onPress: () => {deviceStorage.deleteJWT(); deviceStorage.deleteIsShelter()}},
+            ],
+            { cancelable: false }
+        )
+    }
     render() {
         return (
 
@@ -30,13 +46,16 @@ class shelterMain extends Component {
                     <Button title="Go to Reservations"
                             buttonStyle={styles.button}
                             onPress={ () => this.props.navigation.navigate('Reservations')} />
-
-
+                </View>
+                <View style={styles.bottom}>
+                    <Button
+                        title='LOG OUT'
+                        buttonStyle={styles.buttonLogOut}
+                        titleStyle={{color:'red', fontFamily: Fonts.FranklinGothic}}
+                        onPress={this.logOut}
+                    />
                 </View>
             </ImageBackground>
-
-
-
         );
     }
 }
@@ -95,5 +114,15 @@ const styles = StyleSheet.create({
         borderWidth: 5,*/
 
     },
+    bottom: {
 
+        flexDirection: 'row',
+        justifyContent: 'flex-end'
+    },
+    buttonLogOut: {
+        width: 100,
+        height: 40,
+        backgroundColor: '#4169e1',
+        borderRadius: 50
+    }
 });

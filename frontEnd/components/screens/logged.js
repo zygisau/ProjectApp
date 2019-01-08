@@ -13,7 +13,7 @@ class LoggedIn extends PureComponent {
             <View style={styles.container}>
                 <Button
                     //onPress={() => {console.log('you logged out');}}
-                    onPress={() => {deviceStorage.deleteJWT();}}
+                    onPress={() => {deviceStorage.deleteJWT(); deviceStorage.deleteIsShelter()}}
                     buttonStyle={styles.buttonLanguage}
                     title='LOG OUT'
                     textStyle={styles.btText}/>

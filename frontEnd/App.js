@@ -14,8 +14,9 @@ class App extends PureComponent {
         super(props);
         console.log("constructor calls loadJWT");
         //this.WhileLoadingScreen = this.WhileLoadingScreen.bind(this);
-        //deviceStorage.deleteJWT();
+        //deviceStorage.deleteJWT(); deviceStorage.deleteIsShelter();
         deviceStorage.loadJWT();
+        deviceStorage.loadIsShelter();
         console.log("constructor came back from the function");
     }
 
