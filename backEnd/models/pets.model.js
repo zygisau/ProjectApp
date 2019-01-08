@@ -39,6 +39,7 @@ const Pet = new Schema({
 
     reservedBy: {
         type: Schema.Types.ObjectId,
+        ref: 'User',
         default: null
     },
 
