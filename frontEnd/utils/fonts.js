@@ -1,3 +1,3 @@
 export const Fonts = {
-    FranklinGothic: 'FranklinGothic'
+    FranklinGothic: 'PT_Sans-Web-Regular'
 }
