@@ -68,9 +68,10 @@ class shelterReservations extends Component {
                                         roundAvatar
                                         avatar={{uri: l.photo}}
                                         key={l._id}
-                                        title={'Nera dar'}
+                                        title={`${l.reservedBy.firstName} ${l.reservedBy.lastName}`}
                                         //<Text> {l.name} </Text>
                                         subtitle={`Has reserved ${l.name}`}
+                                        hideChevron
                                         //onPress={ () => this.props.navigation.navigate('Pet')}
                                     />
                                     /*}*/

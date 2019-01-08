@@ -313,11 +313,10 @@ class shelterReservations extends Component {
                                     <ListItem containerStyle={styles.itemContainer}
                                               avatarStyle={styles.avatarContainer}
                                               avatarContainerStyle={styles.avatarContainerStyle}
-
                                               titleNumberOfLines={2} subtitleNumberOfLines={2}
                                               avatar={{uri:l.photo}}
                                               key={l._id}
-                                              rightIcon={{color:'white'}}
+                                              
                                               title={/*l.name}*/
                                                   <Text style={styles.title}>{'  '} {l.name} {"\n"} {' '} Age: {l.age} </Text>
                                               }
