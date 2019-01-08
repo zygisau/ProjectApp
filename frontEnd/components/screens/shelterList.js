@@ -22,7 +22,13 @@ class shelterReservations extends Component {
     componentDidMount() {
         this.fetchPets();
     }
-
+    componentWillReceiveProps(nextProps) {
+        console.log('incoming');
+        console.log(nextProps);
+        if(nextProps.navigation.state.params !== undefined && nextProps.navigation.state.params.refreshPets) {
+            this.setState({entries:[]}, () => {this.fetchPets(); this.forceUpdate();});
+        }
+    }
     fetchPets() {
         fetch(`http://${config.FETCH_URL}/api/v1/pets`, {
             method: 'GET',
@@ -76,7 +82,7 @@ class shelterReservations extends Component {
                                                   <Text style={styles.title}>{'  '} {l.name} {"\n"} {' '} Age: {l.age} </Text>
                                               }
                                               subtitle={l.description}
-                                              onPress={ () => this.props.navigation.navigate('Pet', {item: l})}
+                                              onPress={ () => this.props.navigation.navigate('Pet', {item: l, loveScreen: false})}
                                     />
                                 ))
                             }

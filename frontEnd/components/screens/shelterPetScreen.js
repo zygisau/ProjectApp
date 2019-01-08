@@ -14,6 +14,7 @@ export default class PetScreen extends Component {
         super(props);
         this.state = {
             pet: props.navigation.getParam('item'),
+            loveScreen: props.navigation.getParam('loveScreen')
         };
     }
     render() {
@@ -31,7 +32,7 @@ export default class PetScreen extends Component {
                     //         fontSize:21, fontWeight: '500', letterSpacing:2, flexDirection: 'row',
                     //         alignItems: 'center', flex:0.8 } }}
                      rightComponent={<Icon name="edit" size={33} style={styles.icon}
-                                           onPress={ () => this.props.navigation.navigate('Edit', {item: this.state.pet})} /> }
+                                           onPress={ () => this.props.navigation.navigate('Edit', {item: this.state.pet, loveScreen: this.state.loveScreen})} /> }
                 />
 
 

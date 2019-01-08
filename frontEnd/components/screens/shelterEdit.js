@@ -1,12 +1,15 @@
 'use strict';
 
 import React, { Component } from 'react';
-import {Image, ScrollView, StyleSheet, Text, View, ImageBackground, Alert} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, View, ImageBackground, Alert, ToastAndroid} from 'react-native';
 import {FormLabel, FormInput, FormValidationMessage, Button} from 'react-native-elements';
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import config from "../../config";
+import {store} from "../../store";
+import {connect} from "remx";
 
-export default class PetScreen extends Component {
+class PetScreen extends Component {
     static navigationOptions = {
         header: null
     };
@@ -14,7 +17,50 @@ export default class PetScreen extends Component {
         super(props);
         this.state = {
             pet: props.navigation.getParam('item'),
+            loveScreen: props.navigation.getParam('loveScreen')
         };
+        this.submitChanges = this.submitChanges.bind(this);
+    }
+    submitChanges() {
+        let params = {
+            name: this.state.pet.name,
+            age: this.state.pet.age,
+            breed: this.state.pet.breed,
+            description: this.state.pet.description,
+            location: this.state.pet.location,
+            photo: this.state.pet.photo,
+        };
+        console.log('hey');
+        console.log({params});
+        fetch(`http://${config.FETCH_URL}/api/v1/pets/${this.state.pet._id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization': 'Bearer ' + this.props.JWT
+            },
+            body: JSON.stringify(params),
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                console.log('hou');
+                console.log(responseJson);
+                ToastAndroid.showWithGravity(
+                    'Pet has been updated.',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.BOTTOM,
+                );
+            })
+            .then((responseJson) => {
+                if(this.state.loveScreen !== undefined && this.state.loveScreen) {
+                    this.props.navigation.navigate("Love", {refreshPets: true})
+                }
+                    else {
+                        this.props.navigation.navigate("List", {refreshPets: true})
+                    }
+            })
+            .catch((error) => {
+                console.log('You have got an error: ' + error);
+            });
     }
     render() {
 
@@ -130,7 +176,7 @@ export default class PetScreen extends Component {
                             <Button title="Add"
                                     style={styles.button}
                                     backgroundColor={'#2e2f2e'}
-                                    onPress={() => {Alert.alert('You added a pet');}} />
+                                    onPress={this.submitChanges} />
                         </View>
                         <Text>{'     '}</Text>
                         <View style={styles.buttonContainer}>
@@ -139,8 +185,6 @@ export default class PetScreen extends Component {
                                     style={styles.button}
                                     onPress={ () => this.props.navigation.goBack()}/>
                         </View>
-
-
                     </View>
                 </KeyboardAwareScrollView>
             </ImageBackground>
@@ -149,6 +193,14 @@ export default class PetScreen extends Component {
     }
 
 }
+
+function mapStateToProps(ownProps) {
+    return {
+        JWT: store.getJwt()
+    };
+}
+
+export default connect(mapStateToProps)(PetScreen);
 
 const styles = StyleSheet.create({
     container: {
