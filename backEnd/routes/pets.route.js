@@ -8,6 +8,7 @@ router.route('/')
   .post(petsController.addPet);
 
 router.get('/likedList', petsController.getLikedPets);
+router.get('/reservedPets', petsController.getReservedPets);
 
 router.route('/:petId')
   .get(petsController.getPet)
