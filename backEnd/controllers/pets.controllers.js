@@ -5,7 +5,7 @@ const controller = {};
 
 controller.getAll = async (req, res) => {
     try {
-        const allPets = await Pet.find({}).populate('petType');
+        const allPets = await Pet.find({reservedBy: null}).populate('petType');
 
         const pets = allPets.map(function (pet) {
             const tempPet = pet.toObject();
