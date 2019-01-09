@@ -6,6 +6,7 @@ function jwt() {
     return expressJwt({ secret, isRevoked }).unless({
         path: [
             // public routes that don't require authentication
+            new RegExp('/images.*/', 'i'),
             '/api/v1/register',
             '/api/v1/authenticate'
         ]

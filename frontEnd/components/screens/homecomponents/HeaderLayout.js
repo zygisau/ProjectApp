@@ -69,7 +69,7 @@ class HeaderLayout extends PureComponent {
                 <View style={styles.heartContainer}>
                     <TouchableOpacity>
                         <Icon name='favorite'
-                              color={this.state.loved ? 'rgba(255, 132, 132, 0.73)' : 'rgba(255, 71, 71, 0.9)'}
+                              color={this.state.loved ? 'rgba(255, 132, 132, 0.73)' : '#D40000'}
                               size={60}
                               onPress={this.onPressEvent}
                               underlayColor={'rgba(255, 225, 255, 0)'}/>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     name: {
-        top: '6%',
+        top: '3%',
         left: '20%',
         //alignItems: 'center',
         //paddingLeft: 10,
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.FranklinGothic,
     },
     age: {
-        top: '6%',
+        top: '3%',
         right: '20%',
         //alignItems: 'center',
         //paddingRight: 10,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         right: 0,
-        bottom: 0,
+        bottom: '25%',
         justifyContent: 'center',
         alignItems: 'center',
     }

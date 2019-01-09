@@ -193,6 +193,7 @@ const styles = StyleSheet.create({
     border: {
         height: 55,
         backgroundColor: '#2e2f2e',
+        color: '#ffffff',
         borderRadius: 20,
         marginTop: 30,
         justifyContent: 'space-around',

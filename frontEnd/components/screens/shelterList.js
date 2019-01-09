@@ -26,7 +26,7 @@ class shelterReservations extends Component {
         console.log('incoming');
         console.log(nextProps);
         if(nextProps.navigation.state.params !== undefined && nextProps.navigation.state.params.refreshPets) {
-            this.setState({entries:[]}, () => {this.fetchPets(); this.forceUpdate();});
+            this.setState({list:[]}, () => {this.fetchPets(); this.forceUpdate();});
         }
     }
     fetchPets() {

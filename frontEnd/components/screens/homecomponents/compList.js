@@ -25,9 +25,18 @@ class PetList extends PureComponent {
             data: null
         };
         this.removeFromList = this.removeFromList.bind(this);
+        this.reload = this.reload.bind(this);
     }
     componentDidMount() {
         this.fetchPets();
+        this.props.navigation.addListener('willFocus', this.reload)
+    }
+    reload() {
+        console.log(this.props.reservationMade);
+        if(this.props.reservationMade) {
+            this.fetchPets();
+            console.log('fetching')
+        }
     }
     fetchPets() {
         fetch(`http://${config.FETCH_URL}/api/v1/pets/likedList`, {
@@ -132,7 +141,8 @@ class PetList extends PureComponent {
 }
 function mapStateToProps(ownProps) {
     return {
-        JWT: store.getJwt()
+        JWT: store.getJwt(),
+        reservationMade: store.getReservationMade()
     };
 }
 

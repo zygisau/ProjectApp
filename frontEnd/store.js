@@ -5,7 +5,8 @@ remx.registerLoggerForDebug(console.log);
 const initialState = {
     jwt: '',
     loaded: false,
-    isShelter: false
+    isShelter: false,
+    reservationMade: false
 };
 const state = remx.state(initialState);
 
@@ -19,6 +20,9 @@ const getters = remx.getters({
     },
     getIsShelter() {
         return state.isShelter;
+    },
+    getReservationMade() {
+        return state.reservationMade;
     }
 });
 
@@ -28,16 +32,15 @@ const setters = remx.setters({
         return state.jwt = value;
     },
     setLoad() {
-        // if (state.loaded === false) {
-        //     return state.setState ( {loaded:true});
-        // }
-        // else return state.setState ( {loaded:false});
         return state.loaded = true;
     },
     setIsShelter(value) {
         return state.isShelter = value;
+    },
+    setReservationMade(value) {
+        console.log('SET');
+        return state.reservationMade = value;
     }
-
 });
 export const store = {
     ...setters,
