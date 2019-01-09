@@ -24,6 +24,14 @@ const usersSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    isShelter: {
+        type: Boolean,
+        default: false
+    },
+    shelter: {
+        type: Schema.Types.ObjectId,
+        ref: 'Shelter'
     }
 });
 
