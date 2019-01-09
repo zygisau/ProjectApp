@@ -260,8 +260,8 @@ class shelterReservations extends Component {
         };
     };
     componentWillReceiveProps(nextProps) {
-        console.log('incoming');
-        console.log(nextProps);
+        //console.log('incoming');
+        //console.log(nextProps);
         if(nextProps.navigation.state.params !== undefined && nextProps.navigation.state.params.refreshPets) {
             this.setState({list:[]}, () => {this.fetchPets(); this.forceUpdate();});
         }
@@ -279,7 +279,7 @@ class shelterReservations extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
+                //console.log(responseJson);
                 this.setState({list: responseJson})
             })
             .catch((error) => {

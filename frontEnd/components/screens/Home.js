@@ -22,7 +22,7 @@ class Home extends Component {
 
     constructor(props) {
         super(props)
-        console.log(this.props);
+        //console.log(this.props);
         this.state = {
             entries: [],
             index: 0,
@@ -42,8 +42,8 @@ class Home extends Component {
         }
     }
     componentWillReceiveProps(nextProps) {
-        console.log('incoming');
-        console.log(nextProps);
+        //console.log('incoming');
+        //console.log(nextProps);
         if (nextProps.navigation.state.params !== undefined && nextProps.navigation.state.params.refreshPets) {
             this.setState({entries: []}, () => {
                 this.loadPets();
@@ -54,7 +54,7 @@ class Home extends Component {
     }
 
     loadPets() {
-        console.log('refreshed');
+        //console.log('refreshed');
         fetch(`http://${config.FETCH_URL}/api/v1/pets`, {
             method: 'GET',
             headers: {
@@ -64,7 +64,7 @@ class Home extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log('response');
+                //console.log('response');
                 this.setState({entries: responseJson});
             })
             .catch((error) => {
@@ -85,7 +85,7 @@ class Home extends Component {
     render() {
         const itemWidth = Dimensions.get('window').width;
         const itemHeight = Dimensions.get('window').height;
-        console.log('Item:');
+        //console.log('Item:');
 
         const slides = this.state.entries.map((item, index) => (
             <View style={styles.container}>
@@ -127,7 +127,7 @@ class Home extends Component {
                 </View>
             </View>
         ));
-        console.log(slides);
+        //console.log(slides);
 
         return (
             <View style={styles.container}>

@@ -53,7 +53,7 @@ class CompSignUpScreen extends PureComponent {
             email: this.state.email,
             password: this.state.password,
         };
-        console.log({params});
+        //console.log({params});
         fetch(`http://${config.FETCH_URL}/api/v1/register`, {
             method: 'POST',
             headers: {
@@ -65,11 +65,11 @@ class CompSignUpScreen extends PureComponent {
             .then((responseJson) => {
                 deviceStorage.saveItem("id_token", responseJson.token);
                 deviceStorage.saveIsShelter("isShelter", responseJson._doc.isShelter);
-                console.log(responseJson);
+                //console.log(responseJson);
 
             })
             .catch((error) => {
-                console.log(error);
+                //console.log(error);
                 this.onRegistrationFail();
             })
     };

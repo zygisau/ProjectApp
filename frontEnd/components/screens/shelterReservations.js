@@ -34,7 +34,7 @@ class shelterReservations extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
+                //console.log(responseJson);
                 this.setState({list: responseJson})
             })
             .catch((error) => {

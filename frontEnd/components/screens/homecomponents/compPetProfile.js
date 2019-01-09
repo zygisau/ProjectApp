@@ -216,18 +216,21 @@ const styles = StyleSheet.create({
         bottom: 10,
         borderRadius: 50,
         backgroundColor: '#d02337',
-        height: 50
+        height: 50,
+        fontFamily: Fonts.FranklinGothic,
     },
     buttonReservedByUser: {
         bottom: 10,
         borderRadius: 50,
         backgroundColor: '#d15c69',
-        height: 50
+        height: 50,
+        fontFamily: Fonts.FranklinGothic,
     },
     buttonReservedByOther: {
         bottom: 10,
         borderRadius: 50,
         backgroundColor: '#d08898',
-        height: 50
+        height: 50,
+        fontFamily: Fonts.FranklinGothic,
     }
 });

@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import config from "../../config";
 import {store} from "../../store";
 import {connect} from "remx";
+import {Fonts} from "../../utils/fonts";
 
 class PetScreen extends Component {
     static navigationOptions = {
@@ -38,7 +39,7 @@ class PetScreen extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
+                //console.log(responseJson);
                 this.setState({petTypes: responseJson}, () => {
                     this.setState({
                         pet: {
@@ -60,8 +61,8 @@ class PetScreen extends Component {
             photo: this.state.pet.photo,
             shelter: this.props.shelterID
         };
-        console.log('hey');
-        console.log({params});
+        //console.log('hey');
+        //console.log({params});
         fetch(`http://${config.FETCH_URL}/api/v1/pets/`, {
             method: 'POST',
             headers: {
@@ -72,8 +73,8 @@ class PetScreen extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log('hou');
-                console.log(responseJson);
+                //console.log('hou');
+                //console.log(responseJson);
                 ToastAndroid.showWithGravity(
                     'Pet has been created.',
                     ToastAndroid.SHORT,
@@ -264,7 +265,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: '#000000',
         fontWeight: 'bold',
-        //fontFamily: Fonts.FranklinGothic,
+        fontFamily: Fonts.FranklinGothic,
     },
     //
     bottom: {
@@ -286,7 +287,7 @@ const styles = StyleSheet.create({
         letterSpacing: 5,
         textAlign: 'center',
         fontSize: 19,
-        //fontFamily: Fonts.FranklinGothic,
+        fontFamily: Fonts.FranklinGothic,
     },
     border: {
         height: 55,
@@ -313,7 +314,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#000000',
         fontWeight: 'bold',
-        //fontFamily: Fonts.FranklinGothic,
+        fontFamily: Fonts.FranklinGothic,
         flexDirection: 'column',
         alignItems: 'stretch',
         top: '1%',

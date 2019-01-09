@@ -32,10 +32,10 @@ class PetList extends PureComponent {
         this.props.navigation.addListener('willFocus', this.reload)
     }
     reload() {
-        console.log(this.props.reservationMade);
+        //console.log(this.props.reservationMade);
         if(this.props.reservationMade) {
             this.fetchPets();
-            console.log('fetching')
+            //console.log('fetching')
         }
     }
     fetchPets() {
@@ -48,7 +48,7 @@ class PetList extends PureComponent {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
+                //console.log(responseJson);
                 this.setState({data: responseJson})
             })
             .catch((error) => {
@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 600,
         flexDirection: 'column',
+        fontFamily: Fonts.FranklinGothic,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(255, 225, 255, 0)',

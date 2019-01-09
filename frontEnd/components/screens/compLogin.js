@@ -45,13 +45,13 @@ class CompLoginScreen extends PureComponent {
     };
 
     submit () {
-        console.log('you tried to log in');
+        //console.log('you tried to log in');
         this.setState({ error: '', loading: true });
         let params = {
             email: this.state.email,
             password: this.state.password,
         };
-        console.log({params});
+        //console.log({params});
         fetch(`http://${config.FETCH_URL}/api/v1/authenticate`, {
         //206.189.4.112 - Servakas
             method: 'POST',
@@ -65,10 +65,10 @@ class CompLoginScreen extends PureComponent {
                 deviceStorage.saveItem("id_token", responseJson.token);
                 deviceStorage.saveIsShelter("isShelter", responseJson._doc.isShelter);
                 store.setShelterID(responseJson._doc.shelter);
-                console.log(responseJson._doc.shelter);
-                console.log(shelterID);
-                console.log('THIS IS RESPONSE FROM LOGIN');
-                console.log(responseJson);
+                //console.log(responseJson._doc.shelter);
+                //console.log(shelterID);
+                //console.log('THIS IS RESPONSE FROM LOGIN');
+                //console.log(responseJson);
             })
             .catch((error) => {
                 console.log('You have got an error: ' + error);
@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginTop: 30,
         justifyContent: 'space-around',
+        fontFamily: Fonts.FranklinGothic,
     },
     errorTextStyle: {
         fontSize: 12,

@@ -1,5 +1,5 @@
 import * as remx from 'remx';
-remx.registerLoggerForDebug(console.log);
+//remx.registerLoggerForDebug(console.log);
 
 // state
 const initialState = {
