@@ -27,7 +27,7 @@ controller.addPet = async (req, res) => {
 
 controller.getPet = async (req, res) => {
   try {
-    const pet = await Pet.findById(req.params.petId).populate('petType');
+    const pet = await Pet.findById(req.params.petId).populate('petType shelter');
     res.status(pet ? 200 : 404).json(pet);
   } catch (e) {
     res.status(500).send(e);
