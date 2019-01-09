@@ -295,6 +295,7 @@ class shelterReservations extends Component {
                         //placement="left"
                         containerStyle={{
                             backgroundColor: '#4169E1', height:20 }}
+                        backgroundColor={'#383938'}
                         outerContainerStyles={{height: 58}}
                         leftComponent={ <Icon1 name="arrow-back" size={30} style={styles.icon}
                                               onPress={ () => this.props.navigation.goBack()} />}

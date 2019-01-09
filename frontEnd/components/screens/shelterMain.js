@@ -32,7 +32,7 @@ class shelterMain extends Component {
 
             <ImageBackground style={styles.container} source={require('../../images/bg1.jpeg')}>
                 <View style={styles.top}>
-                    <Text style={styles.name}>Shelter's name</Text>
+                    <Text style={styles.name}>Shelter</Text>
                 </View>
                 <View style={styles.fill}>
                 </View>
@@ -74,10 +74,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         fontSize: 40,
-        /*borderColor: 'black',
-        borderWidth: 1,
-        borderRadius: 100*/
-
+        fontFamily: Fonts.FranklinGothic,
     },
     top: {
         //backgroundColor: '#f5fcff',
@@ -85,7 +82,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-around',
         alignItems: 'center',
-
+        // backgroundColor: '#383938',
+        // borderRadius: 50
         //top: '10%',
         //resizeMode: 'cover',
     },
@@ -108,7 +106,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         /*color: 'green',*/
         borderRadius: 100,
-        backgroundColor: '#4169E1',
+        backgroundColor: '#383938',
 
         /*borderColor: 'red',
         borderWidth: 5,*/
@@ -122,7 +120,7 @@ const styles = StyleSheet.create({
     buttonLogOut: {
         width: 100,
         height: 40,
-        backgroundColor: '#4169e1',
+        backgroundColor: '#383938',
         borderRadius: 50
     }
 });

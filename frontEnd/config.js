@@ -1,4 +1,4 @@
-const FETCH_URL = '206.189.4.112:3000';
+const FETCH_URL = '192.168.0.101:3000';
 export default {FETCH_URL}
 /*
 * IGNO 192.168.10.1:3000
