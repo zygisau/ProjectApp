@@ -8,13 +8,14 @@ controller.getAll = async (req, res) => {
     try {
 
         let pets = [];
+        console.log(req);
         const userModel = await User.findOne({ _id: req.user.sub });
         if (userModel._doc.isShelter) {
             pets = await Pet.find({})
-                .populate('petType');
+                .populate('petType shelter');
         } else {
             const allPets = await Pet.find({ reservedBy: null })
-                .populate('petType');
+                .populate('petType shelter');
             pets = allPets.map(function (pet) {
                 const tempPet = pet.toObject();
                 if (req.user !== undefined) {
