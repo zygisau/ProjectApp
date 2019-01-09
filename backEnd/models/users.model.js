@@ -28,6 +28,10 @@ const usersSchema = new Schema({
     isShelter: {
         type: Boolean,
         default: false
+    },
+    shelter: {
+        type: Schema.Types.ObjectId,
+        ref: 'Shelter'
     }
 });
 
