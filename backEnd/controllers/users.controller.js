@@ -19,7 +19,9 @@ controller.addUser = async (req, res) => {
         email: req.body.email,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        password: req.body.password
+        password: req.body.password,
+        isShelter: req.body.isShelter,
+        shelter: req.body.shelter
     });
     try {
         const savedUser = await newUser.save();
