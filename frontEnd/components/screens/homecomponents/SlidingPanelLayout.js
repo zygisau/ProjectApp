@@ -1,4 +1,4 @@
-import {Dimensions, StyleSheet, Text, View, TouchableOpacity} from "react-native";
+import {Dimensions, StyleSheet, Text, View, TouchableOpacity, ScrollView} from "react-native";
 import React, {Component} from 'react';
 import {Fonts} from "../../../utils/fonts";
 const { width, height } = Dimensions.get('window');
@@ -14,9 +14,9 @@ class SlidingPanelLayout extends Component {
     }
     render() {
         return(
-            <View style={styles.slidingPanelLayoutStyle}>
+            <ScrollView contentContainerStyle={styles.slidingPanelLayoutStyle}>
                 <Text style={styles.commonTextStyle}>{this.state.description}</Text>
-            </View>
+            </ScrollView>
         );}
 }
 export default SlidingPanelLayout;

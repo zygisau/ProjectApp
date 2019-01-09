@@ -190,7 +190,7 @@ class PetScreen extends Component {
                     </View>
                     <View style={styles.bottom1}>
                         <View style={styles.buttonContainer}>
-                            <Button title="Add"
+                            <Button title="Update"
                                     style={styles.button}
                                     backgroundColor={'#2e2f2e'}
                                     onPress={this.submitChanges} />

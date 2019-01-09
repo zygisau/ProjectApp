@@ -18,6 +18,9 @@ export default class PetScreen extends Component {
             loveScreen: props.navigation.getParam('loveScreen')
         };
     }
+    componentDidMount() {
+        console.log(this.state.pet);
+    }
 
     render() {
         return (
@@ -61,8 +64,8 @@ export default class PetScreen extends Component {
                         </View>
                         <View style={styles.separator}/>
                         <View style={styles.item}>
-                            {/* <Text style={styles.location}>Location: {this.state.pet.shelter.location}</Text>*/}
-                            <Text style={styles.location}>Location:</Text>
+                            <Text style={styles.location}>Location: {this.state.pet.shelter.location}</Text>
+                            {/*<Text style={styles.location}>Location:</Text>*/}
                         </View>
                     </View>
 

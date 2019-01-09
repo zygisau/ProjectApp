@@ -110,18 +110,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
         backgroundColor: '#f5fcff',
-        // marginTop: 15,
-         //flex: 1,
-        // flexDirection: 'column',
-        // justifyContent: 'space-around',
-        // alignItems: 'center',
-        //top: '10%',
-        //resizeMode: 'cover',
+        //marginBottom: 40
     },
     icon: {
         color:'white' ,
         flexDirection: 'row',
         flex:0
-
     }
 });
