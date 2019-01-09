@@ -64,6 +64,9 @@ class CompLoginScreen extends PureComponent {
             .then((responseJson) => {
                 deviceStorage.saveItem("id_token", responseJson.token);
                 deviceStorage.saveIsShelter("isShelter", responseJson._doc.isShelter);
+                store.setShelterID(responseJson._doc.shelter);
+                console.log(responseJson._doc.shelter);
+                console.log(shelterID);
                 console.log('THIS IS RESPONSE FROM LOGIN');
                 console.log(responseJson);
             })
@@ -208,7 +211,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(ownProps) {
     return {
-        JWT: store.getJwt()
+        JWT: store.getJwt(),
+        shelterID: store.getShelterID()
     };
 }
 

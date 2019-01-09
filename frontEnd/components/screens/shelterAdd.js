@@ -58,6 +58,7 @@ class PetScreen extends Component {
             description: this.state.pet.description,
             petType: this.state.pet.petType,
             photo: this.state.pet.photo,
+            shelter: this.props.shelterID
         };
         console.log('hey');
         console.log({params});
@@ -222,7 +223,8 @@ class PetScreen extends Component {
 
 function mapStateToProps(ownProps) {
     return {
-        JWT: store.getJwt()
+        JWT: store.getJwt(),
+        shelterID: store.getShelterID()
     };
 }
 

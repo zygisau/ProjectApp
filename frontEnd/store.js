@@ -6,7 +6,8 @@ const initialState = {
     jwt: '',
     loaded: false,
     isShelter: false,
-    reservationMade: false
+    reservationMade: false,
+    shelterID: ''
 };
 const state = remx.state(initialState);
 
@@ -23,6 +24,9 @@ const getters = remx.getters({
     },
     getReservationMade() {
         return state.reservationMade;
+    },
+    getShelterID() {
+        return state.shelterID;
     }
 });
 
@@ -38,8 +42,10 @@ const setters = remx.setters({
         return state.isShelter = value;
     },
     setReservationMade(value) {
-        console.log('SET');
         return state.reservationMade = value;
+    },
+    setShelterID(value) {
+        return state.shelterID = value;
     }
 });
 export const store = {
