@@ -12,12 +12,12 @@ import Home from "./components/screens/Home";
 class App extends PureComponent {
     constructor(props) {
         super(props);
-        console.log("constructor calls loadJWT");
+        //console.log("constructor calls loadJWT");
         //this.WhileLoadingScreen = this.WhileLoadingScreen.bind(this);
         //deviceStorage.deleteJWT(); deviceStorage.deleteIsShelter();
         deviceStorage.loadJWT();
         deviceStorage.loadIsShelter();
-        console.log("constructor came back from the function");
+        //console.log("constructor came back from the function");
     }
 
     // WhileLoadingScreen () {

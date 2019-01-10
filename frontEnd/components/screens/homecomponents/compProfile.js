@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
         bottom: 20,
     },
     button: {
+        fontFamily: Fonts.FranklinGothic,
         width: 100,
         height: 40,
         backgroundColor: '#8fb5ca'

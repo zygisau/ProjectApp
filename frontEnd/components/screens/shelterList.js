@@ -23,8 +23,8 @@ class shelterReservations extends Component {
         this.fetchPets();
     }
     componentWillReceiveProps(nextProps) {
-        console.log('incoming');
-        console.log(nextProps);
+        //console.log('incoming');
+        //console.log(nextProps);
         if(nextProps.navigation.state.params !== undefined && nextProps.navigation.state.params.refreshPets) {
             this.setState({list:[]}, () => {this.fetchPets(); this.forceUpdate();});
         }
@@ -39,7 +39,7 @@ class shelterReservations extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
+                //console.log(responseJson);
                 this.setState({list: responseJson})
             })
             .catch((error) => {
@@ -54,7 +54,8 @@ class shelterReservations extends Component {
                     <Header
 
                         containerStyle={{
-                            backgroundColor: '#4169E1', height:20 }}
+                            backgroundColor: '#423131', height:20 }}
+                        backgroundColor={'#383938'}
                         outerContainerStyles={{height: 58}}
                         leftComponent={ <Icon name="arrow-back" size={30} style={styles.icon}
                                               onPress={ () => this.props.navigation.goBack()} />}
@@ -118,13 +119,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
         backgroundColor: '#f5fcff',
-        // marginTop: 15,
-        //flex: 1,
-        // flexDirection: 'column',
-        // justifyContent: 'space-around',
-        // alignItems: 'center',
-        //top: '10%',
-        //resizeMode: 'cover',
+        marginBottom: 40
     },
     icon: {
         color:'white' ,

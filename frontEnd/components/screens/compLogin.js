@@ -45,13 +45,13 @@ class CompLoginScreen extends PureComponent {
     };
 
     submit () {
-        console.log('you tried to log in');
+        //console.log('you tried to log in');
         this.setState({ error: '', loading: true });
         let params = {
             email: this.state.email,
             password: this.state.password,
         };
-        console.log({params});
+        //console.log({params});
         fetch(`http://${config.FETCH_URL}/api/v1/authenticate`, {
         //206.189.4.112 - Servakas
             method: 'POST',
@@ -64,8 +64,11 @@ class CompLoginScreen extends PureComponent {
             .then((responseJson) => {
                 deviceStorage.saveItem("id_token", responseJson.token);
                 deviceStorage.saveIsShelter("isShelter", responseJson._doc.isShelter);
-                console.log('THIS IS RESPONSE FROM LOGIN');
-                console.log(responseJson);
+                store.setShelterID(responseJson._doc.shelter);
+                //console.log(responseJson._doc.shelter);
+                //console.log(shelterID);
+                //console.log('THIS IS RESPONSE FROM LOGIN');
+                //console.log(responseJson);
             })
             .catch((error) => {
                 console.log('You have got an error: ' + error);
@@ -191,12 +194,14 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.FranklinGothic,
     },
     border: {
+        paddingLeft: 10,
         height: 55,
         backgroundColor: '#2e2f2e',
         color: '#ffffff',
         borderRadius: 20,
         marginTop: 30,
         justifyContent: 'space-around',
+        fontFamily: Fonts.FranklinGothic,
     },
     errorTextStyle: {
         fontSize: 12,
@@ -208,7 +213,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(ownProps) {
     return {
-        JWT: store.getJwt()
+        JWT: store.getJwt(),
+        shelterID: store.getShelterID()
     };
 }
 

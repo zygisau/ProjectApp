@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import config from "../../config";
 import {store} from "../../store";
 import {connect} from "remx";
+import {Fonts} from "../../utils/fonts";
 
 class PetScreen extends Component {
     static navigationOptions = {
@@ -25,6 +26,12 @@ class PetScreen extends Component {
     }
     componentDidMount() {
         this.getPetTypes();
+        this.setState(prevState => ({
+            pet: {
+                ...prevState.pet,
+                petType: prevState.pet.petType._id,
+            }
+        }));
     }
 
     getPetTypes() {
@@ -37,7 +44,7 @@ class PetScreen extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
+                //console.log(responseJson);
                 this.setState({petTypes: responseJson})
             })
     }
@@ -50,8 +57,8 @@ class PetScreen extends Component {
             petType: this.state.pet.petType,
             photo: this.state.pet.photo,
         };
-        console.log('hey');
-        console.log({params});
+        //console.log('hey');
+        //console.log({params});
         fetch(`http://${config.FETCH_URL}/api/v1/pets/${this.state.pet._id}`, {
             method: 'PUT',
             headers: {
@@ -62,8 +69,8 @@ class PetScreen extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log('hou');
-                console.log(responseJson);
+                //console.log('hou');
+                //console.log(responseJson);
                 ToastAndroid.showWithGravity(
                     'Pet has been updated.',
                     ToastAndroid.SHORT,
@@ -88,17 +95,12 @@ class PetScreen extends Component {
         ));
         return (
             <ImageBackground style={styles.container} source={require('../../images/bg2.jpeg')}>
-                <KeyboardAwareScrollView
-                    enableOnAndroid={true}
-                    contentContainerStyle={{flex: 1}}
-                    enableAutomaticScroll={true}>
                     <View style={styles.logIn}>
                         <Text style={styles.logInText}>Edit pet {'      '}
                         </Text>
-
                     </View>
-
-                    <View style={styles.logInputs}>
+                    <KeyboardAwareScrollView>
+                    <ScrollView style={styles.logInputs}>
                         <FormInput
                             onChangeText={(pet) => this.setState(prevState => ({
                                 pet: {
@@ -149,7 +151,9 @@ class PetScreen extends Component {
                                     ...prevState.pet,
                                     description: value,
                                 }}))}
-                            inputStyle={styles.border}
+                            multiline
+                            //numberOfLines={5}
+                            inputStyle={styles.borderDescription}
                             autoCorrect={false}
                             placeholderTextColor={'#7c7e7c'}
                             placeholder="Description"
@@ -187,10 +191,9 @@ class PetScreen extends Component {
                             blurOnSubmit={ false }
                             //returnKeyType={ 'next' }
                         >{this.state.pet.photo}</FormInput>
-                    </View>
                     <View style={styles.bottom1}>
                         <View style={styles.buttonContainer}>
-                            <Button title="Add"
+                            <Button title="Update"
                                     style={styles.button}
                                     backgroundColor={'#2e2f2e'}
                                     onPress={this.submitChanges} />
@@ -203,7 +206,8 @@ class PetScreen extends Component {
                                     onPress={ () => this.props.navigation.goBack()}/>
                         </View>
                     </View>
-                </KeyboardAwareScrollView>
+                    </ScrollView>
+                    </KeyboardAwareScrollView>
             </ImageBackground>
 
         );
@@ -253,7 +257,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: '#000000',
         fontWeight: 'bold',
-        //fontFamily: Fonts.FranklinGothic,
+        fontFamily: Fonts.FranklinGothic,
     },
     //
     bottom: {
@@ -275,10 +279,19 @@ const styles = StyleSheet.create({
         letterSpacing: 5,
         textAlign: 'center',
         fontSize: 19,
-        //fontFamily: Fonts.FranklinGothic,
+        fontFamily: Fonts.FranklinGothic,
     },
     border: {
         height: 55,
+        justifyContent: 'center',
+        backgroundColor: '#383938',
+        color:'white',
+        borderRadius: 20,
+        marginTop: 20,
+        paddingLeft: 20
+    },
+    borderDescription: {
+        height: 200,
         justifyContent: 'center',
         backgroundColor: '#383938',
         color:'white',
@@ -302,7 +315,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#000000',
         fontWeight: 'bold',
-        //fontFamily: Fonts.FranklinGothic,
+        fontFamily: Fonts.FranklinGothic,
         flexDirection: 'column',
         alignItems: 'stretch',
         top: '1%',
@@ -318,6 +331,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         resizeMode: 'cover',
+        marginBottom: 25
     },
     buttonContainer: {
         borderRadius: 15,

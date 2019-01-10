@@ -53,7 +53,7 @@ class CompSignUpScreen extends PureComponent {
             email: this.state.email,
             password: this.state.password,
         };
-        console.log({params});
+        //console.log({params});
         fetch(`http://${config.FETCH_URL}/api/v1/register`, {
             method: 'POST',
             headers: {
@@ -65,11 +65,11 @@ class CompSignUpScreen extends PureComponent {
             .then((responseJson) => {
                 deviceStorage.saveItem("id_token", responseJson.token);
                 deviceStorage.saveIsShelter("isShelter", responseJson._doc.isShelter);
-                console.log(responseJson);
+                //console.log(responseJson);
 
             })
             .catch((error) => {
-                console.log(error);
+                //console.log(error);
                 this.onRegistrationFail();
             })
     };
@@ -88,13 +88,10 @@ class CompSignUpScreen extends PureComponent {
     render() {
         return (
             <ImageBackground style={styles.container} source={require('../../assets/images/bg3.jpg')}>
-                <KeyboardAwareScrollView
-                    enableOnAndroid={true}
-                    contentContainerStyle={{flex: 1}}
-                    enableAutomaticScroll={true}>
                     <View style={styles.logIn}>
                         <Text style={styles.logInText}>SIGN UP</Text>
                     </View>
+                <KeyboardAwareScrollView>
                     <View style={styles.logInputs}>
                         <FormInput
                             onChangeText={(firstName) => this.setState({firstName})} inputStyle={styles.border}
@@ -159,6 +156,7 @@ class CompSignUpScreen extends PureComponent {
                             Passwords must match
                             </Text> }
                     </View>
+
                     <View style={styles.bottom}>
                         {!this.state.loading ?
                             <Button
@@ -215,13 +213,14 @@ const styles = StyleSheet.create({
     },
     //
     bottom: {
-        //flex: 0.25,
+        flex: 1,
         flexDirection: 'column',
         alignItems: 'stretch',
-        top: '5%',
         width: '100%',
         height: '100%',
         resizeMode: 'cover',
+        marginBottom: 40,
+        marginTop: 40
     },
     buttonLog: {
         height: 55,

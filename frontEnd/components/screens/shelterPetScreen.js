@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import {Alert, Image, ScrollView, StyleSheet, Text, View,} from 'react-native';
 import {Button, Header} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {Fonts} from "../../utils/fonts";
 
 export default class PetScreen extends Component {
     static navigationOptions = {
@@ -17,14 +18,18 @@ export default class PetScreen extends Component {
             loveScreen: props.navigation.getParam('loveScreen')
         };
     }
-    render() {
+    componentDidMount() {
+        console.log(this.state.pet);
+    }
 
+    render() {
         return (
-            <View>
+            <View style={styles.contentContainer}>
                 <Header
                     //placement="left"
                     containerStyle={{
                         backgroundColor: '#4169E1', height:20 }}
+                    backgroundColor={'#383938'}
                     outerContainerStyles={{height: 58}}
                     leftComponent={ <Icon name="arrow-back" size={30} style={styles.icon}
                                           onPress={ () => this.props.navigation.goBack()} />}
@@ -42,13 +47,26 @@ export default class PetScreen extends Component {
                     </View>
 
                     <View style={styles.mainSection}>
-                        <Text style={styles.petName}>{this.state.pet.name}</Text>
-                        <Text> Age: {this.state.pet.age}</Text>
-                        <Text> {this.state.pet.breed}</Text>
-                        <Text style={styles.petDescription}>{this.state.pet.description}</Text>
-                        <Text>{'   '}</Text>
-                        <Text> Location: {this.state.pet.location}</Text>
-                        <Text>{'   '}</Text>
+                        <View style={styles.item}>
+                            <Text style={styles.petName}>{this.state.pet.name}</Text>
+                        </View>
+                        <View style={styles.separator}/>
+                        <View style={styles.item}>
+                            <Text style={styles.age}> Age: {this.state.pet.age}</Text>
+                        </View>
+                        <View style={styles.separator}/>
+                        <View style={styles.item}>
+                            <Text style={styles.breed}> {this.state.pet.breed}</Text>
+                        </View>
+                        <View style={styles.separator}/>
+                        <View style={styles.item}>
+                            <Text style={styles.petDescription}>{this.state.pet.description}</Text>
+                        </View>
+                        <View style={styles.separator}/>
+                        <View style={styles.item}>
+                            <Text style={styles.location}>Location: {this.state.pet.shelter.location}</Text>
+                            {/*<Text style={styles.location}>Location:</Text>*/}
+                        </View>
                     </View>
 
                 </ScrollView>
@@ -64,6 +82,7 @@ export default class PetScreen extends Component {
 const styles = StyleSheet.create({
     contentContainer: {
         flex: 1,
+        fontFamily: Fonts.FranklinGothic
     },
     imageContainer: {
         backgroundColor: '#dddddd',
@@ -104,4 +123,27 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex:0
     },
+    item: {
+        marginTop: 10,
+        marginLeft: 10,
+        marginBottom: 10,
+        marginRight: 10,
+    },
+    separator: {
+        height: 1,
+        width: "100%",
+        backgroundColor: "#CED0CE",
+    },
+    age: {
+
+    },
+    breed: {
+
+    },
+    petDescription: {
+
+    },
+    location: {
+
+    }
 });

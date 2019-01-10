@@ -9,13 +9,15 @@ import {
 } from 'react-native';
 const { width, height } = Dimensions.get('window');
 import {Fonts} from "../../../utils/fonts";
-import {Text} from "react-native-elements";
+import {Header, Text} from "react-native-elements";
 import { Button } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+//import Icon from 'react-native-vector-icons/FontAwesome';
+import { Icon } from 'react-native-elements'
 import deviceStorage from "../../services/deviceStorage";
 import config from "../../../config";
 import {store} from "../../../store";
 import {connect} from "remx";
+import SceneView from "react-navigation/src/views/SceneView";
 
 class PetProfile extends PureComponent {
     static navigationOptions = {
@@ -94,8 +96,18 @@ class PetProfile extends PureComponent {
     }
     render() {
         return (
-            <ScrollView contentContainerStyle={styles.containerScrollView}>
             <View style={styles.container}>
+                <Header
+                    containerStyle={{
+                        backgroundColor: '#423131', height:20 }}
+                    backgroundColor={'#fafbff'}
+                    outerContainerStyles={{height: 58}}
+                    leftComponent={ <Icon name="arrow-back" underlayColor={'rgba(255, 255, 255, 0)'} color={'black'} size={30} style={styles.icon}
+                                          onPress={ () => this.props.navigation.goBack()} />}
+                    centerComponent={{ text: 'Pet', style: { color: 'black',
+                            fontSize:21, fontWeight: '500', letterSpacing:2, flexDirection: 'row',
+                            alignItems: 'center', flex:0.8 } }}
+                />
                 <Image
                     source={{ uri: this.state.pet.photo }}
                     style={styles.image}
@@ -106,15 +118,12 @@ class PetProfile extends PureComponent {
                 </View>
                 <View
                     style={{
-                        top: 20,
+                        //top: 20,
                         height: 1,
                         width: "100%",
                         backgroundColor: "#CED0CE",
                     }}
                 />
-                <View style={styles.subtitle}>
-                    <Text style={styles.description}>{this.state.pet.description}</Text>
-                </View>
                 {this.state.pet.canReserve && !this.state.pet.reservedByUser ?
                     <View style={styles.reservation}>
                         <Button
@@ -124,22 +133,34 @@ class PetProfile extends PureComponent {
                         />
                     </View> :
                     !this.state.pet.canReserve && this.state.pet.reservedByUser ?
-                    <View style={styles.reservation}>
-                        <Button
-                            onPress={this.submitReservation}
-                            title={this.state.pet.reservedByUser ? 'YOU RESERVED THIS PET' : 'MAKE RESERVATION'}
-                            buttonStyle={this.state.pet.reservedByUser ? styles.buttonReservedByUser : styles.button}
-                        />
-                    </View> :
-                    <View style={styles.reservation}>
-                        <Button
-                            onPress={this.alreadyReserved}
-                            title={'PET HAS BEEN ALREADY RESERVED'}
-                            buttonStyle={styles.buttonReservedByOther}
-                        />
-                    </View>}
+                        <View style={styles.reservation}>
+                            <Button
+                                onPress={this.submitReservation}
+                                title={this.state.pet.reservedByUser ? 'YOU RESERVED THIS PET' : 'MAKE RESERVATION'}
+                                buttonStyle={this.state.pet.reservedByUser ? styles.buttonReservedByUser : styles.button}
+                            />
+                        </View> :
+                        <View style={styles.reservation}>
+                            <Button
+                                onPress={this.alreadyReserved}
+                                title={'PET HAS BEEN ALREADY RESERVED'}
+                                buttonStyle={styles.buttonReservedByOther}
+                            />
+                        </View>}
+                <View
+                    style={{
+                        //top: 20,
+                        height: 1,
+                        width: "100%",
+                        backgroundColor: "#CED0CE",
+                    }}
+                />
+                <ScrollView>
+                    <View style={styles.subtitle}>
+                        <Text style={styles.description}>{this.state.pet.description}</Text>
+                    </View>
+                </ScrollView>
             </View>
-            </ScrollView>
         )
     }
 }
@@ -166,9 +187,10 @@ const styles = StyleSheet.create({
     image: {
         backgroundColor: '#0032ff',
         width: width,
-        height: 300
+        height: 200
     },
     title: {
+        height: 70,
         top: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -184,11 +206,11 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 40,
         fontFamily: Fonts.FranklinGothic,
-        alignSelf: 'flex-end'
+        //alignSelf: 'flex-end'
     },
     subtitle: {
-        top: 40,
-        left: 10
+        left: 10,
+        marginBottom: 30
     },
     description: {
         color: 'black',
@@ -199,20 +221,28 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-end',
+        top: 20,
+        marginBottom: 70
     },
     button: {
         bottom: 10,
         borderRadius: 50,
-        backgroundColor: '#d02337'
+        backgroundColor: '#d02337',
+        height: 50,
+        fontFamily: Fonts.FranklinGothic,
     },
     buttonReservedByUser: {
         bottom: 10,
         borderRadius: 50,
-        backgroundColor: '#d15c69'
+        backgroundColor: '#d15c69',
+        height: 50,
+        fontFamily: Fonts.FranklinGothic,
     },
     buttonReservedByOther: {
         bottom: 10,
         borderRadius: 50,
-        backgroundColor: '#d08898'
+        backgroundColor: '#d08898',
+        height: 50,
+        fontFamily: Fonts.FranklinGothic,
     }
 });

@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import config from "../../config";
 import {store} from "../../store";
 import {connect} from "remx";
+import {Fonts} from "../../utils/fonts";
 
 class PetScreen extends Component {
     static navigationOptions = {
@@ -38,7 +39,7 @@ class PetScreen extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
+                //console.log(responseJson);
                 this.setState({petTypes: responseJson}, () => {
                     this.setState({
                         pet: {
@@ -58,9 +59,10 @@ class PetScreen extends Component {
             description: this.state.pet.description,
             petType: this.state.pet.petType,
             photo: this.state.pet.photo,
+            shelter: this.props.shelterID
         };
-        console.log('hey');
-        console.log({params});
+        //console.log('hey');
+        //console.log({params});
         fetch(`http://${config.FETCH_URL}/api/v1/pets/`, {
             method: 'POST',
             headers: {
@@ -71,8 +73,8 @@ class PetScreen extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log('hou');
-                console.log(responseJson);
+                //console.log('hou');
+                //console.log(responseJson);
                 ToastAndroid.showWithGravity(
                     'Pet has been created.',
                     ToastAndroid.SHORT,
@@ -93,16 +95,12 @@ class PetScreen extends Component {
         ));
         return (
             <ImageBackground style={styles.container} source={require('../../images/bg2.jpeg')}>
-                <KeyboardAwareScrollView
-                    enableOnAndroid={true}
-                    contentContainerStyle={{flex: 1}}
-                    enableAutomaticScroll={true}>
                     <View style={styles.logIn}>
                         <Text style={styles.logInText}>Add pet {'      '}
                         </Text>
                     </View>
-
-                    <View style={styles.logInputs}>
+                    <KeyboardAwareScrollView>
+                    <ScrollView style={styles.logInputs}>
                         <FormInput
                             onChangeText={(pet) => this.setState(prevState => ({
                                 pet: {
@@ -155,15 +153,16 @@ class PetScreen extends Component {
                                 pet: {
                                     ...prevState.pet,
                                     description: value,
-                                }
-                            }))}
-                            inputStyle={styles.border}
+                                }}))}
+                            multiline
+                            //numberOfLines={5}
+                            inputStyle={styles.borderDescription}
                             autoCorrect={false}
                             placeholderTextColor={'#7c7e7c'}
                             placeholder="Description"
                             //ref={input => { this.inputs['field3'] = input }}
                             //label={"Field 3"}
-                            blurOnSubmit={false}
+                            blurOnSubmit={ false }
                             //returnKeyType={ 'next' }
                         />
                         <View style={styles.borderPicker}>
@@ -196,7 +195,7 @@ class PetScreen extends Component {
                             blurOnSubmit={false}
                             //returnKeyType={ 'next' }
                         />
-                    </View>
+
                     <View style={styles.bottom1}>
                         <View style={styles.buttonContainer}>
                             <Button title="Add"
@@ -212,7 +211,8 @@ class PetScreen extends Component {
                                     onPress={() => this.props.navigation.goBack()}/>
                         </View>
                     </View>
-                </KeyboardAwareScrollView>
+                    </ScrollView>
+                    </KeyboardAwareScrollView>
             </ImageBackground>
 
         );
@@ -222,7 +222,8 @@ class PetScreen extends Component {
 
 function mapStateToProps(ownProps) {
     return {
-        JWT: store.getJwt()
+        JWT: store.getJwt(),
+        shelterID: store.getShelterID()
     };
 }
 
@@ -262,7 +263,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: '#000000',
         fontWeight: 'bold',
-        //fontFamily: Fonts.FranklinGothic,
+        fontFamily: Fonts.FranklinGothic,
     },
     //
     bottom: {
@@ -284,13 +285,22 @@ const styles = StyleSheet.create({
         letterSpacing: 5,
         textAlign: 'center',
         fontSize: 19,
-        //fontFamily: Fonts.FranklinGothic,
+        fontFamily: Fonts.FranklinGothic,
     },
     border: {
         height: 55,
         justifyContent: 'center',
         backgroundColor: '#383938',
         color: 'white',
+        borderRadius: 20,
+        marginTop: 20,
+        paddingLeft: 20
+    },
+    borderDescription: {
+        height: 200,
+        justifyContent: 'center',
+        backgroundColor: '#383938',
+        color:'white',
         borderRadius: 20,
         marginTop: 20,
         paddingLeft: 20
@@ -311,7 +321,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#000000',
         fontWeight: 'bold',
-        //fontFamily: Fonts.FranklinGothic,
+        fontFamily: Fonts.FranklinGothic,
         flexDirection: 'column',
         alignItems: 'stretch',
         top: '1%',
@@ -327,6 +337,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         resizeMode: 'cover',
+        marginBottom: 25
     },
     buttonContainer: {
         borderRadius: 15,
