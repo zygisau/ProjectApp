@@ -19,7 +19,7 @@ export default class PetScreen extends Component {
         };
     }
     componentDidMount() {
-        //console.log(this.state.pet);
+        console.log(this.state.pet);
     }
 
     render() {

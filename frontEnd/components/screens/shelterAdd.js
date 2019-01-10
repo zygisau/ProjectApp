@@ -95,16 +95,12 @@ class PetScreen extends Component {
         ));
         return (
             <ImageBackground style={styles.container} source={require('../../images/bg2.jpeg')}>
-                <KeyboardAwareScrollView
-                    enableOnAndroid={true}
-                    contentContainerStyle={{flex: 1}}
-                    enableAutomaticScroll={true}>
                     <View style={styles.logIn}>
                         <Text style={styles.logInText}>Add pet {'      '}
                         </Text>
                     </View>
-
-                    <View style={styles.logInputs}>
+                    <KeyboardAwareScrollView>
+                    <ScrollView style={styles.logInputs}>
                         <FormInput
                             onChangeText={(pet) => this.setState(prevState => ({
                                 pet: {
@@ -157,15 +153,16 @@ class PetScreen extends Component {
                                 pet: {
                                     ...prevState.pet,
                                     description: value,
-                                }
-                            }))}
-                            inputStyle={styles.border}
+                                }}))}
+                            multiline
+                            //numberOfLines={5}
+                            inputStyle={styles.borderDescription}
                             autoCorrect={false}
                             placeholderTextColor={'#7c7e7c'}
                             placeholder="Description"
                             //ref={input => { this.inputs['field3'] = input }}
                             //label={"Field 3"}
-                            blurOnSubmit={false}
+                            blurOnSubmit={ false }
                             //returnKeyType={ 'next' }
                         />
                         <View style={styles.borderPicker}>
@@ -198,7 +195,7 @@ class PetScreen extends Component {
                             blurOnSubmit={false}
                             //returnKeyType={ 'next' }
                         />
-                    </View>
+
                     <View style={styles.bottom1}>
                         <View style={styles.buttonContainer}>
                             <Button title="Add"
@@ -214,7 +211,8 @@ class PetScreen extends Component {
                                     onPress={() => this.props.navigation.goBack()}/>
                         </View>
                     </View>
-                </KeyboardAwareScrollView>
+                    </ScrollView>
+                    </KeyboardAwareScrollView>
             </ImageBackground>
 
         );
@@ -298,6 +296,15 @@ const styles = StyleSheet.create({
         marginTop: 20,
         paddingLeft: 20
     },
+    borderDescription: {
+        height: 200,
+        justifyContent: 'center',
+        backgroundColor: '#383938',
+        color:'white',
+        borderRadius: 20,
+        marginTop: 20,
+        paddingLeft: 20
+    },
     borderPicker: {
         height: 55,
         width: '92%',
@@ -330,6 +337,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         resizeMode: 'cover',
+        marginBottom: 25
     },
     buttonContainer: {
         borderRadius: 15,

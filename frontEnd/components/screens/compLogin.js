@@ -194,6 +194,7 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.FranklinGothic,
     },
     border: {
+        paddingLeft: 10,
         height: 55,
         backgroundColor: '#2e2f2e',
         color: '#ffffff',

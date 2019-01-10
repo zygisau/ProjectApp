@@ -88,12 +88,12 @@ class Home extends Component {
         //console.log('Item:');
 
         const slides = this.state.entries.map((item, index) => (
-            <View style={styles.container}>
+            <View style={styles.container} key={item._id}>
                 <View style={styles.overlayLeft}>
                     <Icon
                         name='replay'
                         size={40}
-                        color='black'
+                        color='white'
                         onPress={this.logOut}
                         underlayColor={'rgba(255, 225, 255, 0)'}
                     />
@@ -102,7 +102,7 @@ class Home extends Component {
                     <Icon
                         name='list'
                         size={40}
-                        color='black'
+                        color='white'
                         onPress={() => {
                             this.props.navigation.navigate('List')
                         }}

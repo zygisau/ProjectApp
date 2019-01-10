@@ -25,16 +25,7 @@ class CompHomeScreen extends React.Component {
                     <Image style={styles.logo} source={require('../../assets/logos/logo.png')}/>
                 </View>
                 <View style={styles.middle}>
-                    <Button
-                        buttonStyle={styles.buttonFacebook}
-                        title='CONTINUE WITH FACEBOOK'
-                        textStyle={styles.btText}
-                        onPress={this.notDoneYet} />
-                    <Button
-                        buttonStyle={styles.buttonGoogle}
-                        title='CONTINUE WITH GOOGLE'
-                        textStyle={styles.btText}
-                        onPress={this.notDoneYet} />
+
                     <Button
                         buttonStyle={styles.buttonSign}
                         title='SIGN UP'
@@ -49,14 +40,7 @@ class CompHomeScreen extends React.Component {
                         textStyle={styles.btText}
                         onPress={() => this.props.navigation.navigate("Login")}/>
                 </View>
-                <View style={styles.language}>
-                    <Button
-                        onPress={this.notDoneYet}
-                        buttonStyle={styles.buttonLanguage}
-                        title='CHANGE LANGUAGE'
-                        //clear='true'
-                        textStyle={styles.btText}/>
-                </View>
+
 
             </ImageBackground>
         );
@@ -78,7 +62,7 @@ const styles = StyleSheet.create({
     },
     top: {
         //backgroundColor: '#f5fcff',
-        flex: 0.4,
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-around',
         alignItems: 'center',
@@ -94,7 +78,7 @@ const styles = StyleSheet.create({
     middle: {
         flex: 0.3,
         flexDirection: 'column',
-        justifyContent: 'space-around',
+        justifyContent: 'flex-end',
         alignItems: 'stretch',
         //top: '25%',
         width: '100%',
@@ -150,6 +134,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         resizeMode: 'cover',
+        marginBottom: 180
     },
     buttonLog: {
         height: 55,

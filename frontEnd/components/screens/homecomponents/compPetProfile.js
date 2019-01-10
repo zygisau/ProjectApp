@@ -9,9 +9,10 @@ import {
 } from 'react-native';
 const { width, height } = Dimensions.get('window');
 import {Fonts} from "../../../utils/fonts";
-import {Text} from "react-native-elements";
+import {Header, Text} from "react-native-elements";
 import { Button } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+//import Icon from 'react-native-vector-icons/FontAwesome';
+import { Icon } from 'react-native-elements'
 import deviceStorage from "../../services/deviceStorage";
 import config from "../../../config";
 import {store} from "../../../store";
@@ -96,6 +97,17 @@ class PetProfile extends PureComponent {
     render() {
         return (
             <View style={styles.container}>
+                <Header
+                    containerStyle={{
+                        backgroundColor: '#423131', height:20 }}
+                    backgroundColor={'#fafbff'}
+                    outerContainerStyles={{height: 58}}
+                    leftComponent={ <Icon name="arrow-back" underlayColor={'rgba(255, 255, 255, 0)'} color={'black'} size={30} style={styles.icon}
+                                          onPress={ () => this.props.navigation.goBack()} />}
+                    centerComponent={{ text: 'Pet', style: { color: 'black',
+                            fontSize:21, fontWeight: '500', letterSpacing:2, flexDirection: 'row',
+                            alignItems: 'center', flex:0.8 } }}
+                />
                 <Image
                     source={{ uri: this.state.pet.photo }}
                     style={styles.image}
@@ -175,7 +187,7 @@ const styles = StyleSheet.create({
     image: {
         backgroundColor: '#0032ff',
         width: width,
-        height: 300
+        height: 200
     },
     title: {
         height: 70,

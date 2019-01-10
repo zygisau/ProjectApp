@@ -5,13 +5,14 @@ import {
     Text,
     FlatList, Alert, ToastAndroid
 } from 'react-native';
-import {List, ListItem, SearchBar} from "react-native-elements";
+import {Header, List, ListItem, SearchBar} from "react-native-elements";
 import {Fonts} from "../../../utils/fonts";
 import config from "../../../config";
 import {store} from "../../../store";
 import {connect} from "remx";
 import deviceStorage from "../../services/deviceStorage";
 import HeaderLayout from "./HeaderLayout";
+import { Icon } from 'react-native-elements'
 
 
 class PetList extends PureComponent {
@@ -78,15 +79,22 @@ class PetList extends PureComponent {
         )
     };
     onLongPressEvent(item) {
-        Alert.alert(
-            'Are you sure?',
-            'The pet will be removed from your list',
-            [
-                {text: 'Cancel', onPress: () => {}, style: 'cancel'},
-                {text: 'YES', onPress: () => {this.removeFromList(item)}},
-            ],
-            { cancelable: false }
-        )
+            Alert.alert(
+                'Are you sure?',
+                'The pet will be removed from your list',
+                [
+                    {
+                        text: 'Cancel', onPress: () => {
+                        }, style: 'cancel'
+                    },
+                    {
+                        text: 'YES', onPress: () => {
+                            this.removeFromList(item)
+                        }
+                    },
+                ],
+                {cancelable: false}
+            )
     }
     // changeState() {
     //         this.setState({item.loved: false}, this.submitLove);
@@ -115,6 +123,18 @@ class PetList extends PureComponent {
     }
     render() {
         return (
+            <View style={styles.container}>
+                <Header
+                    containerStyle={{
+                        backgroundColor: '#423131', height:20 }}
+                    backgroundColor={'#fafbff'}
+                    outerContainerStyles={{height: 58}}
+                    leftComponent={ <Icon name="arrow-back" underlayColor={'rgba(255, 255, 255, 0)'} color={'black'} size={30} style={styles.icon}
+                                          onPress={ () => this.props.navigation.goBack()} />}
+                    centerComponent={{ text: 'Loved list', style: { color: 'black',
+                            fontSize:21, fontWeight: '500', letterSpacing:2, flexDirection: 'row',
+                            alignItems: 'center', flex:0.8 } }}
+                />
             <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
                 <FlatList
                     data={this.state.data}
@@ -127,7 +147,7 @@ class PetList extends PureComponent {
                             avatar={{ uri: item.photo }}
                             containerStyle={{ borderBottomWidth: 0 }}
                             onPress={() => {this.props.navigation.navigate('PetProfile', {item: item})}}
-                            onLongPress={() => {this.onLongPressEvent(item)}}
+                            //onLongPress={() => {this.onLongPressEvent(item)}}
                         />
                     )}
                     keyExtractor={item => item._id}
@@ -136,6 +156,7 @@ class PetList extends PureComponent {
                     /*scrollToIndex={('index')}
                     scrollToOffset={('animated')}*/ />
             </List>
+            </View>
         )
     };
 }
@@ -169,5 +190,10 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.FranklinGothic,
         alignSelf: 'center',
         textAlign: 'center'
+    },
+    icon: {
+        color:'white' ,
+        flexDirection: 'row',
+        flex:0
     },
 });
