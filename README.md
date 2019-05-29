@@ -30,25 +30,25 @@ Overloaded shelters are also a rather huge problem and it  mainly persists becau
 
 ## Navigation Model
 
-![Navigation Model](.\images\navig_model.png)
+![Navigation Model](./images/navig_model.png)
 
 ## Data Flow Scheme
 
-![Data Flow Scheme](.\images\data_flow_scheme.png)
+![Data Flow Scheme](./images/data_flow_scheme.png)
 
 ## Example photos
 
-![P.A.W](.\images\P.A.W.png)
+![P.A.W](./images/P.A.W.png)
 
-![P.A.W_2](.\images\P.A.W_2.png)
+![P.A.W_2](./images/P.A.W_2.png)
 
-![P.A.W_3](.\images\P.A.W_3.png)
+![P.A.W_3](./images/P.A.W_3.png)
 
-![P.A.W_4](.\images\P.A.W_4.png)
+![P.A.W_4](./images/P.A.W_4.png)
 
-![P.A.W_5](.\images\P.A.W_5.png)
+![P.A.W_5](./images/P.A.W_5.png)
 
-![PAW_6](.\images\P.A.W_6.png)
+![P.A.W_6](./images/P.A.W_6.png)
 
 ## Documentation
 
