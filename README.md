@@ -5,7 +5,7 @@ This is our first Computer Architecture project.
 
 After Tinder came out it blew up with enormous popularity among both youth and adults. Tinder provided an easy and fun way to find a possible match and maybe even a partner for life.
 
-Overloaded shelters are also a rather huge problem and it  mainly persists because of lack of tools to advertise our little friends. In Hack4Vilnius 2018, we saw an idea to make a Tinder-like app... but for pets. Even though, we didn't participate in the hackathon itself, this was a perfect idea for the first University project.
+Overloaded shelters are a rather huge problem and it mainly persists due to lack of tools to advertise our little friends. In Hack4Vilnius 2018, we saw an idea to make a Tinder-like app... but for pets. Even though, we didn't participate in the hackathon itself, this was a perfect idea for the first University project.
 
 
 
