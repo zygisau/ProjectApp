@@ -21,7 +21,7 @@
   ],
   "author": "Tom Yitav <tomyitav@gmail.com>",
   "dependencies": {
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.15.2",
     "cors": "^2.8.0",
     "express": "4.14.0",
