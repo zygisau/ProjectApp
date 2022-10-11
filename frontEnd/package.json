@@ -15,7 +15,7 @@
     "lodash": "latest",
     "prop-types": "^15.6.2",
     "react": "16.6.0-alpha.8af6728",
-    "react-native": "0.57.3",
+    "react-native": "0.70.2",
     "react-native-deck-swiper": "^1.5.26",
     "react-native-elements": "^0.19.1",
     "react-native-gesture-handler": "^1.0.10",
